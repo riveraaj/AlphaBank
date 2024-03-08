@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositorie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Security", "src\Repositories\Repository.Security\Repository.Security.csproj", "{66BCFF76-2F8F-4EBC-BBBC-A47E8129FA1C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{055310DA-AC61-4D52-B6B8-84B24CDEF5A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Security", "src\Interfaces\Interfaces.Security\Interfaces.Security.csproj", "{AC19889A-7176-45E0-BDA0-9E7FEC027A49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,10 @@ Global
 		{66BCFF76-2F8F-4EBC-BBBC-A47E8129FA1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66BCFF76-2F8F-4EBC-BBBC-A47E8129FA1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66BCFF76-2F8F-4EBC-BBBC-A47E8129FA1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC19889A-7176-45E0-BDA0-9E7FEC027A49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC19889A-7176-45E0-BDA0-9E7FEC027A49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC19889A-7176-45E0-BDA0-9E7FEC027A49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC19889A-7176-45E0-BDA0-9E7FEC027A49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +64,7 @@ Global
 		{5EAF963F-DBD8-4C3E-8B5F-C2F6F74ECA68} = {F210E6FF-7A59-4A82-B3A5-DB21A1EC2566}
 		{18ED7027-91BA-4C15-A5F2-577B152122E8} = {BA844290-97D0-44F5-85F5-F4734D94C883}
 		{66BCFF76-2F8F-4EBC-BBBC-A47E8129FA1C} = {F123F593-D34C-4947-B25A-745AA92DDA3B}
+		{AC19889A-7176-45E0-BDA0-9E7FEC027A49} = {055310DA-AC61-4D52-B6B8-84B24CDEF5A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F2F7AD8-F594-44C9-A77B-6B2CA0922419}
