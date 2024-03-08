@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.AlphaBank", "src\Model
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClient", "src\Clients\WebClient\WebClient.csproj", "{18ED7027-91BA-4C15-A5F2-577B152122E8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{F123F593-D34C-4947-B25A-745AA92DDA3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Security", "src\Repositories\Repository.Security\Repository.Security.csproj", "{66BCFF76-2F8F-4EBC-BBBC-A47E8129FA1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,10 @@ Global
 		{18ED7027-91BA-4C15-A5F2-577B152122E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18ED7027-91BA-4C15-A5F2-577B152122E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18ED7027-91BA-4C15-A5F2-577B152122E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66BCFF76-2F8F-4EBC-BBBC-A47E8129FA1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66BCFF76-2F8F-4EBC-BBBC-A47E8129FA1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66BCFF76-2F8F-4EBC-BBBC-A47E8129FA1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66BCFF76-2F8F-4EBC-BBBC-A47E8129FA1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +55,7 @@ Global
 		{DAE58D9A-4631-4A8E-8298-3AB6B041B2E8} = {46E13B8A-408E-4800-8372-70D0B0B96E03}
 		{5EAF963F-DBD8-4C3E-8B5F-C2F6F74ECA68} = {F210E6FF-7A59-4A82-B3A5-DB21A1EC2566}
 		{18ED7027-91BA-4C15-A5F2-577B152122E8} = {BA844290-97D0-44F5-85F5-F4734D94C883}
+		{66BCFF76-2F8F-4EBC-BBBC-A47E8129FA1C} = {F123F593-D34C-4947-B25A-745AA92DDA3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F2F7AD8-F594-44C9-A77B-6B2CA0922419}
