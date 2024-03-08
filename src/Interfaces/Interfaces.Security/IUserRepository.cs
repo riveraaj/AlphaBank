@@ -4,13 +4,13 @@ namespace Interfaces.Security;
 
 public interface IUserRepository {
 
-    public ICollection<User> GetAll();
+    public Task<ICollection<User>> GetAll();
 
-    public User GetById();
+    public Task<User> GetById();
 
-    public void Create(User oUser);
+    public Task Create(User oUser);
 
-    public void Update(User oUser);
+    public Task Update(User oUser);
 
-    public void Delete(int id);
+    public Task Delete(int id);
 }
