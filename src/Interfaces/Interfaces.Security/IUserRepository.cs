@@ -6,7 +6,7 @@ public interface IUserRepository {
 
     public Task<ICollection<User>> GetAll();
 
-    public Task<User> GetById();
+    public Task<User> GetById(int id);
 
     public Task Create(User oUser);
 
