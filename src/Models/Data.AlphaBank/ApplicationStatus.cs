@@ -1,5 +1,5 @@
 ﻿namespace Data.AlphaBank;
-internal class ApplicationStatus {
+public partial class ApplicationStatus {
     public byte Id { get; set; }
 
     public string Description { get; set; } = null!;
