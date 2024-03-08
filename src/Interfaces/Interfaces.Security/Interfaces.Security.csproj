@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Models\Data.AlphaBank\Data.AlphaBank.csproj" />
+  </ItemGroup>
+
 </Project>
