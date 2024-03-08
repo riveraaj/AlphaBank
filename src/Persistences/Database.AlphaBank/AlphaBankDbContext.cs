@@ -1,4 +1,4 @@
-﻿using Database.AlphaBank.Models;
+﻿using Data.AlphaBank;
 using Microsoft.EntityFrameworkCore;
 
 namespace Database.AlphaBank;
