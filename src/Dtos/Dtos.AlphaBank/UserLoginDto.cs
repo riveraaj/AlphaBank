@@ -3,12 +3,12 @@
 namespace Dtos.AlphaBank {
     public class UserLoginDto {
 
-        [Required]
-        [Display(Name = "Usuario")]
+        [Required(ErrorMessage = "Por favor, ingrese su identificación.")]
+        [Display(Name = "identificación")]
         public int Id { get; set; }
 
-        [Required]
-        [Display(Name = "Contraseña")]
+        [Required(ErrorMessage = "Por favor, ingrese su contraseña.")]
+        [Display(Name = "contraseña")]
         public string Password { get; set; } = null!;
     }
 }
