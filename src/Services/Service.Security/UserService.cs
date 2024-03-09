@@ -1,4 +1,5 @@
 ﻿using Interfaces.Security;
+using Service.Security.Helpers;
 
 namespace Service.Security;
 public class UserService(IUserRepository userRepository) : IUserService {
@@ -7,16 +8,9 @@ public class UserService(IUserRepository userRepository) : IUserService {
 
     //This method helps us to validate and send a message
     //in response to the user's login process.
-    public async Task<string> Login() {
-
-        if (!await ValidateUserId(1))
-            return "Invalid identification";
-
-        if (!await ValidateUserPassword(1, "423rwcv"))
-            return "Wrong password";
-
-        return  "";
-    }
+    public async Task<bool> Login()
+        => (!await ValidateUserId(1) 
+        && !await ValidateUserPassword(1, "423rwcv"));
 
     //This function returns true or false if a user with the credential id is found.
     public async Task<bool> ValidateUserId(int id) { 
@@ -34,6 +28,8 @@ public class UserService(IUserRepository userRepository) : IUserService {
 
         if (user == null) return false;
 
-        return (user.Password.Equals(password));
+        var pass = user.Password;
+
+        return (pass.Equals(EncryptorHelper.ValidateEncryption(password, pass)));
     }
 }
