@@ -12,9 +12,9 @@ namespace Service.Security {
         public async Task<(bool, UserAuthenticationDto?)> Login(UserLoginDto oUserLoginDto) {
 
             //We obtain the values returned by the method
-            var (validatedUser, userAuth) = await ValidateUserId(oUserLoginDto.Id);
+            var (validatedUser, userAuth) = await ValidateUserId((int) oUserLoginDto.Id!);
 
-            var validatedUserPassword = await ValidateUserPassword(oUserLoginDto.Id,
+            var validatedUserPassword = await ValidateUserPassword((int) oUserLoginDto.Id,
                                                                     oUserLoginDto.Password);
             //Validate that the outputs are invalid
             if (!validatedUser && !validatedUserPassword)
