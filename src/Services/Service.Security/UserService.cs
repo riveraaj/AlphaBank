@@ -30,7 +30,7 @@ namespace Service.Security {
 
             if (user == null) return (false, null);
             else return (true, new UserAuthenticationDto
-            { Id = user.Id.ToString(), Role = user.Role.Description });
+            { Id = user.Id.ToString(), Role = user.Role.Id.ToString() });
         }
 
         //This function returns true or false if the contrasenna credentials are correct.
