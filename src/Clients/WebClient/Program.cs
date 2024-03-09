@@ -10,9 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 //Add cookie
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options => {
-        options.LoginPath = "/Home/Index";
+        options.LoginPath = "/";
         options.ExpireTimeSpan = TimeSpan.FromDays(1);
-        options.AccessDeniedPath = "/Home/Index";
+        options.AccessDeniedPath = "/";
     });
 
 // Add services to the container.
@@ -44,7 +44,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
