@@ -682,10 +682,6 @@ public partial class AlphaBankDbContext(DbContextOptions<AlphaBankDbContext> opt
                 .IsUnicode(false)
                 .HasColumnName("password");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
-            entity.Property(e => e.Username)
-                .HasMaxLength(25)
-                .IsUnicode(false)
-                .HasColumnName("username");
 
             entity.HasOne(d => d.Employee).WithMany(p => p.Users)
                 .HasForeignKey(d => d.EmployeeId)
