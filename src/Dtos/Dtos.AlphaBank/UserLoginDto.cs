@@ -3,9 +3,10 @@
 namespace Dtos.AlphaBank {
     public class UserLoginDto {
 
-        [Required(ErrorMessage = "Por favor, ingrese su identificación.")]
+        [Required(ErrorMessage = "Por favor, ingrese su identificación")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Por favor, ingrese una identificación valida.")]
         [Display(Name = "identificación")]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required(ErrorMessage = "Por favor, ingrese su contraseña.")]
         [Display(Name = "contraseña")]
