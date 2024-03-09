@@ -15,6 +15,11 @@ public class UserRepository(AlphaBankDbContext context) : IUserRepository {
     public async Task<User> GetByIdAsync(int id)
         => await _context.Users.SingleAsync(x => x.Id == id);
 
+    public async Task<User?> GetByIdAsync(string id) 
+        => await _context.Users
+                          .Where(x => x.Employee.PersonId == int.Parse(id))
+                          .FirstOrDefaultAsync();
+
     public async Task CreateAsync (User oUser) 
         => await _context.Users.AddAsync(oUser);
 
