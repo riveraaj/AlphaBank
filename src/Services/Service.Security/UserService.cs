@@ -1,4 +1,5 @@
-﻿using Interfaces.Security;
+﻿using Dtos.AlphaBank;
+using Interfaces.Security;
 using Service.Security.Helpers;
 
 namespace Service.Security;
@@ -8,9 +9,9 @@ public class UserService(IUserRepository userRepository) : IUserService {
 
     //This method helps us to validate and send a message
     //in response to the user's login process.
-    public async Task<bool> Login()
-        => (!await ValidateUserId(1) 
-        && !await ValidateUserPassword(1, "423rwcv"));
+    public async Task<bool> Login(UserLoginDto oUserLoginDto)
+        => (!await ValidateUserId(oUserLoginDto.Id) 
+        && !await ValidateUserPassword(oUserLoginDto.Id, oUserLoginDto.Password));
 
     //This function returns true or false if a user with the credential id is found.
     public async Task<bool> ValidateUserId(int id) { 

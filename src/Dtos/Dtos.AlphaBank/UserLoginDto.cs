@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dtos.AlphaBank {
-    internal class UserLoginDto {
+    public class UserLoginDto {
 
         [Required]
         [Display(Name = "Usuario")]
