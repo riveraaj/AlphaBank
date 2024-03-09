@@ -1,7 +1,19 @@
 using Database.AlphaBank;
+using Interfaces.Security;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Repository.Security;
+using Service.Security;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Add cookie
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => {
+        options.LoginPath = "/Home/Index";
+        options.ExpireTimeSpan = TimeSpan.FromDays(1);
+        options.AccessDeniedPath = "/Home/Index";
+    });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -9,6 +21,15 @@ builder.Services.AddControllersWithViews();
 //Add database services
 builder.Services.AddDbContext<AlphaBankDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//Repositories Scoped
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+//Services Scoped
+builder.Services.AddScoped<IUserService>( provider => {
+    var oUserRepository = provider.GetRequiredService<IUserRepository>();
+    return new UserService(oUserRepository);
+});
 
 var app = builder.Build();
 
