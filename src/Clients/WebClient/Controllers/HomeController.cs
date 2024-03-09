@@ -24,7 +24,7 @@ namespace WebClient.Controllers {
 
             if (!ModelState.IsValid) return View("Index");
 
-            var (result, userAuthentication) = await _userService.Login(oUserLoginDto);
+            var (result, userAuthentication) = await _userService.UserAuthenticator(oUserLoginDto);
 
             if (!result) {
                 ViewData["Error"] = "*Hubo un error en el inicio de sesión, intentelo más tarde.";

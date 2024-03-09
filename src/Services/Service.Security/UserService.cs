@@ -9,7 +9,7 @@ namespace Service.Security {
 
         //This method helps us to validate and send a message
         //in response to the user's login process.
-        public async Task<(bool, UserAuthenticationDto?)> Login(UserLoginDto oUserLoginDto) {
+        public async Task<(bool, UserAuthenticationDto?)> UserAuthenticator(UserLoginDto oUserLoginDto) {
 
             //We obtain the values returned by the method
             var (validatedUser, userAuth) = await ValidateUserId((int) oUserLoginDto.Id!);
@@ -30,7 +30,7 @@ namespace Service.Security {
 
             if (user == null) return (false, null);
             else return (true, new UserAuthenticationDto
-            { Id = user.Id.ToString(), Role = user.Role.Id.ToString() });
+            { Id = user.Id.ToString(), Role = user.RoleId.ToString() });
         }
 
         //This function returns true or false if the contrasenna credentials are correct.
