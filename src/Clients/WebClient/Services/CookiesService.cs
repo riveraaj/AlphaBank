@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Dtos.AlphaBank;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
@@ -6,11 +7,11 @@ namespace WebClient.Services {
     partial class CookiesService {
 
         //This method creates the claims and the cookie for a user session.
-        public static async Task CreateAuthenticationCookies(HttpContext oHttpContext)  {
+        public static async Task CreateAuthenticationCookies(HttpContext oHttpContext, UserAuthenticationDto oUserAuthenticationDto)  {
 
             var claims = new List<Claim> {
-                new (ClaimTypes.Role, "1"),
-                new (ClaimTypes.NameIdentifier, "1"),
+                new (ClaimTypes.Role, oUserAuthenticationDto.Role),
+                new (ClaimTypes.NameIdentifier, oUserAuthenticationDto.Id),
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
