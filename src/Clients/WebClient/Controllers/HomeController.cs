@@ -6,7 +6,7 @@ using WebClient.Models;
 using WebClient.Services;
 
 namespace WebClient.Controllers {
-    internal class HomeController
+    public class HomeController
         (ILogger<HomeController> logger, IUserService oUserService) : Controller {
 
         private readonly ILogger<HomeController> _logger = logger;
@@ -26,12 +26,12 @@ namespace WebClient.Controllers {
 
             if (!result) {
                 ViewData["Error"] = "*Hubo un error en el inicio de sesión, intentelo más tarde.";
-                return View();
+                return View("Index");
             }
 
             await CookiesService.CreateAuthenticationCookies(HttpContext, userAuthentication!);
 
-            return View();
+            return View("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
