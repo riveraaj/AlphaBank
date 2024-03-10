@@ -39,6 +39,7 @@ namespace WebClient.Controllers {
         }
 
         [Authorize]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()  {
             await CookiesService.RemoveAuthenticationCookie(HttpContext);
