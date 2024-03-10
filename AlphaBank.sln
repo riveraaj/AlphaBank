@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dtos.AlphaBank", "src\Dtos\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Common", "src\Repositories\Repository.Common\Repository.Common.csproj", "{877B691F-6C76-4923-8C10-16E13E636CFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Common", "src\Interfaces\Interfaces.Common\Interfaces.Common.csproj", "{4785C1E7-B416-462F-9C2C-AD3B28E6AE88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{877B691F-6C76-4923-8C10-16E13E636CFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{877B691F-6C76-4923-8C10-16E13E636CFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{877B691F-6C76-4923-8C10-16E13E636CFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4785C1E7-B416-462F-9C2C-AD3B28E6AE88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4785C1E7-B416-462F-9C2C-AD3B28E6AE88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4785C1E7-B416-462F-9C2C-AD3B28E6AE88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4785C1E7-B416-462F-9C2C-AD3B28E6AE88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{85355C6F-D9ED-4A75-BF94-D9DE98E11781} = {D0C09AF8-BC70-478F-BEF0-7D29C6DA78B9}
 		{D60F4A05-7760-485A-8E4D-B7649BD73727} = {22170500-389A-462C-92B0-1C8DB669D617}
 		{877B691F-6C76-4923-8C10-16E13E636CFF} = {F123F593-D34C-4947-B25A-745AA92DDA3B}
+		{4785C1E7-B416-462F-9C2C-AD3B28E6AE88} = {055310DA-AC61-4D52-B6B8-84B24CDEF5A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F2F7AD8-F594-44C9-A77B-6B2CA0922419}
