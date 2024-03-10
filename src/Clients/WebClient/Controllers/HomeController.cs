@@ -1,5 +1,6 @@
 using Dtos.AlphaBank;
 using Interfaces.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebClient.Models;
@@ -15,6 +16,7 @@ namespace WebClient.Controllers {
         public IActionResult Index()
              => View();
 
+        [Authorize]
         public IActionResult Privacy()
         => View();
 
@@ -33,6 +35,13 @@ namespace WebClient.Controllers {
 
             await CookiesService.CreateAuthenticationCookies(HttpContext, userAuthentication!);
 
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()  {
+            await CookiesService.RemoveAuthenticationCookie(HttpContext);
             return RedirectToAction("Index");
         }
 
