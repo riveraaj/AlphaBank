@@ -1,9 +1,10 @@
 ﻿using Data.AlphaBank;
 using Database.AlphaBank;
+using Interfaces.Security;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Common {
-    public class TypePhoneRepository(AlphaBankDbContext context) {
+    public class TypePhoneRepository(AlphaBankDbContext context) : ITypePhoneRepository {
 
         private readonly AlphaBankDbContext _context = context;
 

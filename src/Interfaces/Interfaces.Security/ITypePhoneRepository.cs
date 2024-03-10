@@ -3,7 +3,7 @@
 namespace Interfaces.Security {
     public interface ITypePhoneRepository {
 
-        public Task<ICollection<Phone>> GetAllAsync();
+        public Task<ICollection<TypePhone>> GetAllAsync();
 
     }
 }
