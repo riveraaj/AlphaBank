@@ -33,4 +33,7 @@
 
 @if (User.IsInRole("1")) {
     <p>Bienvenido</p>
+    <form method="post" asp-action="Logout" asp-controller="Home">
+        <input type="button" value="Cerrar sesión" class="btn btn-primary"/>
+    </form>
 }
