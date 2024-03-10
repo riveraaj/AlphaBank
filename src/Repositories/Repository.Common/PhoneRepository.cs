@@ -1,12 +1,13 @@
 ﻿using Data.AlphaBank;
 using Database.AlphaBank;
+using Interfaces.Security;
 
 namespace Repository.Common {
-    public class PhoneRepository(AlphaBankDbContext context) {
+    public class PhoneRepository(AlphaBankDbContext context) : IPhoneRepository {
 
         private readonly AlphaBankDbContext _context = context;
 
-        public async Task Create(Phone oPhone)
+        public async Task CreateAsync(Phone oPhone)
             => await _context.Phones.AddAsync(oPhone);
 
     }
