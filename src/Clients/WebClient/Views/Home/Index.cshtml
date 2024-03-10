@@ -4,27 +4,29 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container">
-    <form method="post" asp-action="Login" asp-controller="Home">
-        <div class="form-group">
-            <label asp-for="Id" class="control-label">Identificación</label>
-            <input asp-for="Id" class="form-control" />
-            <span asp-validation-for="Id" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Password" class="control-label">Contraseña</label>
-            <input type="password" asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <span class="text-danger">@ViewData["Error"]</span>
-        </div>
-        <br />
-        <div class="form-group">
-            <input type="submit" value="Login" class="btn btn-primary" />
-        </div>
-    </form>
-</div>
+@if (!User.IsInRole("1")) {
+    <div class="container">
+        <form method="post" asp-action="Login" asp-controller="Home">
+            <div class="form-group">
+                <label asp-for="Id" class="control-label">Identificación</label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label">Contraseña</label>
+                <input type="password" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">@ViewData["Error"]</span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+}
 
 @if (User.IsInRole("1")) {
     <div class="text-center">
