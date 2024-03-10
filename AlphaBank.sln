@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces.Security", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.Security", "src\Services\Service.Security\Service.Security.csproj", "{85355C6F-D9ED-4A75-BF94-D9DE98E11781}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dtos.AlphaBank", "src\Dtos\Dtos.AlphaBank\Dtos.AlphaBank.csproj", "{D60F4A05-7760-485A-8E4D-B7649BD73727}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dtos.AlphaBank", "src\Dtos\Dtos.AlphaBank\Dtos.AlphaBank.csproj", "{D60F4A05-7760-485A-8E4D-B7649BD73727}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Common", "src\Repositories\Repository.Common\Repository.Common.csproj", "{877B691F-6C76-4923-8C10-16E13E636CFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{D60F4A05-7760-485A-8E4D-B7649BD73727}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D60F4A05-7760-485A-8E4D-B7649BD73727}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D60F4A05-7760-485A-8E4D-B7649BD73727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{877B691F-6C76-4923-8C10-16E13E636CFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{877B691F-6C76-4923-8C10-16E13E636CFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{877B691F-6C76-4923-8C10-16E13E636CFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{877B691F-6C76-4923-8C10-16E13E636CFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +85,7 @@ Global
 		{AC19889A-7176-45E0-BDA0-9E7FEC027A49} = {055310DA-AC61-4D52-B6B8-84B24CDEF5A7}
 		{85355C6F-D9ED-4A75-BF94-D9DE98E11781} = {D0C09AF8-BC70-478F-BEF0-7D29C6DA78B9}
 		{D60F4A05-7760-485A-8E4D-B7649BD73727} = {22170500-389A-462C-92B0-1C8DB669D617}
+		{877B691F-6C76-4923-8C10-16E13E636CFF} = {F123F593-D34C-4947-B25A-745AA92DDA3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F2F7AD8-F594-44C9-A77B-6B2CA0922419}
