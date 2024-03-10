@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.AlphaBank;
+using Database.AlphaBank;
 
 namespace Repository.Common {
-    public class PhoneRepository(AlphaDbContext) {
+    public class PhoneRepository(AlphaBankDbContext context) {
+
+        private readonly AlphaBankDbContext _context = context;
+
+        public async Task Create(Phone oPhone)
+            => await _context.Phones.AddAsync(oPhone);
+
     }
 }
