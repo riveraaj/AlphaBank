@@ -33,7 +33,7 @@ namespace WebClient.Controllers {
 
             await CookiesService.CreateAuthenticationCookies(HttpContext, userAuthentication!);
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
