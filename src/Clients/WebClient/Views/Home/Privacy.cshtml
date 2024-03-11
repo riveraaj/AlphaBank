@@ -1,6 +1,24 @@
-﻿@{
+﻿@model List<Dtos.AlphaBank.Security.ShowEmployeeDto>
+
+
+@{
     ViewData["Title"] = "Privacy Policy";
 }
+
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
+
+@foreach (var employee in Model){
+
+    <p>
+        Estado: @(employee.Status ? "Activo" : "Inactivo") | 
+        Nombre: @employee.Person.Name | 
+        Apellido: @employee.Person.FirstName |
+        Segundo Apellido: @employee.Person.SecondName |
+        Numero: @employee.Person.PhoneNumber |
+        Email: @employee.User.EmailAddress |
+        Rol: @employee.User.Role
+    </p>
+
+}
