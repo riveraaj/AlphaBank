@@ -7,5 +7,7 @@ namespace Interfaces.Security {
 
         public Task CreateAsync(Role oRole);
 
+        public Task SaveChangesAsync();
+
     }
 }
