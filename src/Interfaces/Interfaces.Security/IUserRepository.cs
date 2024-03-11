@@ -15,4 +15,6 @@ public interface IUserRepository {
     public Task UpdateAsync(int id, User oUser);
 
     public Task RemoveAsync(int id);
+
+    public Task SaveChangesAsync();
 }
