@@ -14,6 +14,7 @@ namespace Service.Security {
             try {
 
                 await _roleRepository.CreateAsync(role);
+
                 await _roleRepository.SaveChangesAsync();
 
                 return true;
