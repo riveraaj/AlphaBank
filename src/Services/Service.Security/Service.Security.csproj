@@ -9,7 +9,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Dtos\Dtos.AlphaBank\Dtos.AlphaBank.csproj" />
     <ProjectReference Include="..\..\Interfaces\Interfaces.Security\Interfaces.Security.csproj" />
+    <ProjectReference Include="..\..\Mappers\Mapper.Security\Mapper.Security.csproj" />
     <ProjectReference Include="..\..\Persistences\Database.AlphaBank\Database.AlphaBank.csproj" />
+    <ProjectReference Include="..\..\Repositories\Repository.Common\Repository.Common.csproj" />
   </ItemGroup>
 
 </Project>
