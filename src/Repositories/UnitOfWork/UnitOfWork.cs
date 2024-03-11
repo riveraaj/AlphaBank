@@ -1,9 +1,10 @@
 ﻿using Database.AlphaBank;
+using Interfaces.Security;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace UnitOfWork {
-    public class UnitOfWork (AlphaBankDbContext context) {
+    public class UnitOfWork (AlphaBankDbContext context) : IUnitOfWork {
 
         private readonly AlphaBankDbContext _context = context;
         private IDbContextTransaction? _transaction;
