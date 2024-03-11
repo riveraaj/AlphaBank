@@ -18,8 +18,8 @@ namespace Service.Security {
 
                 var showEmployeeDtoList = new List<ShowEmployeeDto>();
 
-                foreach ( var employee in employeeList )
-                    EmployeeMapper.MapShowEmployeeDto(employee);
+                foreach ( var employee in employeeList)
+                    showEmployeeDtoList.Add(EmployeeMapper.MapShowEmployeeDto(employee));   
 
                 return showEmployeeDtoList;
 
