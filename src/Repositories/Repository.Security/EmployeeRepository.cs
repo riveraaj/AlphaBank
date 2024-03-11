@@ -10,10 +10,10 @@ namespace Repository.Security {
 
         public async Task<ICollection<Employee>> GetAllAsync()
               => await _context.Employees.Include(x => x.Person)
-                                       .Include(x => x.Person.Phones.FirstOrDefault())
-                                       .Include(x => x.Users.FirstOrDefault())
-                                       .Include(x => x.Users.FirstOrDefault()!.Role)
-                                       .ToListAsync();
+                                             .ThenInclude(p => p.Phones)
+                                         .Include(x => x.Users)
+                                             .ThenInclude(u => u.Role)
+                                         .ToListAsync();
 
         public async Task CreateAsync(Employee oEmployee)
             => await _context.Employees.AddAsync(oEmployee);
