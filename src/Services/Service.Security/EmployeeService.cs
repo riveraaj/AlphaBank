@@ -5,10 +5,12 @@ using Mapper.Security;
 namespace Service.Security {
     public class EmployeeService(IEmployeeRepository employeeRepository,
                                     IPersonRepository personRepository,
+                                    IPhoneRepository phoneRepository,
                                     IUnitOfWork unitOfWork) : IEmployeeService {
 
         private readonly IEmployeeRepository _employeeRepository = employeeRepository;
         private readonly IPersonRepository _personRepository = personRepository;
+        private readonly IPhoneRepository _phoneRepository = phoneRepository;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public async Task<List<ShowEmployeeDto>> GetAll() {
@@ -33,6 +35,7 @@ namespace Service.Security {
 
             var employee = EmployeeMapper.MapEmployee(oCreateEmployeeDto);
             var person = EmployeeMapper.MapPerson(oCreateEmployeeDto);
+            var phone = EmployeeMapper.MapPhone(oCreateEmployeeDto);
 
             employee.Status = true;
 
@@ -42,6 +45,7 @@ namespace Service.Security {
 
                 await _personRepository.CreateAsync(person);
                 await _employeeRepository.CreateAsync(employee);
+                await _phoneRepository.CreateAsync(phone);
 
                 await _unitOfWork.CommitTransaction();
                 await _unitOfWork.SaveChangesAsync();
