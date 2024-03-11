@@ -19,6 +19,7 @@ namespace Mapper.Security {
 
         public static Employee MapEmployee(CreateEmployeeDto oCreateEmployeeDto)
             => new() {
+                PersonId = (int) oCreateEmployeeDto.PersonId!,
                 DateEntry = (DateOnly) oCreateEmployeeDto.DateEntry!,
                 SalaryCategoryId = (byte) oCreateEmployeeDto.SalaryCategoryId!
             };
