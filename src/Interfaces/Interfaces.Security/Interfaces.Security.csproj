@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ISalaryCategory.Repositorycs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="ISalaryCategory.Repositorycs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Dtos\Dtos.AlphaBank\Dtos.AlphaBank.csproj" />
     <ProjectReference Include="..\..\Models\Data.AlphaBank\Data.AlphaBank.csproj" />
   </ItemGroup>

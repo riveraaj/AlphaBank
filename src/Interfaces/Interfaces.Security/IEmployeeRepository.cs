@@ -1,7 +1,7 @@
 ﻿using Data.AlphaBank;
 
 namespace Interfaces.Security {
-    public interface IEmployee {
+    public interface IEmployeeRepository {
 
         public Task CreateAsync(Employee oEmployee);
     }
