@@ -13,5 +13,8 @@ namespace Repository.Security {
 
         public async Task<ICollection<Role>> GetAllAsync()
             => await _context.Roles.ToListAsync();
+
+        public async Task SaveChangesAsync()
+            => await _context.SaveChangesAsync();     
     }
 }
