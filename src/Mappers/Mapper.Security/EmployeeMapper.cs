@@ -48,5 +48,12 @@ namespace Mapper.Security {
 
             return showEmployeeDto;
         }
+
+        public static Phone MapPhone(CreateEmployeeDto oCreateEmployeeDto)
+            => new() {
+                Number = (int) oCreateEmployeeDto.PhoneNumber!,
+                PersonId = (int) oCreateEmployeeDto.PersonId!,
+                TypePhoneId = (byte) oCreateEmployeeDto.TypePhoneId!
+            };
     }
 }
