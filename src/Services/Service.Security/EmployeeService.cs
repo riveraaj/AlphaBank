@@ -34,19 +34,22 @@ namespace Service.Security {
             var employee = EmployeeMapper.MapEmployee(oCreateEmployeeDto);
             var person = EmployeeMapper.MapPerson(oCreateEmployeeDto);
 
+            employee.Status = true;
+
             try {
 
-                await _unitOfWork.BeginTransaction();
+                //await _unitOfWork.BeginTransaction();
 
-                await _employeeRepository.CreateAsync(employee);
                 await _personRepository.CreateAsync(person);
+                await _employeeRepository.CreateAsync(employee);
 
                 await _unitOfWork.CommitTransaction();
+                await _unitOfWork.SaveChangesAsync();
 
                 return true;
             }
             catch (Exception){
-                await _unitOfWork.RollbackAsync();
+                //await _unitOfWork.RollbackAsync();
                 return false;
             }
         }
