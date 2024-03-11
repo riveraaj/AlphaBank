@@ -11,6 +11,7 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Security\Interfaces.Security.csproj" />
     <ProjectReference Include="..\..\Persistences\Database.AlphaBank\Database.AlphaBank.csproj" />
     <ProjectReference Include="..\..\Repositories\Repository.Security\Repository.Security.csproj" />
+    <ProjectReference Include="..\..\Repositories\UnitOfWork\UnitOfWork.csproj" />
     <ProjectReference Include="..\..\Services\Service.Security\Service.Security.csproj" />
   </ItemGroup>
 

@@ -24,11 +24,20 @@ builder.Services.AddDbContext<AlphaBankDbContext>(options =>
 
 //Repositories Scoped
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 
 //Services Scoped
 builder.Services.AddScoped<IUserAuthenticatorService>( provider => {
     var oUserRepository = provider.GetRequiredService<IUserRepository>();
     return new UserAuthenticatorService(oUserRepository);
+});
+builder.Services.AddScoped<IEmployeeService>(provider => {
+    var oPersonRepository = provider.GetRequiredService<IPersonRepository>();
+    var oEmployeeRepository = provider.GetRequiredService<IEmployeeRepository>();
+    var oUnitOfWork = provider.GetRequiredService<IUnitOfWork>();
+    return new EmployeeService(oEmployeeRepository, oPersonRepository, oUnitOfWork);
 });
 
 var app = builder.Build();
