@@ -1,4 +1,4 @@
-using Dtos.AlphaBank;
+using Dtos.AlphaBank.Security;
 using Interfaces.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +6,8 @@ using System.Diagnostics;
 using WebClient.Models;
 using WebClient.Services;
 
-namespace WebClient.Controllers {
+namespace WebClient.Controllers
+{
     public class HomeController
         (ILogger<HomeController> logger, IUserService oUserService) : Controller {
 

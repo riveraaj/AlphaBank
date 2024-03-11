@@ -1,9 +1,10 @@
-﻿using Dtos.AlphaBank;
+﻿using Dtos.AlphaBank.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
-namespace WebClient.Services {
+namespace WebClient.Services
+{
     partial class CookiesService {
 
         //This method creates the claims and the cookie for a user session.

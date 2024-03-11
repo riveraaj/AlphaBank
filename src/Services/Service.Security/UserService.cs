@@ -1,8 +1,9 @@
-﻿using Dtos.AlphaBank;
+﻿using Dtos.AlphaBank.Security;
 using Interfaces.Security;
 using Service.Security.Helpers;
 
-namespace Service.Security {
+namespace Service.Security
+{
     public class UserService(IUserRepository userRepository) : IUserService {
 
         private readonly IUserRepository _userRepository = userRepository;
