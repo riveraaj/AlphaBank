@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.BankAccounts", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.BankAccounts", "src\Interfaces\Interfaces.BankAccounts\Interfaces.BankAccounts.csproj", "{BD23E9DB-71CF-48A2-894E-BCC6BC377DC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Common", "src\Services\Service.Common\Service.Common.csproj", "{87CC7086-C807-41D7-8930-A14EBD5F183E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{BD23E9DB-71CF-48A2-894E-BCC6BC377DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD23E9DB-71CF-48A2-894E-BCC6BC377DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD23E9DB-71CF-48A2-894E-BCC6BC377DC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87CC7086-C807-41D7-8930-A14EBD5F183E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87CC7086-C807-41D7-8930-A14EBD5F183E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87CC7086-C807-41D7-8930-A14EBD5F183E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87CC7086-C807-41D7-8930-A14EBD5F183E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +113,7 @@ Global
 		{4785C1E7-B416-462F-9C2C-AD3B28E6AE88} = {055310DA-AC61-4D52-B6B8-84B24CDEF5A7}
 		{AB922C82-859C-4FB7-A2AE-9D9533C174B9} = {F123F593-D34C-4947-B25A-745AA92DDA3B}
 		{BD23E9DB-71CF-48A2-894E-BCC6BC377DC0} = {055310DA-AC61-4D52-B6B8-84B24CDEF5A7}
+		{87CC7086-C807-41D7-8930-A14EBD5F183E} = {D0C09AF8-BC70-478F-BEF0-7D29C6DA78B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F2F7AD8-F594-44C9-A77B-6B2CA0922419}
