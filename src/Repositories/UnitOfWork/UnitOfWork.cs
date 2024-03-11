@@ -45,5 +45,14 @@ namespace UnitOfWork {
                 _transaction = null;
             }
         }
+
+        public async Task SaveChangesAsync() {
+            try  {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException) {   
+                throw;
+            }
+        }
     }
 }
