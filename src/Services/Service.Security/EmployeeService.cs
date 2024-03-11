@@ -11,6 +11,24 @@ namespace Service.Security {
         private readonly IPersonRepository _personRepository = personRepository;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
+        public async Task<List<ShowEmployeeDto>> GetAll() {
+            try {
+
+                var employeeList = await _employeeRepository.GetAllAsync();
+
+                var showEmployeeDtoList = new List<ShowEmployeeDto>();
+
+                foreach ( var employee in employeeList )
+                    EmployeeMapper.MapShowEmployeeDto(employee);
+
+                return showEmployeeDtoList;
+
+            } catch (Exception){
+                return [];
+                throw;
+            }
+        }
+
         public async Task<bool> Create(CreateEmployeeDto oCreateEmployeeDto) {
 
             var employee = EmployeeMapper.MapEmployee(oCreateEmployeeDto);
