@@ -1,6 +1,6 @@
 ﻿using Database.AlphaBank;
 using Interfaces.Security;
-using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace UnitOfWork {
@@ -10,17 +10,23 @@ namespace UnitOfWork {
         private IDbContextTransaction? _transaction;
 
         //Init Transaction
-        public async void BeginTransaction()
+        public async Task BeginTransaction()
             => _transaction = await _context.Database.BeginTransactionAsync();
 
         //Confirm Transaction
-        public async void CommitTransaction() {
+        public async Task CommitTransaction() {
             try {
-               await _transaction?.CommitAsync()!;
+                if (_transaction != null)
+                    await _transaction.CommitAsync();          
             }
-            catch(SqlException){
+            catch (DbUpdateException) {
                 // Handling of exceptions when committing the transaction
-                Rollback();
+                await RollbackAsync();
+                throw;
+            }
+            catch (Exception) {
+                // Handling of exceptions when committing the transaction
+                await RollbackAsync();
                 throw;
             }
             finally {
@@ -29,11 +35,10 @@ namespace UnitOfWork {
             }
         }
 
-
-        // Revertir Transacción
-        public void Rollback() {
+        //Revert Transaction
+        public async Task RollbackAsync() {
             try {
-                _transaction?.Rollback();
+                await _transaction?.RollbackAsync()!;
             }
             finally {
                 _transaction?.Dispose();
