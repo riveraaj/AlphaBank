@@ -23,5 +23,19 @@ namespace Mapper.Security {
                 SalaryCategoryId = (byte) oCreateEmployeeDto.SalaryCategoryId!
             };
 
+        public static ShowEmployeeDto MapShowEmployeeDto(Employee oEmployee)
+            => new() {
+                Status = oEmployee.Status,
+                Person = {
+                    Name = oEmployee.Person.Name,
+                    FirstName = oEmployee.Person.FirstName,
+                    SecondName = oEmployee.Person.SecondName,
+                    PhoneNumber = oEmployee.Person.Phones.FirstOrDefault()!.Number        
+                },
+                User = {
+                    EmailAddress = oEmployee.Users.FirstOrDefault()!.EmailAddress,
+                    Role = oEmployee.Users.FirstOrDefault()!.Role.Description
+                }
+            };
     }
 }
