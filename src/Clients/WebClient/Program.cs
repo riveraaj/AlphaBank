@@ -26,9 +26,9 @@ builder.Services.AddDbContext<AlphaBankDbContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 //Services Scoped
-builder.Services.AddScoped<IUserService>( provider => {
+builder.Services.AddScoped<IUserAuthenticatorService>( provider => {
     var oUserRepository = provider.GetRequiredService<IUserRepository>();
-    return new UserService(oUserRepository);
+    return new UserAuthenticatorService(oUserRepository);
 });
 
 var app = builder.Build();

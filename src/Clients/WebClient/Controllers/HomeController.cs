@@ -9,10 +9,10 @@ using WebClient.Services;
 namespace WebClient.Controllers
 {
     public class HomeController
-        (ILogger<HomeController> logger, IUserService oUserService) : Controller {
+        (ILogger<HomeController> logger, IUserAuthenticatorService oUserService) : Controller {
 
         private readonly ILogger<HomeController> _logger = logger;
-        private readonly IUserService _userService = oUserService;
+        private readonly IUserAuthenticatorService _userService = oUserService;
 
         public IActionResult Index()
              => View();

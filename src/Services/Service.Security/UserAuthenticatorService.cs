@@ -4,7 +4,7 @@ using Service.Security.Helpers;
 
 namespace Service.Security
 {
-    public class UserService(IUserRepository userRepository) : IUserService {
+    public class UserAuthenticatorService(IUserRepository userRepository) : IUserAuthenticatorService {
 
         private readonly IUserRepository _userRepository = userRepository;
 
