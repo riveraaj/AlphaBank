@@ -34,7 +34,7 @@ namespace Service.Security
             { Id = user.Id.ToString(), Role = user.RoleId.ToString() });
         }
 
-        //This function returns true or false if the contrasenna credentials are correct.
+        //This function returns true or false if the password credentials are correct.
         public async Task<bool> ValidateUserPassword(int id, string password) {
 
             var user = await _userRepository.GetByPersonIdAsync(id);
