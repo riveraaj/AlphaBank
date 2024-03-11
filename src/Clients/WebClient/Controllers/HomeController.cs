@@ -9,18 +9,24 @@ using WebClient.Services;
 namespace WebClient.Controllers
 {
     public class HomeController
-        (ILogger<HomeController> logger, IUserAuthenticatorService oUserService) : Controller {
+        (ILogger<HomeController> logger, IUserAuthenticatorService userService,
+        IEmployeeService employeeService) : Controller {
 
         private readonly ILogger<HomeController> _logger = logger;
-        private readonly IUserAuthenticatorService _userService = oUserService;
+        private readonly IUserAuthenticatorService _userService = userService;
+        private readonly IEmployeeService _employeeService = employeeService;
 
         public IActionResult Index()
              => View();
 
         [Authorize]
-        public IActionResult Privacy()
-        => View();
+        public async Task<IActionResult> Privacy() {
 
+            var employeeList = await _employeeService.GetAll();
+
+            return View(employeeList);
+        }
+          
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Id", "Password")] UserLoginDto oUserLoginDto) {
