@@ -2,6 +2,7 @@ using Database.AlphaBank;
 using Interfaces.Security;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Repository.Common;
 using Repository.Security;
 using Service.Security;
 
@@ -27,18 +28,11 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
+builder.Services.AddScoped<IPhoneRepository, PhoneRepository>();
 
 //Services Scoped
-builder.Services.AddScoped<IUserAuthenticatorService>( provider => {
-    var oUserRepository = provider.GetRequiredService<IUserRepository>();
-    return new UserAuthenticatorService(oUserRepository);
-});
-builder.Services.AddScoped<IEmployeeService>(provider => {
-    var oPersonRepository = provider.GetRequiredService<IPersonRepository>();
-    var oEmployeeRepository = provider.GetRequiredService<IEmployeeRepository>();
-    var oUnitOfWork = provider.GetRequiredService<IUnitOfWork>();
-    return new EmployeeService(oEmployeeRepository, oPersonRepository, oUnitOfWork);
-});
+builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 var app = builder.Build();
 
