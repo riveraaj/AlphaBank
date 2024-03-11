@@ -4,7 +4,7 @@ using Interfaces.Security;
 using Mapper.Security;
 
 namespace Service.Security {
-    public class RoleService(IRoleRepository roleRepository) {
+    public class RoleService(IRoleRepository roleRepository) : IRoleService {
 
         private readonly IRoleRepository _roleRepository = roleRepository;
 

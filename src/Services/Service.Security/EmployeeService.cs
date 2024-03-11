@@ -5,7 +5,7 @@ using Mapper.Security;
 namespace Service.Security {
     public class EmployeeService(IEmployeeRepository employeeRepository,
                                     IPersonRepository personRepository,
-                                    IUnitOfWork unitOfWork) {
+                                    IUnitOfWork unitOfWork) : IEmployeeService {
 
         private readonly IEmployeeRepository _employeeRepository = employeeRepository;
         private readonly IPersonRepository _personRepository = personRepository;
