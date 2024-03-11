@@ -36,5 +36,9 @@ namespace Dtos.AlphaBank.Security {
         [Required]
         public byte? SalaryCategoryId { get; set; }
 
+        public byte? TypePhoneId { get; set; }
+
+        public int? PhoneNumber { get; set; }
+
     }
 }
