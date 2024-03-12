@@ -33,7 +33,7 @@ namespace Service.Security {
 
             } catch (Exception e) {
                 //If there's an exception during the process, return false.
-                _logger.LogInformation($"--- An error occurred while creating and saving to the database. More about error: {e.Message}");
+                _logger.LogError($"--- An error occurred while creating and saving to the database. More about error: {e.Message}");
 
                 return false;
             }

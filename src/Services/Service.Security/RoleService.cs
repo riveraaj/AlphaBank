@@ -2,38 +2,47 @@
 using Dtos.AlphaBank.Security;
 using Interfaces.Security;
 using Mapper.Security;
+using Microsoft.Extensions.Logging;
 
 namespace Service.Security {
-    public class RoleService(IRoleRepository roleRepository) : IRoleService {
+    public class RoleService(IRoleRepository roleRepository, ILogger<RoleService> logger) : IRoleService {
 
         private readonly IRoleRepository _roleRepository = roleRepository;
+        private readonly ILogger<RoleService> _logger = logger;
 
         public async Task<bool> Create(CreateRoleDto oCreateRoleDto) {
-
+            // Map CreateRoleDto to a role object using some mapper (RoleMapper)
             var role = RoleMapper.MapRole(oCreateRoleDto);
 
             try {
 
+                _logger.LogInformation("--- Start creating and saving the role in the database");
+
+                // Attempt to add the new role through the RoleRepository and save changes asynchronously.
                 await _roleRepository.CreateAsync(role);
 
                 await _roleRepository.SaveChangesAsync();
 
-                return true;
+                _logger.LogInformation("--- Successfully completes the process");
 
-            } catch (Exception) {
+                // Return true to indicate successful creation.
+                return true;
+            } catch (Exception e) {
+                _logger.LogError($"--- An error occurred while creating and saving to the database. More about error: {e.Message}");
+                //If there's an exception during the process, return false.
                 return false;
-                throw;
             }
         }
 
         public async Task<List<Role>> GetAll() {
             try {
-
+                //Attempt to retrieve all roles asynchronously from the RoleRepository.
                 return (List<Role>) await _roleRepository.GetAllAsync();
 
             }
             catch (Exception){
-                throw;
+                //If there's an exception during the process, return null.
+                return [];
             }
         }
     }
