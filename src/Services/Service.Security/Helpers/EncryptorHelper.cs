@@ -19,11 +19,11 @@ namespace Service.Security.Helpers {
 
         public static bool ValidateEncryption(string text, string encryptedText) {
             // Encrypt the entered text
-            string encryptedPassword = Encrypt(text);
+            string newEncryptedText = Encrypt(text);
 
-            // Compare the encrypted password with the stored password
+            // Compare the new encrypted text with the encrypted text
             StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-            return comparer.Compare(encryptedPassword, encryptedText) == 0;
+            return comparer.Compare(newEncryptedText, encryptedText) == 0;
         }
     }
 }
