@@ -53,7 +53,7 @@ namespace Service.Security {
 
             var pass = user.Password;
 
-            return (pass.Equals(EncryptorHelper.ValidateEncryption(password, pass)));
+            return EncryptorHelper.ValidateEncryption(password, pass);
         }
     }
 }
