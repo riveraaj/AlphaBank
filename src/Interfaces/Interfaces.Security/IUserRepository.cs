@@ -1,20 +1,21 @@
 ﻿using Data.AlphaBank;
 
-namespace Interfaces.Security;
+namespace Interfaces.Security {
 
-public interface IUserRepository {
+    public interface IUserRepository {
 
-    public Task<ICollection<User>> GetAllAsync();
+        public Task<ICollection<User>> GetAllAsync();
 
-    public Task<User> GetByIdAsync(int id);
+        public Task<User> GetByIdAsync(int id);
 
-    public Task<User?> GetByPersonIdAsync(int id);
+        public Task<User?> GetByPersonIdAsync(int id);
 
-    public Task CreateAsync(User oUser);
+        public Task CreateAsync(User oUser);
 
-    public Task UpdateAsync(int id, User oUser);
+        public Task UpdateAsync(int id, User oUser);
 
-    public Task RemoveAsync(int id);
+        public Task RemoveAsync(int id);
 
-    public Task SaveChangesAsync();
+        public Task SaveChangesAsync();
+    }
 }
