@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Dtos\Dtos.AlphaBank\Dtos.AlphaBank.csproj" />
     <ProjectReference Include="..\..\Interfaces\Interfaces.Security\Interfaces.Security.csproj" />
     <ProjectReference Include="..\..\Persistences\Database.AlphaBank\Database.AlphaBank.csproj" />

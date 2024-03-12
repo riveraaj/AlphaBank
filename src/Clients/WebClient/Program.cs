@@ -34,6 +34,9 @@ builder.Services.AddScoped<IPhoneRepository, PhoneRepository>();
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
+//Add App Insights
+builder.Services.AddApplicationInsightsTelemetry();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
