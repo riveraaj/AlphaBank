@@ -23,7 +23,7 @@ namespace Service.Security {
             var validatedUserPassword = await ValidateUserPassword((int) oUserLoginDto.Id,
                                                                     oUserLoginDto.Password);
             //Validate that the outputs are invalid
-            if (!validatedUser && !validatedUserPassword) {
+            if (!validatedUser || !validatedUserPassword) {
                 _logger.LogError("---- User authentication failed");
                 return (false, null);
             }
