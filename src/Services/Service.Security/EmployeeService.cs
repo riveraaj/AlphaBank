@@ -1,5 +1,6 @@
 ﻿using Dtos.AlphaBank.Security;
 using Interfaces.Security;
+using Mapper.Common;
 using Mapper.Security;
 using Microsoft.Extensions.Logging;
 
@@ -8,12 +9,14 @@ namespace Service.Security {
                                     IPersonRepository personRepository,
                                     IPhoneRepository phoneRepository,
                                     IUnitOfWork unitOfWork,
+                                    IUserService userService,
                                     ILogger<EmployeeService> logger) : IEmployeeService {
 
         private readonly IEmployeeRepository _employeeRepository = employeeRepository;
         private readonly IPersonRepository _personRepository = personRepository;
         private readonly IPhoneRepository _phoneRepository = phoneRepository;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IUserService _userService = userService;
         private readonly ILogger<EmployeeService> _logger = logger;
 
         public async Task<List<ShowEmployeeDto>> GetAll() {
@@ -39,13 +42,19 @@ namespace Service.Security {
 
         public async Task<bool> Create(CreateEmployeeDto oCreateEmployeeDto) {
 
+            oCreateEmployeeDto.Phone.PersonId = (int)oCreateEmployeeDto
+                                                            .Person.PersonId!;
+
             // Map CreateEmployeeDto to employee, person, and phone objects using EmployeeMapper.
             var employee = EmployeeMapper.MapEmployee(oCreateEmployeeDto);
-            var person = EmployeeMapper.MapPerson(oCreateEmployeeDto);
-            var phone = EmployeeMapper.MapPhone(oCreateEmployeeDto);
+            var person = PersonMapper.MapPerson(oCreateEmployeeDto.Person);
+            var phone = PhoneMapper.MapPhone(oCreateEmployeeDto.Phone);
 
             // Set the status of the employee to true.
             employee.Status = true;
+
+            // Set the Deceased of the person to false.
+            person.Deceased = false;
 
             try {
 
@@ -57,13 +66,18 @@ namespace Service.Security {
                 //Create records in the PersonRepository, EmployeeRepository, and PhoneRepository.
                 await _personRepository.CreateAsync(person);
                 await _employeeRepository.CreateAsync(employee);
+
                 await _phoneRepository.CreateAsync(phone);
 
                 //Commit the transaction and save changes.
                 await _unitOfWork.CommitTransaction();
-                await _unitOfWork.SaveChangesAsync();
 
                 _logger.LogInformation("---- Correctly completes the transaction.");
+
+                var result = await CreateUser(oCreateEmployeeDto);
+
+                if (!result) return false;
+
 
                 // Return true to indicate successful creation.
                 return true;
@@ -73,9 +87,21 @@ namespace Service.Security {
                 _logger.LogError($"--- An error occurred while creating and saving to the database. More about error: {e.Message}");
 
                 //If there's an exception during the process, rollback the transaction and return false.
-                await _unitOfWork.RollbackAsync();
                 return false;
             }
+        }
+
+        private async Task<bool> CreateUser(CreateEmployeeDto oCreateEmployeeDto) {
+
+            var employeeList = await _employeeRepository.GetAllAsync();
+            var employeeId = employeeList.Last().Id;
+
+            oCreateEmployeeDto.User.EmployeeId = employeeId;
+
+            var result = await _userService.Create(oCreateEmployeeDto.User);
+
+            if (!result) return false;
+            return true;
         }
     }
 }
