@@ -18,7 +18,6 @@ namespace Dtos.AlphaBank.Security {
         [Range(0, 20, ErrorMessage = "El valor de rol debe estar entre 0 y 20.")]
         public byte? RoleId { get; set; }
 
-        [Required(ErrorMessage = "El campo empleado es obligatorio.")]
-        public int? EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
     }
 }
