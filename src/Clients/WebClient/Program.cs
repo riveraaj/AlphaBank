@@ -29,6 +29,7 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 builder.Services.AddScoped<IPhoneRepository, PhoneRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 //Services Scoped
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
