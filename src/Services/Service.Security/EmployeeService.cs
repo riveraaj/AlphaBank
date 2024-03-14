@@ -42,6 +42,7 @@ namespace Service.Security {
 
         public async Task<bool> Create(CreateEmployeeDto oCreateEmployeeDto) {
 
+            //The id of the person is added to the reference of; phone
             oCreateEmployeeDto.Phone.PersonId = (int)oCreateEmployeeDto
                                                             .Person.PersonId!;
 
@@ -74,11 +75,14 @@ namespace Service.Security {
 
                 _logger.LogInformation("---- Correctly completes the transaction.");
 
+                _logger.LogInformation("---- Start the process to create a user and save it in the database.");
+
+                //The method for creating a user is called
                 var result = await CreateUser(oCreateEmployeeDto);
 
-                if (!result) return false;
-
-
+                if (!result) 
+                    return false;
+                
                 // Return true to indicate successful creation.
                 return true;
             }
@@ -93,14 +97,24 @@ namespace Service.Security {
 
         private async Task<bool> CreateUser(CreateEmployeeDto oCreateEmployeeDto) {
 
+            //The id of the last registered employee is obtained to assign the user to the employee
             var employeeList = await _employeeRepository.GetAllAsync();
             var employeeId = employeeList.Last().Id;
 
+            //The searched id is assigned to the model to perform the registration.
             oCreateEmployeeDto.User.EmployeeId = employeeId;
 
+            //The user service is called to create the user.
             var result = await _userService.Create(oCreateEmployeeDto.User);
 
-            if (!result) return false;
+            if (!result) {
+                _logger.LogInformation("----  End user creation process with errors.");
+                //If there's an exception during the process return false.
+                return false;
+            }
+
+            // Return true to indicate successful creation.
+            _logger.LogInformation("---- Successfully completed the user creation process.");
             return true;
         }
     }
