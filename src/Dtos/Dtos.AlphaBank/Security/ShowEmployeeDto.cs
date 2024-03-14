@@ -1,4 +1,7 @@
-﻿namespace Dtos.AlphaBank.Security {
+﻿using Dtos.AlphaBank.Common;
+
+namespace Dtos.AlphaBank.Security
+{
     public class ShowEmployeeDto {
 
         public bool Status { get; set; }
