@@ -38,9 +38,7 @@ namespace Service.Security {
             try {
                 //Attempt to retrieve all roles asynchronously from the RoleRepository.
                 return (List<Role>) await _roleRepository.GetAllAsync();
-
-            }
-            catch (Exception){
+            } catch (Exception){
                 //If there's an exception during the process, return null.
                 return [];
             }
