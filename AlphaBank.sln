@@ -53,6 +53,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.BankAccounts", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapper.BankAccounts", "src\Mappers\Mapper.BankAccounts\Mapper.BankAccounts.csproj", "{BD4A6EFD-DD74-4501-B704-16512B46194A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper.Common", "src\Mappers\Mapper.Common\Mapper.Common.csproj", "{F809EC0F-2682-4D72-B90D-0B7633A6F7E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{BD4A6EFD-DD74-4501-B704-16512B46194A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD4A6EFD-DD74-4501-B704-16512B46194A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD4A6EFD-DD74-4501-B704-16512B46194A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F809EC0F-2682-4D72-B90D-0B7633A6F7E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F809EC0F-2682-4D72-B90D-0B7633A6F7E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F809EC0F-2682-4D72-B90D-0B7633A6F7E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F809EC0F-2682-4D72-B90D-0B7633A6F7E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,6 +150,7 @@ Global
 		{4BAB382F-D673-4760-B452-B4620AD16941} = {F123F593-D34C-4947-B25A-745AA92DDA3B}
 		{D78AFEA6-9BE6-464A-95F5-5F4FC98138A5} = {D0C09AF8-BC70-478F-BEF0-7D29C6DA78B9}
 		{BD4A6EFD-DD74-4501-B704-16512B46194A} = {6A8B1632-8463-4A25-A43C-5751B89840BB}
+		{F809EC0F-2682-4D72-B90D-0B7633A6F7E5} = {6A8B1632-8463-4A25-A43C-5751B89840BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F2F7AD8-F594-44C9-A77B-6B2CA0922419}
