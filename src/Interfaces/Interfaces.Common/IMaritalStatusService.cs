@@ -1,7 +1,7 @@
 ﻿using Data.AlphaBank;
 
 namespace Interfaces.Common {
-    public interface IMaritalStatus   {
+    public interface IMaritalStatusService   {
 
         public Task<List<MaritalStatus>> GetAll();
     }
