@@ -1,10 +1,12 @@
 ﻿using Data.AlphaBank;
 using Dtos.AlphaBank.Security;
-using Interfaces.Security;
+using Interfaces.Security.Repositories;
+using Interfaces.Security.Services;
 using Mapper.Security;
 using Microsoft.Extensions.Logging;
 
-namespace Service.Security {
+namespace Service.Security
+{
     public class RoleService(IRoleRepository roleRepository, ILogger<RoleService> logger) : IRoleService {
 
         private readonly IRoleRepository _roleRepository = roleRepository;

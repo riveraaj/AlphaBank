@@ -1,10 +1,12 @@
 ﻿using Dtos.AlphaBank.Security;
-using Interfaces.Security;
+using Interfaces.Security.Repositories;
+using Interfaces.Security.Services;
 using Mapper.Security;
 using Microsoft.Extensions.Logging;
 using Service.Security.Helpers;
 
-namespace Service.Security {
+namespace Service.Security
+{
     public class UserService(IUserRepository userRepository, ILogger<UserService> logger) : IUserService {
 
         private readonly IUserRepository _userRepository = userRepository;

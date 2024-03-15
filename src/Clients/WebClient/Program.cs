@@ -1,7 +1,8 @@
 using Database.AlphaBank;
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
-using Interfaces.Security;
+using Interfaces.Security.Repositories;
+using Interfaces.Security.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Repository.Common;

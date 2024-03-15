@@ -1,6 +1,7 @@
 ﻿using Dtos.AlphaBank.Security;
 using Interfaces.Common.Services;
-using Interfaces.Security;
+using Interfaces.Security.Repositories;
+using Interfaces.Security.Services;
 using Mapper.Security;
 using Microsoft.Extensions.Logging;
 

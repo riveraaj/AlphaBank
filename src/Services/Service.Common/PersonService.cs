@@ -2,7 +2,7 @@
 using Dtos.AlphaBank.Common;
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
-using Interfaces.Security;
+using Interfaces.Security.Repositories;
 using Mapper.Common;
 using Microsoft.Extensions.Logging;
 

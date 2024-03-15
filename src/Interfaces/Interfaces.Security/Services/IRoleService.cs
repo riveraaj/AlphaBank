@@ -1,8 +1,10 @@
 ﻿using Data.AlphaBank;
 using Dtos.AlphaBank.Security;
 
-namespace Interfaces.Security {
-    public interface IRoleService {
+namespace Interfaces.Security.Services
+{
+    public interface IRoleService
+    {
 
         public Task<bool> Create(CreateRoleDto oCreateRoleDto);
 

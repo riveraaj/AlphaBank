@@ -1,7 +1,9 @@
 ﻿using Data.AlphaBank;
 
-namespace Interfaces.Security {
-    public interface IRoleRepository {
+namespace Interfaces.Security.Repositories
+{
+    public interface IRoleRepository
+    {
 
         public Task<ICollection<Role>> GetAllAsync();
 

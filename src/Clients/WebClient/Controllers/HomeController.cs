@@ -1,5 +1,5 @@
 using Dtos.AlphaBank.Security;
-using Interfaces.Security;
+using Interfaces.Security.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
