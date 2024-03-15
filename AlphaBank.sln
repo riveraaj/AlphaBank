@@ -61,6 +61,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "src\Testing\Test\Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.AnalyzeLoanOpportunities", "src\Interfaces\Interfaces.AnalyzeLoanOpportunities\Interfaces.AnalyzeLoanOpportunities.csproj", "{C470BE1D-1211-4BB3-9799-E41E49D74547}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.AnalyzeLoanOpportunities", "src\Repositories\Repository.AnalyzeLoanOpportunities\Repository.AnalyzeLoanOpportunities.csproj", "{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,10 @@ Global
 		{C470BE1D-1211-4BB3-9799-E41E49D74547}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C470BE1D-1211-4BB3-9799-E41E49D74547}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C470BE1D-1211-4BB3-9799-E41E49D74547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -167,6 +173,7 @@ Global
 		{F809EC0F-2682-4D72-B90D-0B7633A6F7E5} = {6A8B1632-8463-4A25-A43C-5751B89840BB}
 		{B6A3CA5E-7FBB-4DED-BCDA-9A5611CC1870} = {EE1E8CBA-3486-40DA-A392-433A69E96FB1}
 		{C470BE1D-1211-4BB3-9799-E41E49D74547} = {055310DA-AC61-4D52-B6B8-84B24CDEF5A7}
+		{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962} = {F123F593-D34C-4947-B25A-745AA92DDA3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F2F7AD8-F594-44C9-A77B-6B2CA0922419}
