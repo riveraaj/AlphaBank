@@ -1,10 +1,11 @@
 ﻿using Dtos.AlphaBank.Security;
-using Interfaces.Common;
+using Interfaces.Common.Services;
 using Interfaces.Security;
 using Mapper.Security;
 using Microsoft.Extensions.Logging;
 
-namespace Service.Security {
+namespace Service.Security
+{
     public class EmployeeService(IEmployeeRepository employeeRepository,
                                     IUserService userService,
                                     IPersonService personService,

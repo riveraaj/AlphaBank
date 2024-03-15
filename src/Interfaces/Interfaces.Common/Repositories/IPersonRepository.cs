@@ -1,7 +1,9 @@
 ﻿using Data.AlphaBank;
 
-namespace Interfaces.Security {
-    public interface IPersonRepository {
+namespace Interfaces.Common.Repositories
+{
+    public interface IPersonRepository
+    {
 
         public Task<Person?> GetByIdAsync(int id);
 

@@ -1,11 +1,13 @@
 ﻿using Data.AlphaBank;
 using Dtos.AlphaBank.Common;
-using Interfaces.Common;
+using Interfaces.Common.Repositories;
+using Interfaces.Common.Services;
 using Interfaces.Security;
 using Mapper.Common;
 using Microsoft.Extensions.Logging;
 
-namespace Service.Common {
+namespace Service.Common
+{
     public class PersonService(ILogger<PersonService> logger,
                                 IPersonRepository personRepository,
                                 IPhoneRepository phoneRepository,

@@ -1,8 +1,9 @@
 ﻿using Data.AlphaBank;
 using Database.AlphaBank;
-using Interfaces.Security;
+using Interfaces.Common.Repositories;
 
-namespace Repository.Security {
+namespace Repository.Security
+{
     public class PersonRepository(AlphaBankDbContext context) : IPersonRepository {
 
         private readonly AlphaBankDbContext _context = context;

@@ -1,7 +1,7 @@
 ﻿using Dtos.AlphaBank.BankAccounts;
 using Interfaces.BankAccounts.Repositories;
 using Interfaces.BankAccounts.Services;
-using Interfaces.Common;
+using Interfaces.Common.Services;
 using Mapper.BankAccounts;
 using Microsoft.Extensions.Logging;
 

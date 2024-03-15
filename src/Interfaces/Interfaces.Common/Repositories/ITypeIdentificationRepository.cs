@@ -1,7 +1,9 @@
 ﻿using Data.AlphaBank;
 
-namespace Interfaces.Common {
-    public interface ITypeIdentificationRepository {
+namespace Interfaces.Common.Repositories
+{
+    public interface ITypeIdentificationRepository
+    {
         public Task<ICollection<TypeIdentification>> GetAllAsync();
     }
 }
