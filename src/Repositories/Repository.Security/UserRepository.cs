@@ -49,6 +49,5 @@ namespace Repository.Security {
 
         public async Task SaveChangesAsync()
             => await _context.SaveChangesAsync();
-
     }
 }

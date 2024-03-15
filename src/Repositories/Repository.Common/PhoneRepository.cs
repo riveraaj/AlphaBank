@@ -9,6 +9,5 @@ namespace Repository.Common {
 
         public async Task CreateAsync(Phone oPhone)
             => await _context.Phones.AddAsync(oPhone);
-
     }
 }

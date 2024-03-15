@@ -6,6 +6,5 @@ namespace Interfaces.Security {
         public Task<Person?> GetByIdAsync(int id);
 
         public Task CreateAsync(Person oPerson);
-
     }
 }

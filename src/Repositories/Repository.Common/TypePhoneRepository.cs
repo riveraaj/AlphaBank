@@ -10,6 +10,5 @@ namespace Repository.Common {
 
         public async Task<ICollection<TypePhone>> GetAllAsync()
             => await _context.TypePhones.ToListAsync();
-
     }
 }
