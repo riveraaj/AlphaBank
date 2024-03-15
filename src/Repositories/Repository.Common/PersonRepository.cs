@@ -7,6 +7,9 @@ namespace Repository.Security {
 
         private readonly AlphaBankDbContext _context = context;
 
+        public async Task<Person?> GetByIdAsync(int id)
+            => await _context.People.FindAsync(id);
+
         public async Task CreateAsync(Person oPerson) 
             => await _context.People.AddAsync(oPerson);
     }
