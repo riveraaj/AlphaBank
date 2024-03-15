@@ -1,9 +1,11 @@
 using Database.AlphaBank;
+using Interfaces.Common;
 using Interfaces.Security;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Repository.Common;
 using Repository.Security;
+using Service.Common;
 using Service.Security;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,10 +31,11 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 builder.Services.AddScoped<IPhoneRepository, PhoneRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
 
 //Services Scoped
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 //Add App Insights
