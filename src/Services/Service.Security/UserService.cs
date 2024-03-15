@@ -5,10 +5,10 @@ using Microsoft.Extensions.Logging;
 using Service.Security.Helpers;
 
 namespace Service.Security {
-    public class UserService(IUserRepository userRepository/*, ILogger<UserService> logger*/) : IUserService {
+    public class UserService(IUserRepository userRepository, ILogger<UserService> logger) : IUserService {
 
         private readonly IUserRepository _userRepository = userRepository;
-        //private readonly ILogger<UserService> _logger = logger;
+        private readonly ILogger<UserService> _logger = logger;
 
         public async Task<bool> UserSetup(CreateEmployeeDto oCreateEmployeeDto, IEmployeeRepository oEmployeeRepository) {
 
@@ -39,18 +39,18 @@ namespace Service.Security {
             user.Password = EncryptorHelper.Encrypt(user.Password);
 
             try {
-                //_logger.LogInformation("----- Create User: Start the creation of an user registry");
+                _logger.LogInformation("----- Create User: Start the creation of an user registry");
 
                 //Attempt to add the new user through the UserRepository and save changes asynchronously.
                 await _userRepository.CreateAsync(user);
                 await _userRepository.SaveChangesAsync();
 
-                //_logger.LogInformation("----- Create User: Creation completed and saved successfully.");
+                _logger.LogInformation("----- Create User: Creation completed and saved successfully.");
 
                 //Return true to indicate successful creation.
                 return true;
             } catch (Exception e) {
-                //_logger.LogError($"----- Create User: An error occurred while creating and saving to the database. More about error: {e.Message}");
+                _logger.LogError($"----- Create User: An error occurred while creating and saving to the database. More about error: {e.Message}");
 
                 //If there's an exception during the process, return false.
                 return false;

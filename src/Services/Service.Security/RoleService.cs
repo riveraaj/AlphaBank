@@ -16,19 +16,19 @@ namespace Service.Security {
 
             try {
 
-                _logger.LogInformation("--- Start creating and saving the role in the database");
+                _logger.LogInformation("----- Create Role: Start creating and saving the role in the database");
 
                 // Attempt to add the new role through the RoleRepository and save changes asynchronously.
                 await _roleRepository.CreateAsync(role);
 
                 await _roleRepository.SaveChangesAsync();
 
-                _logger.LogInformation("--- Successfully completes the process");
+                _logger.LogInformation("----- Create Role: Successfully completes the process");
 
                 // Return true to indicate successful creation.
                 return true;
             } catch (Exception e) {
-                _logger.LogError($"--- An error occurred while creating and saving to the database. More about error: {e.Message}");
+                _logger.LogError($"----- Create Role: An error occurred while creating and saving to the database. More about error: {e.Message}");
                 //If there's an exception during the process, return false.
                 return false;
             }

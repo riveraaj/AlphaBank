@@ -7,13 +7,13 @@ using Microsoft.Extensions.Logging;
 namespace Service.Security {
     public class EmployeeService(IEmployeeRepository employeeRepository,
                                     IUserService userService,
-                                    IPersonService personService/*,
-                                    ILogger<EmployeeService> logger*/) : IEmployeeService {
+                                    IPersonService personService,
+                                    ILogger<EmployeeService> logger) : IEmployeeService {
 
         private readonly IEmployeeRepository _employeeRepository = employeeRepository;
         private readonly IPersonService _personService = personService;
         private readonly IUserService _userService = userService;
-        //private readonly ILogger<EmployeeService> _logger = logger;
+        private readonly ILogger<EmployeeService> _logger = logger;
 
         public async Task<List<ShowEmployeeDto>> GetAll() {
             try {
@@ -59,7 +59,7 @@ namespace Service.Security {
                     if (!result) return false;       
                 }
 
-                //_logger.LogInformation("----- Create Employee: Start the creation of an employee registry");
+                _logger.LogInformation("----- Create Employee: Start the creation of an employee registry");
 
                 await _employeeRepository.CreateAsync(employee);
                 await _employeeRepository.SaveChangesAsync();
@@ -68,7 +68,7 @@ namespace Service.Security {
                 var userSetupResult = await _userService.UserSetup(oCreateEmployeeDto, _employeeRepository);
 
                 if (!userSetupResult) {
-                    //_logger.LogError("----- Create Employee: An error occurred during user setup.");
+                    _logger.LogError("----- Create Employee: An error occurred during user setup.");
 
                     //Delete the previously created employee record
                     var lastEmployee = await _employeeRepository.GetLastEmployeeAsync();
@@ -79,12 +79,12 @@ namespace Service.Security {
                     return false;
                 }
 
-                //_logger.LogInformation("----- Create Employee: Creation completed and saved successfully.");
+                _logger.LogInformation("----- Create Employee: Creation completed and saved successfully.");
 
                 //Return true to indicate successful creation.
                 return true;
             } catch (Exception e) {
-                //_logger.LogError($"----- Create Employee: An error occurred while creating and saving to the database. More about error: {e.Message}");
+                _logger.LogError($"----- Create Employee: An error occurred while creating and saving to the database. More about error: {e.Message}");
 
                 //If there's an exception during the process, return false.
                 return false;
