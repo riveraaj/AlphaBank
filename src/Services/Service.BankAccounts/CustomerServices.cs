@@ -1,92 +1,62 @@
-﻿using Data.AlphaBank;
-using Dtos.AlphaBank.BankAccounts;
+﻿using Dtos.AlphaBank.BankAccounts;
 using Interfaces.BankAccounts;
-using Interfaces.Security;
+using Interfaces.Common;
 using Mapper.BankAccounts;
-using Mapper.Common;
 using Microsoft.Extensions.Logging;
 
-namespace Service.BankAccounts
-{
-    public class CustomerService(IUnitOfWork unitOfWork,
-                                 IPersonRepository personRepository,
+namespace Service.BankAccounts {
+    public class CustomerService(IPersonService personService,
                                  ICustomerRepository customerRepository,
-                                 IOccupationRepository occupationRepository,
-                                 ICustomerStatusRepository customerStatusRepository,
-                                 IPhoneRepository phoneRepository,
                                  ILogger<CustomerService> logger) : ICustomerService {
 
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly IPersonRepository _personRepository = personRepository;
+        private readonly IPersonService _personService = personService;
         private readonly ICustomerRepository _customerRepository = customerRepository;
-        private readonly IOccupationRepository _occupationRepository = occupationRepository;
-        private readonly ICustomerStatusRepository _customerstatusRepository = customerStatusRepository;
-        private readonly IPhoneRepository _phoneRepository = phoneRepository;
         private readonly ILogger<CustomerService> _logger = logger;
 
         public async Task<bool> Create(CreateCustomerDto oCreateCustomerDto) {
-
-            //The id of the person is added to the reference of; phone
-            oCreateCustomerDto.Phone.PersonId = (int) oCreateCustomerDto
-                                                            .Person.PersonId!;
-
-            //Map CreateCustomerDto to person, customer, and phone objects using CustomerMapper.
-            var person = PersonMapper.MapPerson(oCreateCustomerDto.Person);
-            var phone = PhoneMapper.MapPhone(oCreateCustomerDto.Phone);
-            var customer = CustomerMapper.MapCustomer(oCreateCustomerDto); 
-
-            // Set the status of the customer to true.
-            customer.Status = true;
-
-            //Customer status value is set to regular
-            customer.CustomerStatusId = 1;
-
-            // Set the deceased attribute of the person to false.
-            person.Deceased = false;
-
             try {
-                _logger.LogInformation("---- Start the transaction to create and save in the database an person, phone number and customer.");
+                //Get personId
+                var personId = (int)oCreateCustomerDto.Person.PersonId!;
 
-                //Begin a transaction using the unit of work.
-                await _unitOfWork.BeginTransaction();
+                //The id of the person is added to the reference of phone
+                oCreateCustomerDto.Phone.PersonId = personId;
 
-                //Create records in the PersonRepository, PhoneRepository, and CustomerRepository.
-                await _personRepository.CreateAsync(person);
-                await _phoneRepository.CreateAsync(phone);
+                //Map CreateCustomerDto to customer object using CustomerMapper.
+                var customer = CustomerMapper.MapCustomer(oCreateCustomerDto);
+
+                // Set the status of the customer to true.
+                customer.Status = true;
+
+                //Customer status value is set to regular
+                customer.CustomerStatusId = 1;
+
+                //Search person by id
+                var person = await _personService.GetById(personId);
+
+                //Validate that the person is not exempt in order to create it.
+                if (person == null) {
+                    var result = await _personService.Create(oCreateCustomerDto.Person, oCreateCustomerDto.Phone);
+                    if (!result) return false;
+                }
+
+                var customerByPersonId = await _customerRepository.GetByPersonIdAsync(personId);
+
+                if (customerByPersonId != null) return false;
+
+                _logger.LogInformation("----- Create Customer: Start the creation of an employee registry");
+
                 await _customerRepository.CreateAsync(customer);
+                await _customerRepository.SaveChangesAsync();
 
-                //Commit the transaction and save changes.
-                await _unitOfWork.CommitTransaction();
+                _logger.LogInformation("----- Create Customer: Creation completed and saved successfully.");
 
-                _logger.LogInformation("---- Correctly completes the transaction.");
-
-                // Return true to indicate successful creation.
+                //Return true to indicate successful creation.
                 return true;
             } catch (Exception e) {
-                _logger.LogError($"--- An error occurred while creating and saving to the database. More about error: {e.Message}");
+                _logger.LogError($"----- Create Customer: An error occurred while creating and saving to the database. More about error: {e.Message}");
 
                 //If there's an exception during the process, return false.
                 return false;
-            }
-        }
-
-        public async Task<List<Occupation>> GetAllOccupations() {
-            try {
-                //Attempt to retrieve all occupations asynchronously from the OccupationRepository.
-                return (List<Occupation>)await _occupationRepository.GetAllAsync();
-            } catch (Exception) {
-                //If there's an exception during the process, return null.
-                return [];
-            }
-        }
-
-        public async Task<List<CustomerStatus>> GetAllCustomerStatuses() {
-            try {
-                //Attempt to retrieve all customer statuses asynchronously from the CustomerStatuseRepository.
-                return (List<CustomerStatus>)await _customerstatusRepository.GetAllAsync();
-            } catch (Exception) {
-                //If there's an exception during the process, return null.
-                return [];
             }
         }
     }
