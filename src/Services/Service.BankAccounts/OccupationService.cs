@@ -1,7 +1,9 @@
 ﻿using Data.AlphaBank;
-using Interfaces.BankAccounts;
+using Interfaces.BankAccounts.Repositories;
+using Interfaces.BankAccounts.Services;
 
-namespace Service.BankAccounts {
+namespace Service.BankAccounts
+{
     public class OccupationService(IOccupationRepository occupationRepository)
                                     : IOccupationService {
 

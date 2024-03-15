@@ -1,10 +1,12 @@
 ﻿using Dtos.AlphaBank.BankAccounts;
-using Interfaces.BankAccounts;
+using Interfaces.BankAccounts.Repositories;
+using Interfaces.BankAccounts.Services;
 using Interfaces.Common;
 using Mapper.BankAccounts;
 using Microsoft.Extensions.Logging;
 
-namespace Service.BankAccounts {
+namespace Service.BankAccounts
+{
     public class CustomerService(IPersonService personService,
                                  ICustomerRepository customerRepository,
                                  ILogger<CustomerService> logger) : ICustomerService {
