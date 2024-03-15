@@ -8,10 +8,16 @@ namespace Repository.BankAccounts {
 
         private readonly AlphaBankDbContext _context = context;
 
+        public async Task<Customer?> GetByPersonIdAsync(int id)
+            => await _context.Customers.Where(x => x.PersonId == id).FirstAsync();
+
         public async Task<ICollection<Customer>> GetAllAsync()
             => await _context.Customers.ToListAsync();
 
         public async Task CreateAsync(Customer oCustomer)
             => await _context.Customers.AddAsync(oCustomer);
+
+        public async Task SaveChangesAsync()
+            => await _context.SaveChangesAsync();
     }
 }
