@@ -1,23 +1,19 @@
 ﻿using Dtos.AlphaBank.Security;
+using Interfaces.Common;
 using Interfaces.Security;
-using Mapper.Common;
 using Mapper.Security;
 using Microsoft.Extensions.Logging;
 
 namespace Service.Security {
     public class EmployeeService(IEmployeeRepository employeeRepository,
-                                    IPersonRepository personRepository,
-                                    IPhoneRepository phoneRepository,
-                                    IUnitOfWork unitOfWork,
                                     IUserService userService,
-                                    ILogger<EmployeeService> logger) : IEmployeeService {
+                                    IPersonService personService/*,
+                                    ILogger<EmployeeService> logger*/) : IEmployeeService {
 
         private readonly IEmployeeRepository _employeeRepository = employeeRepository;
-        private readonly IPersonRepository _personRepository = personRepository;
-        private readonly IPhoneRepository _phoneRepository = phoneRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IPersonService _personService = personService;
         private readonly IUserService _userService = userService;
-        private readonly ILogger<EmployeeService> _logger = logger;
+        //private readonly ILogger<EmployeeService> _logger = logger;
 
         public async Task<List<ShowEmployeeDto>> GetAll() {
             try {
@@ -41,81 +37,58 @@ namespace Service.Security {
         }
 
         public async Task<bool> Create(CreateEmployeeDto oCreateEmployeeDto) {
-
-            //The id of the person is added to the reference of; phone
-            oCreateEmployeeDto.Phone.PersonId = (int)oCreateEmployeeDto
-                                                            .Person.PersonId!;
-
-            // Map CreateEmployeeDto to employee, person, and phone objects using EmployeeMapper.
-            var employee = EmployeeMapper.MapEmployee(oCreateEmployeeDto);
-            var person = PersonMapper.MapPerson(oCreateEmployeeDto.Person);
-            var phone = PhoneMapper.MapPhone(oCreateEmployeeDto.Phone);
-
-            // Set the status of the employee to true.
-            employee.Status = true;
-
-            // Set the Deceased of the person to false.
-            person.Deceased = false;
-
             try {
+                //Get personId
+                var personId = (int)oCreateEmployeeDto.Person.PersonId!;
 
-                _logger.LogInformation("---- Start the transaction to create and save in the database an employee, person and phone number.");
+                //The id of the person is added to the reference of; phone
+                oCreateEmployeeDto.Phone.PersonId = personId;
 
-                //Begin a transaction using the unit of work.
-                await _unitOfWork.BeginTransaction();
+                // Map CreateEmployeeDto to employee
+                var employee = EmployeeMapper.MapEmployee(oCreateEmployeeDto);
 
-                //Create records in the PersonRepository, EmployeeRepository, and PhoneRepository.
-                await _personRepository.CreateAsync(person);
+                // Set the status of the employee to true.
+                employee.Status = true;
+
+                //Search person by id
+                var person = await _personService.GetById(personId);
+
+                //Validate that the person is not exempt in order to create it.
+                if (person == null)  {
+                    var result = await _personService.Create(oCreateEmployeeDto.Person, oCreateEmployeeDto.Phone);
+                    if (!result) return false;       
+                }
+
+                //_logger.LogInformation("----- Create Employee: Start the creation of an employee registry");
+
                 await _employeeRepository.CreateAsync(employee);
+                await _employeeRepository.SaveChangesAsync();
 
-                await _phoneRepository.CreateAsync(phone);
+                //Perform User Setup to start the user creation afterwards
+                var userSetupResult = await _userService.UserSetup(oCreateEmployeeDto, _employeeRepository);
 
-                //Commit the transaction and save changes.
-                await _unitOfWork.CommitTransaction();
+                if (!userSetupResult) {
+                    //_logger.LogError("----- Create Employee: An error occurred during user setup.");
 
-                _logger.LogInformation("---- Correctly completes the transaction.");
+                    //Delete the previously created employee record
+                    var lastEmployee = await _employeeRepository.GetLastEmployeeAsync();
+                    if (lastEmployee != null)
+                        await _employeeRepository.RemoveAsync(lastEmployee.Id);            
 
-                _logger.LogInformation("---- Start the process to create a user and save it in the database.");
-
-                //The method for creating a user is called
-                var result = await CreateUser(oCreateEmployeeDto);
-
-                if (!result) 
+                    //If there's an exception during the process, return false.
                     return false;
-                
-                // Return true to indicate successful creation.
+                }
+
+                //_logger.LogInformation("----- Create Employee: Creation completed and saved successfully.");
+
+                //Return true to indicate successful creation.
                 return true;
-            }
-            catch (Exception e){
+            } catch (Exception e) {
+                //_logger.LogError($"----- Create Employee: An error occurred while creating and saving to the database. More about error: {e.Message}");
 
-                _logger.LogError($"--- An error occurred while creating and saving to the database. More about error: {e.Message}");
-
-                //If there's an exception during the process, rollback the transaction and return false.
+                //If there's an exception during the process, return false.
                 return false;
-            }
-        }
-
-        private async Task<bool> CreateUser(CreateEmployeeDto oCreateEmployeeDto) {
-
-            //The id of the last registered employee is obtained to assign the user to the employee
-            var employeeList = await _employeeRepository.GetAllAsync();
-            var employeeId = employeeList.Last().Id;
-
-            //The searched id is assigned to the model to perform the registration.
-            oCreateEmployeeDto.User.EmployeeId = employeeId;
-
-            //The user service is called to create the user.
-            var result = await _userService.Create(oCreateEmployeeDto.User);
-
-            if (!result) {
-                _logger.LogInformation("----  End user creation process with errors.");
-                //If there's an exception during the process return false.
-                return false;
-            }
-
-            // Return true to indicate successful creation.
-            _logger.LogInformation("---- Successfully completed the user creation process.");
-            return true;
+            }    
         }
     }
 }
