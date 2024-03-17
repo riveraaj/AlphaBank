@@ -7,5 +7,7 @@ namespace Interfaces.BankAccounts.Services
 
         public Task<bool> Create(CreateAccountDto createAccountDto);
 
+        public Task<bool> Remove(string accountNumber);
+
     }
 }
