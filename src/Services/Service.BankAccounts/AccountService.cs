@@ -24,7 +24,18 @@ namespace Service.BankAccounts
                 var account = AccountMapper.MapAccount(oCreateAccountDto);
 
                 //Set Id (IBAN) of the account
-                account.Id = "IBAN";
+                while (true)
+                {
+                    account.Id = AccountNumGeneratorHelper.AccountNumberGenerator(account.TypeAccountId, account.TypeCurrencyId);
+                    var accountExist = await _accountRepository.GetByAccountNumberAsync(account.Id);
+
+                    if (accountExist == null)
+                    {
+                        // Loop ends if  accountCheck is null (There's not an account with that Account Number)
+                        break; 
+                    }
+                }
+
 
                 // Set the status of the account to true.
                 account.Status = true;
