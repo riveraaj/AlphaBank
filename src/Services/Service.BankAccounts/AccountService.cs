@@ -6,6 +6,7 @@ using Mapper.BankAccounts;
 using Microsoft.Extensions.Logging;
 using Service.BankAccounts.Helpers;
 using System;
+using System.Security.Principal;
 
 namespace Service.BankAccounts
 {
@@ -56,6 +57,30 @@ namespace Service.BankAccounts
             catch (Exception e)
             {
                 //_logger.LogError($"----- Create Account: An error occurred while creating and saving to the database. More about error: {e.Message}");
+
+                //If there's an exception during the process, return false.
+                return false;
+            }
+        }
+
+        public async Task<bool> Remove(string accountNumber)
+
+        {
+            try
+            {
+                //_logger.LogInformation("----- Remove Account: Start the removement of an account");
+
+                await _accountRepository.RemoveAsync(accountNumber);
+                await _accountRepository.SaveChangesAsync();
+
+                //_logger.LogInformation("----- Remove Account: Removement completed and saved successfully.");
+
+                //Return true to indicate successful removement.
+                return true;
+            }
+            catch (Exception e)
+            {
+                //_logger.LogError($"----- Remove Account: An error occurred while removing the account from the database. More about error: {e.Message}");
 
                 //If there's an exception during the process, return false.
                 return false;
