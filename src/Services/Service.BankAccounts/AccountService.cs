@@ -4,6 +4,7 @@ using Interfaces.BankAccounts.Repositories;
 using Interfaces.BankAccounts.Services;
 using Mapper.BankAccounts;
 using Microsoft.Extensions.Logging;
+using Service.BankAccounts.Helpers;
 using System;
 
 namespace Service.BankAccounts
@@ -23,17 +24,12 @@ namespace Service.BankAccounts
                 //Map CreateAccountDto to account object using AccountMapper.
                 var account = AccountMapper.MapAccount(oCreateAccountDto);
 
+                var accountExist = true;
                 //Set Id (IBAN) of the account
-                while (true)
+                while (accountExist)
                 {
                     account.Id = AccountNumGeneratorHelper.AccountNumberGenerator(account.TypeAccountId, account.TypeCurrencyId);
-                    var accountExist = await _accountRepository.GetByAccountNumberAsync(account.Id);
-
-                    if (accountExist == null)
-                    {
-                        // Loop ends if  accountCheck is null (There's not an account with that Account Number)
-                        break; 
-                    }
+                    accountExist = await _accountRepository.CheckIfExistsByAccountNumberAsync(account.Id);
                 }
 
 
