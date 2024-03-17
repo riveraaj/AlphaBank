@@ -13,6 +13,9 @@ namespace Repository.BankAccounts
         public async Task<ICollection<Account>> GetAllAsync()
             => await _context.Accounts.ToListAsync();
 
+        public async Task<bool> CheckIfExistsByAccountNumberAsync(string accountNumber)
+            => await _context.Accounts.AnyAsync(x => x.Id.Equals(accountNumber));
+
         public async Task CreateAsync(Account oAccount)
             => await _context.Accounts.AddAsync(oAccount);
 
