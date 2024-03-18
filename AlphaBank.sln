@@ -59,9 +59,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{EE1E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "src\Testing\Test\Test.csproj", "{B6A3CA5E-7FBB-4DED-BCDA-9A5611CC1870}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.AnalyzeLoanOpportunities", "src\Interfaces\Interfaces.AnalyzeLoanOpportunities\Interfaces.AnalyzeLoanOpportunities.csproj", "{C470BE1D-1211-4BB3-9799-E41E49D74547}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces.AnalyzeLoanOpportunities", "src\Interfaces\Interfaces.AnalyzeLoanOpportunities\Interfaces.AnalyzeLoanOpportunities.csproj", "{C470BE1D-1211-4BB3-9799-E41E49D74547}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.AnalyzeLoanOpportunities", "src\Repositories\Repository.AnalyzeLoanOpportunities\Repository.AnalyzeLoanOpportunities.csproj", "{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.AnalyzeLoanOpportunities", "src\Repositories\Repository.AnalyzeLoanOpportunities\Repository.AnalyzeLoanOpportunities.csproj", "{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.AnalyzeLoanOpportunities", "src\Services\Service.AnalyzeLoanOpportunities\Service.AnalyzeLoanOpportunities.csproj", "{CE8B9DE9-CBEE-4476-8B05-B12300A65B95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -149,6 +151,10 @@ Global
 		{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE8B9DE9-CBEE-4476-8B05-B12300A65B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE8B9DE9-CBEE-4476-8B05-B12300A65B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE8B9DE9-CBEE-4476-8B05-B12300A65B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE8B9DE9-CBEE-4476-8B05-B12300A65B95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,6 +180,7 @@ Global
 		{B6A3CA5E-7FBB-4DED-BCDA-9A5611CC1870} = {EE1E8CBA-3486-40DA-A392-433A69E96FB1}
 		{C470BE1D-1211-4BB3-9799-E41E49D74547} = {055310DA-AC61-4D52-B6B8-84B24CDEF5A7}
 		{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962} = {F123F593-D34C-4947-B25A-745AA92DDA3B}
+		{CE8B9DE9-CBEE-4476-8B05-B12300A65B95} = {D0C09AF8-BC70-478F-BEF0-7D29C6DA78B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F2F7AD8-F594-44C9-A77B-6B2CA0922419}
