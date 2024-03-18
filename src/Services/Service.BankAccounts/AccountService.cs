@@ -87,5 +87,28 @@ namespace Service.BankAccounts
             }
         }
 
+        public async Task<List<ShowAccountDto>> GetAll()
+        {
+            try
+            {
+                //Retrieve all accounts asynchronously from the AccountRepository.
+                var accountList = await _accountRepository.GetAllAsync();
+
+                //Initialize a list to store ShowAccountDto objects.
+                var showAccountDtoList = new List<ShowAccountDto>();
+
+                //Map each account to a ShowAccountDto and add it to the list.
+                foreach (var account in accountList)
+                    showAccountDtoList.Add(AccountMapper.MapShowAccountDto(account));
+
+                // Return the list of ShowAccountDto objects.
+                return showAccountDtoList;
+
+            }
+            catch
+            {
+                return [];
+            }
+        }
     }
 }
