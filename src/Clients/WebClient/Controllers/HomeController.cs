@@ -27,30 +27,14 @@ namespace WebClient.Controllers
             return View(employeeList);
         }
           
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Id", "Password")] UserLoginDto oUserLoginDto) {
-
-            if (!ModelState.IsValid) return View("Index");
-
-            var (result, userAuthentication) = await _userService.UserAuthenticator(oUserLoginDto);
-
-            if (!result) {
-                ViewData["Error"] = "*Hubo un error en el inicio de sesión, intentelo más tarde.";
-                return View("Index");
-            }
-
-            await CookiesService.CreateAuthenticationCookies(HttpContext, userAuthentication!);
-
-            return RedirectToAction("Index");
-        }
+        
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()  {
             await CookiesService.RemoveAuthenticationCookie(HttpContext);
-            return RedirectToAction("Index");
+            return Redirect("~/Login/Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

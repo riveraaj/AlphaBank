@@ -2,23 +2,83 @@
 
 
 @{
+    Layout = "~/Views/Shared/_Layout-Secondary.cshtml";
     ViewData["Title"] = "Privacy Policy";
 }
 
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
 
-@foreach (var employee in Model){
+<div class="card-white-transparent shadow-container mt-5">
+    <div class="header-card">
+        <p class="tittle">Usuarios</p>
+    </div>
+    <div class="card-main table-responsive text-nowrap pt-3">
+        <table id="tablausuarios" class="mt-4">
+            <thead>
+                <tr>
+                    <th>Estado</th>
+                    <th>Nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Segundo Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                    <tr>
+                        <td>@(employee.Status ? "Activo" : "Inactivo")</td>
+                        <td>@employee.Person.Name</td>
+                        <td>@employee.Person.FirstName</td>
+                        <td>@employee.Person.SecondName</td>
+                        <td>@employee.Person.PhoneNumber</td>
+                        <td>@employee.User.EmailAddress</td>
+                        <td>@employee.User.Role</td>
+                    </tr>
+                }
+            </tbody>
 
-    <p>
-        Estado: @(employee.Status ? "Activo" : "Inactivo") | 
-        Nombre: @employee.Person.Name | 
-        Apellido: @employee.Person.FirstName |
-        Segundo Apellido: @employee.Person.SecondName |
-        Numero: @employee.Person.PhoneNumber |
-        Email: @employee.User.EmailAddress |
-        Rol: @employee.User.Role
-    </p>
+        </table>
+    </div>
+</div>
 
-}
+
+<script type="text/javascript">
+    $('#tablausuarios').DataTable({
+        "responsive": true,
+        "aServerSide": true,
+        "autoWidth": false,
+        "deferRender": true,
+        "retrieve": true,
+        "processing": true,
+        "paging": true,
+        "dom": 'Bfrtip',
+        "buttons": ["csv", "excel", "pdf"],
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+</script>
