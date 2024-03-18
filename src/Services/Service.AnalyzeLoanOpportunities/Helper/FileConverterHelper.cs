@@ -6,7 +6,7 @@ using iText.Layout.Element;
 namespace Service.AnalyzeLoanOpportunities.Helper {
     public static class FileConverterHelper {
 
-        public static byte[] ConvertTxtToPdf(FileUploadDto oFileUploadDto, string pdfTitle){
+        public static byte[] ConvertTxtToPdf(FileUploadDto oFileUploadDto, string pdfTitle) {
 
             using MemoryStream ms = new();
 
@@ -30,11 +30,10 @@ namespace Service.AnalyzeLoanOpportunities.Helper {
         }
 
         public static byte[] ConvertWordToPdf(FileUploadDto oFileUploadDto, string pdfTitle) {
-
             // Load the Word document from the byte array
-            using MemoryStream input = new (oFileUploadDto.FileContent);
+            using MemoryStream input = new(oFileUploadDto.FileContent);
             // Create a new MemoryStream to save the PDF
-            using MemoryStream output = new ();
+            using MemoryStream output = new();
 
             // Initialize PDF writer
             PdfWriter writer = new(output);
@@ -65,6 +64,32 @@ namespace Service.AnalyzeLoanOpportunities.Helper {
             doc.Close();
 
             // Return the converted PDF as byte array
+            return output.ToArray();
+        }
+
+        public static byte[] CopyPdf(FileUploadDto oFileUploadDto, string pdfTitle) {
+            // Create a MemoryStream to load the original PDF
+            using MemoryStream input = new(oFileUploadDto.FileContent);
+
+            // Create a MemoryStream to store the copied PDF
+            using MemoryStream output = new();
+
+            // Initialize the PDF writer
+            PdfWriter writer = new(output);
+
+            // Initialize the PDF reader
+            PdfReader reader = new(input);
+
+            // Initialize the PDF document
+            PdfDocument pdf = new(reader, writer);
+
+            // Set the title of the PDF
+            pdf.GetDocumentInfo().SetTitle(pdfTitle);
+
+            // Close the PDF document (no changes needed, just copying the PDF)
+            pdf.Close();
+
+            // Return the copied PDF as a byte array
             return output.ToArray();
         }
     }
