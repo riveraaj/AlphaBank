@@ -16,6 +16,12 @@ namespace Dtos.AlphaBank.AnalyzeLoanOpportunities {
         [Required(ErrorMessage = "El campo tipo de moneda es obligatorio.")]
         public byte? TypeCurrencyId { get; set; }
 
+        [Required(ErrorMessage = "Debe de subir un archivo válido.")]
+        public required FileUploadDto EmployerOrder { get; set; }
+
+        [Required(ErrorMessage = "Debe de subir un archivo válido.")]
+        public required FileUploadDto SalaryStatement { get; set; }
+
         [Required(ErrorMessage = "El campo cuenta es obligatorio.")]
         public string AccountId { get; set; } = null!;
 
