@@ -4,7 +4,7 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace Service.AnalyzeLoanOpportunities.Helper {
-    public static class FileConverterHelper {
+    internal static class FileConverterHelper {
 
         public static byte[] ConvertTxtToPdf(FileUploadDto oFileUploadDto, string pdfTitle) {
 
