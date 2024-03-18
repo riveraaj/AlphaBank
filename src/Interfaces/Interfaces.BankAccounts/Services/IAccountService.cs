@@ -9,5 +9,7 @@ namespace Interfaces.BankAccounts.Services
 
         public Task<bool> Remove(string accountNumber);
 
+        public Task<List<ShowAccountDto>> GetAll();
+
     }
 }
