@@ -1,9 +1,10 @@
 ﻿using Data.AlphaBank;
 using Database.AlphaBank;
-using Interfaces.Common;
+using Interfaces.Common.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Common {
+namespace Repository.Common
+{
     public class TypeIdentificationRepository(AlphaBankDbContext context) : ITypeIdentificationRepository {
 
         private readonly AlphaBankDbContext _context = context;

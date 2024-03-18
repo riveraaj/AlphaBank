@@ -11,6 +11,5 @@ namespace Mapper.Security {
                 RoleId = (byte) oCreateUserDto.RoleId!,
                 EmployeeId = (int) oCreateUserDto.EmployeeId!
             };
-
     }
 }

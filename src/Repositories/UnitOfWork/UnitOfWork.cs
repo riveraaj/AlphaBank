@@ -1,9 +1,9 @@
 ﻿using Database.AlphaBank;
-using Interfaces.Security;
-using Microsoft.EntityFrameworkCore;
+using Interfaces.Security.Repositories;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace UnitOfWork {
+namespace UnitOfWork
+{
     public class UnitOfWork (AlphaBankDbContext context) : IUnitOfWork {
 
         private readonly AlphaBankDbContext _context = context;
@@ -16,42 +16,18 @@ namespace UnitOfWork {
         //Confirm Transaction
         public async Task CommitTransaction() {
             try {
+                if (_transaction != null) {
+                    await _transaction.CommitAsync();
+                    await _context.SaveChangesAsync();
+                }             
+            } catch (Exception) {
+                // Handling of exceptions when committing the transaction
                 if (_transaction != null)
-                    await _transaction.CommitAsync();          
-            }
-            catch (DbUpdateException) {
-                // Handling of exceptions when committing the transaction
-                await RollbackAsync();
+                    await _transaction.RollbackAsync();
                 throw;
-            }
-            catch (Exception) {
-                // Handling of exceptions when committing the transaction
-                await RollbackAsync();
-                throw;
-            }
-            finally {
+            } finally {
                 _transaction?.Dispose();
                 _transaction = null;
-            }
-        }
-
-        //Revert Transaction
-        public async Task RollbackAsync() {
-            try {
-                await _transaction?.RollbackAsync()!;
-            }
-            finally {
-                _transaction?.Dispose();
-                _transaction = null;
-            }
-        }
-
-        public async Task SaveChangesAsync() {
-            try  {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException) {   
-                throw;
             }
         }
     }

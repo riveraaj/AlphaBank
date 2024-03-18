@@ -1,9 +1,11 @@
 ﻿using Dtos.AlphaBank.Security;
-using Interfaces.Security;
+using Interfaces.Security.Repositories;
+using Interfaces.Security.Services;
 using Microsoft.Extensions.Logging;
 using Service.Security.Helpers;
 
-namespace Service.Security {
+namespace Service.Security
+{
     public class UserAuthenticatorService(IUserRepository userRepository, 
                                            ILogger<UserAuthenticatorService> logger) 
                                            : IUserAuthenticatorService {
