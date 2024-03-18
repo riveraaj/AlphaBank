@@ -19,4 +19,8 @@
     <ProjectReference Include="..\..\Services\Service.Security\Service.Security.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\font\Open_Sans\" />
+  </ItemGroup>
+
 </Project>

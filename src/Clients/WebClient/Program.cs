@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Add cookie
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options => {
-        options.LoginPath = "/";
+        options.LoginPath = "/Login/Index";
         options.ExpireTimeSpan = TimeSpan.FromDays(1);
         options.AccessDeniedPath = "/";
     });
@@ -55,6 +55,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Index}/{id?}");
 
 app.Run();
