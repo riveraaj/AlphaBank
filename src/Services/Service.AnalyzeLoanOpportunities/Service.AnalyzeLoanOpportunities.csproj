@@ -13,6 +13,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Dtos\Dtos.AlphaBank\Dtos.AlphaBank.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.AnalyzeLoanOpportunities\Interfaces.AnalyzeLoanOpportunities.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.BankAccounts\Interfaces.BankAccounts.csproj" />
+    <ProjectReference Include="..\..\Mappers\Mapper.AnalyzeLoanOpportunities\Mapper.AnalyzeLoanOpportunities.csproj" />
   </ItemGroup>
 
 </Project>
