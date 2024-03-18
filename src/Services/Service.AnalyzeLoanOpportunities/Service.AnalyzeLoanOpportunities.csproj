@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Helper\" />
+    <PackageReference Include="Aspose.Words" Version="24.3.0" />
+    <PackageReference Include="itext7" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dtos\Dtos.AlphaBank\Dtos.AlphaBank.csproj" />
   </ItemGroup>
 
 </Project>
