@@ -14,5 +14,17 @@ namespace Mapper.BankAccounts
                 TypeCurrencyId = (byte) oCreateAccountDto.TypeCurrencyId!,
             };
 
+        public static ShowAccountDto MapShowAccountDto(Account oAccount)
+            => new()
+            {
+                AccountNumber = oAccount.Id,
+                Balance = oAccount.Balance,
+                DateOpening = oAccount.DateOpening,
+                AccountType = oAccount.TypeAccount.Description,
+                AccountCurrency = oAccount.TypeCurrency.Description,
+                CustomerID = oAccount.CustomerId
+            };
+
+
     }
 }
