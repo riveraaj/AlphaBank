@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\Dtos\Dtos.AlphaBank\Dtos.AlphaBank.csproj" />
     <ProjectReference Include="..\..\Models\Data.AlphaBank\Data.AlphaBank.csproj" />
   </ItemGroup>
 
