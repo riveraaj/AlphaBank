@@ -5,8 +5,6 @@ namespace Interfaces.AnalyzeLoanOpportunities.Repositories {
 
         public Task<ICollection<LoanApplication>> GetAllAsync();
 
-        public Task<ICollection<LoanApplication>> GetAllAsyncForReport();
-
         public Task Create(LoanApplication oLoanApplication);
 
         public Task UpdateApplicationStatus(int id, byte statusId);

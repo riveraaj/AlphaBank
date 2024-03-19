@@ -63,9 +63,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces.AnalyzeLoanOppor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.AnalyzeLoanOpportunities", "src\Repositories\Repository.AnalyzeLoanOpportunities\Repository.AnalyzeLoanOpportunities.csproj", "{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.AnalyzeLoanOpportunities", "src\Services\Service.AnalyzeLoanOpportunities\Service.AnalyzeLoanOpportunities.csproj", "{CE8B9DE9-CBEE-4476-8B05-B12300A65B95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.AnalyzeLoanOpportunities", "src\Services\Service.AnalyzeLoanOpportunities\Service.AnalyzeLoanOpportunities.csproj", "{CE8B9DE9-CBEE-4476-8B05-B12300A65B95}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapper.AnalyzeLoanOpportunities", "src\Mappers\Mapper.AnalyzeLoanOpportunities\Mapper.AnalyzeLoanOpportunities.csproj", "{AFAD435B-BF11-452A-9E63-E9C94A252B33}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper.AnalyzeLoanOpportunities", "src\Mappers\Mapper.AnalyzeLoanOpportunities\Mapper.AnalyzeLoanOpportunities.csproj", "{AFAD435B-BF11-452A-9E63-E9C94A252B33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
