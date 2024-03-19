@@ -1,5 +1,6 @@
 ﻿using Dtos.AlphaBank.AnalyzeLoanOpportunities;
 using Interfaces.AnalyzeLoanOpportunities.Repositories;
+using Interfaces.AnalyzeLoanOpportunities.Services;
 using Interfaces.BankAccounts.Repositories;
 using Mapper.AnalyzeLoanOpportunities;
 using Microsoft.Extensions.Logging;
@@ -8,7 +9,7 @@ using Service.AnalyzeLoanOpportunities.Helper;
 namespace Service.AnalyzeLoanOpportunities {
     public class LoanApplicationService(ILoanApplicationRepository loanApplicationRepository,
                                         IAccountRepository accountRepository,
-                                        ILogger<LoanApplicationService> logger) {
+                                        ILogger<LoanApplicationService> logger): ILoanApplicationService {
 
         private readonly ILoanApplicationRepository _loanApplicationRepository
             = loanApplicationRepository;
@@ -59,7 +60,7 @@ namespace Service.AnalyzeLoanOpportunities {
             }
         }
 
-        private byte[] ConvertToPdf(FileUploadDto fileUploadDto, string title) {
+        public byte[] ConvertToPdf(FileUploadDto fileUploadDto, string title) {
 
             string fileExtension = Path.GetExtension(fileUploadDto.ContentType);
 
