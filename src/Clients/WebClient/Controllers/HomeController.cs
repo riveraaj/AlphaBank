@@ -26,8 +26,24 @@ namespace WebClient.Controllers
 
             return View(employeeList);
         }
-          
-        
+        [Authorize]
+        public async Task<IActionResult> AperturaCuentaBancaria()
+        {
+
+            return View();
+        }
+
+        public async Task<IActionResult> CierreCuentaBancaria()
+        {
+
+            return View();
+        }
+
+        public async Task<IActionResult> SolicitudPrestamo()
+        {
+
+            return View();
+        }
 
         [Authorize]
         [HttpPost]

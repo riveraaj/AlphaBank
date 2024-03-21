@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Home\agw5htjm.cri~" />
+    <None Remove="Views\Home\AperturaCuentaBancaria.cshtml~RF2a21ecc7.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
   </ItemGroup>
 
@@ -21,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\GestionCuentasBancarias\" />
     <Folder Include="wwwroot\font\Open_Sans\" />
   </ItemGroup>
 
