@@ -1,15 +1,16 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es-mx">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebClient</title>
+    <title>@ViewData["Title"] - Alpha</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/WebClient.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+
     <!--Data Table-->
     <script type="text/javascript" src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src=" https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
@@ -26,22 +27,22 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark ">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="">
+            <div class="container-fluid px-5">
+                <a class="navbar-brand" asp-controller="Home">
                     <img src="~/img/Logos/Logo-Banco-Blanco.svg" alt="" width="100" height="50">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarScroll">
+                <div class="collapse navbar-collapse ps-4" id="navbarScroll">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Gestión de Cuentas
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="AperturaCuentaBancaria">Apertura de cuenta</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="CierreCuentaBancaria">Cierre de cuenta</a></li>
+                                <li><a class="dropdown-item" asp-controller="BankAccounts" asp-action="AccountOppening">Apertura de cuenta</a></li>
+                                <li><a class="dropdown-item" asp-controller="BankAccounts" asp-action="AccountClosing">Cierre de cuenta</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -49,7 +50,7 @@
                                 Análisis de Préstamo
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="SolicitudPrestamo">Solicitud de préstamo</a></li>
+                                <li><a class="dropdown-item" asp-controller="AnalyzeLoanOpportunities" asp-action="LoanApplication">Solicitud de préstamo</a></li>
                             </ul>
                         </li>
 
@@ -80,11 +81,11 @@
                                 Seguridad
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">Empleados</a></li>
+                                <li><a class="dropdown-item" asp-controller="Security" asp-action="EmployeeList">Empleados</a></li>
                             </ul>
                         </li>
                     </ul>
-                    <form method="post" asp-action="Logout" asp-controller="Home">
+                    <form method="post" asp-action="Logout" asp-controller="Security">
                         <input type="submit" value="Cerrar sesión" class="btn btn btn-logout " />
                     </form>
                 </div>

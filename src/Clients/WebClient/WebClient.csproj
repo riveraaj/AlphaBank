@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\GestionCuentasBancarias\**" />
+    <Content Remove="Views\GestionCuentasBancarias\**" />
+    <EmbeddedResource Remove="Views\GestionCuentasBancarias\**" />
+    <None Remove="Views\GestionCuentasBancarias\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Views\Home\agw5htjm.cri~" />
     <None Remove="Views\Home\AperturaCuentaBancaria.cshtml~RF2a21ecc7.TMP" />
   </ItemGroup>
@@ -26,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\GestionCuentasBancarias\" />
     <Folder Include="wwwroot\font\Open_Sans\" />
   </ItemGroup>
 
