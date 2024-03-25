@@ -17,6 +17,12 @@ namespace Repository.AnalyzeLoanOpportunities {
                                                 .ThenInclude(x => x.Customer)
                                               .ToListAsync();
 
+        public async Task<LoanApplication?> GetByIdForContract(int id)
+            => await _context.LoanApplications.Include(x => x.Account)
+                                                .ThenInclude(c => c.Customer)
+                                                    .ThenInclude(p => p.Person)
+                                              .FirstOrDefaultAsync(x => x.Id == id);
+            
         public async Task Create(LoanApplication oLoanApplication)
             => await _context.LoanApplications.AddAsync(oLoanApplication);
 
