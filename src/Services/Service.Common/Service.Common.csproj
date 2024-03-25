@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Humanizer" Version="2.14.1" />
+    <PackageReference Include="itext7" Version="8.0.3" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
     <ProjectReference Include="..\..\Mappers\Mapper.Common\Mapper.Common.csproj" />
     <ProjectReference Include="..\..\Repositories\UnitOfWork\UnitOfWork.csproj" />

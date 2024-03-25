@@ -67,8 +67,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.AnalyzeLoanOpportun
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapper.AnalyzeLoanOpportunities", "src\Mappers\Mapper.AnalyzeLoanOpportunities\Mapper.AnalyzeLoanOpportunities.csproj", "{AFAD435B-BF11-452A-9E63-E9C94A252B33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.GrantingLoans", "Service.GrantingLoans\Service.GrantingLoans.csproj", "{83D75E5B-E249-4BFD-AE26-6DF067EAB42D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -163,10 +161,6 @@ Global
 		{AFAD435B-BF11-452A-9E63-E9C94A252B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFAD435B-BF11-452A-9E63-E9C94A252B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFAD435B-BF11-452A-9E63-E9C94A252B33}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83D75E5B-E249-4BFD-AE26-6DF067EAB42D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83D75E5B-E249-4BFD-AE26-6DF067EAB42D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83D75E5B-E249-4BFD-AE26-6DF067EAB42D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83D75E5B-E249-4BFD-AE26-6DF067EAB42D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -194,7 +188,6 @@ Global
 		{DCD9BA1A-B826-411D-9D32-CD3BFCCE9962} = {F123F593-D34C-4947-B25A-745AA92DDA3B}
 		{CE8B9DE9-CBEE-4476-8B05-B12300A65B95} = {D0C09AF8-BC70-478F-BEF0-7D29C6DA78B9}
 		{AFAD435B-BF11-452A-9E63-E9C94A252B33} = {6A8B1632-8463-4A25-A43C-5751B89840BB}
-		{83D75E5B-E249-4BFD-AE26-6DF067EAB42D} = {D0C09AF8-BC70-478F-BEF0-7D29C6DA78B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F2F7AD8-F594-44C9-A77B-6B2CA0922419}

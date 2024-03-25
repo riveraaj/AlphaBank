@@ -1,6 +1,4 @@
-﻿
-using Data.AlphaBank;
-using Humanizer;
+﻿using Data.AlphaBank;
 using iText.IO.Font.Constants;
 using iText.Kernel.Font;
 using iText.Kernel.Geom;
@@ -14,8 +12,9 @@ using static System.Net.Mime.MediaTypeNames;
 using Text = iText.Layout.Element.Text;
 using Document = iText.Layout.Document;
 using iText.Bouncycastle.Crypto;
+using Humanizer;
 
-namespace Service.GrantingLoans.Helpers
+namespace Service.Common.Helpers
 {
     internal static class LoanContractCreationHelper
     {
