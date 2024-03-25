@@ -20,24 +20,38 @@ namespace Service.Common.Helpers
     {
         private const string filePath = @"C:\Documents\Proyecto-SoftwareIII\Contratos";
 
-        public static string CreatePdf(LoanApplication loanApplication)
+        public static string CreatePdf(LoanApplication oLoanApplication)
         {
 
             var spanish = new CultureInfo("es-CR");
 
-            string currency = "CRC";
-            string date = "20 de marzo del 2024";
-            string clientFullName = "Sergio Monge Cortés";
-            string identificationType = "cedula de identidad";
-            string identificationNumber = "1-1809-0090";
-            string address = "Mi casa";
-            decimal loanAmount = 15484090;
-            string interestPercentage = "10";
-            string loanTerm = "36";
-            decimal paymentAmount = (loanAmount / decimal.Parse(loanTerm)) + (loanAmount * (decimal.Parse(interestPercentage) / 100));
-            string description = "vacaciones";
+            string currency = oLoanApplication.TypeCurrency.Description;
+            string date = DateTime.Now.ToString("dd 'de' MMMM 'del' yyyy", spanish);
+            string clientFullName = oLoanApplication.Account.Customer.Person.Name + " " + oLoanApplication.Account.Customer.Person.FirstName + " " + oLoanApplication.Account.Customer.Person.SecondName;
+            string identificationType = oLoanApplication.Account.Customer.Person.TypeIdentification.Description;
 
-            string finalFilePath = System.IO.Path.Combine(filePath, loanApplication.Id + "_loan_contract_" + loanApplication.Account.CustomerId + ".pdf");
+            string identificationNumber;
+            switch (oLoanApplication.Account.Customer.Person.TypeIdentificationId)
+            {
+                case 1:
+                    identificationNumber = oLoanApplication.Account.Customer.PersonId.ToString("#-####-####");
+                    break;
+                case 2:
+                    identificationNumber = oLoanApplication.Account.Customer.PersonId.ToString("#-###-######");
+                    break;
+                default:
+                    identificationNumber = oLoanApplication.Account.Customer.PersonId.ToString();
+                    break;
+            }
+
+            string address = oLoanApplication.Account.Customer.Person.Address;
+            decimal loanAmount = oLoanApplication.Amount;
+            string interestPercentage = oLoanApplication.Interest.Description;
+            string loanTerm = oLoanApplication.Deadline.Description.Split(' ')[0];
+            decimal paymentAmount = (loanAmount / decimal.Parse(loanTerm)) + (loanAmount * (decimal.Parse(interestPercentage) / 100));
+            string description = oLoanApplication.Justification;
+
+            string finalFilePath = System.IO.Path.Combine(filePath, oLoanApplication.Id + "_loan_contract_" + oLoanApplication.Account.Customer.PersonId + ".pdf");
 
 
             try
@@ -92,7 +106,7 @@ namespace Service.Common.Helpers
 
                 paragraph = new Paragraph();
                 paragraph.Add(new Text(clientFullName.ToUpper()).SetFont(fontBold));
-                paragraph.Add(" de " + identificationType + " " + identificationNumber + " con domicilio en " + address + " en adelante denominado el “");
+                paragraph.Add(" de identificación " + identificationType + " " + identificationNumber + " con domicilio en " + address + " en adelante denominado el “");
                 paragraph.Add(debtor);
                 paragraph.Add("”.");
                 document.Add(paragraph.AddStyle(paragraphStyle));
@@ -112,7 +126,7 @@ namespace Service.Common.Helpers
                 document.Add(new Paragraph("Las Partes acuerdan el siguiente contrato de préstamo:").AddStyle(paragraphStyle));
 
                 document.Add(new Paragraph("1. Monto del Préstamo:").AddStyle(paragraphStyle).SetMarginLeft(25));
-                document.Add(new Paragraph("i. El Banco otorga al Deudor un préstamo por un monto total de ₡" + ConvertirAMoneda(loanAmount.ToString(), currency) + " (" + long.Parse(loanAmount.ToString()).ToWords(spanish) + ").").AddStyle(paragraphStyle).SetMarginLeft(50));
+                document.Add(new Paragraph("i. El Banco otorga al Deudor un préstamo por un monto total de ₡" + MoneyFormat(loanAmount.ToString(), currency) + " (" + long.Parse(loanAmount.ToString()).ToWords(spanish) + ").").AddStyle(paragraphStyle).SetMarginLeft(50));
 
                 document.Add(new Paragraph("2. Tasa de Interés:").AddStyle(paragraphStyle).SetMarginLeft(25));
                 document.Add(new Paragraph("i. La tasa de interés acordada para este préstamo es del " + interestPercentage + "% anual.").AddStyle(paragraphStyle).SetMarginLeft(50));
@@ -121,7 +135,7 @@ namespace Service.Common.Helpers
                 document.Add(new Paragraph("i. El plazo de este préstamo es de " + loanTerm + " meses, comenzando a partir de la fecha de desembolso del préstamo.").AddStyle(paragraphStyle).SetMarginLeft(50));
 
                 document.Add(new Paragraph("4. Forma de Pago:").AddStyle(paragraphStyle).SetMarginLeft(25));
-                document.Add(new Paragraph("i. El Deudor deberá realizar pagos mensuales por el monto de " + ConvertirAMoneda(paymentAmount.ToString(), currency) + " en las fechas acordadas entre Las Partes.").AddStyle(paragraphStyle).SetMarginLeft(50));
+                document.Add(new Paragraph("i. El Deudor deberá realizar pagos mensuales por el monto de " + MoneyFormat(paymentAmount.ToString(), currency) + " en las fechas acordadas entre Las Partes.").AddStyle(paragraphStyle).SetMarginLeft(50));
 
                 document.Add(new Paragraph("5. Penalizaciones por Pagos Atrasados:").AddStyle(paragraphStyle).SetMarginLeft(25));
                 document.Add(new Paragraph("i. En caso de que el Deudor no realice los pagos en las fechas acordadas, se aplicará una penalización sobre el monto adeudado por cada día de retraso.").AddStyle(paragraphStyle).SetMarginLeft(50));
@@ -156,12 +170,12 @@ namespace Service.Common.Helpers
             }
         }
 
-        static string ConvertirAMoneda(string cantidad, string codigoMoneda)
+        static string MoneyFormat(string amount, string currecncy)
         {
-            decimal cantidadDecimal = decimal.Parse(cantidad);
+            decimal cantidadDecimal = decimal.Parse(amount);
             CultureInfo culture;
 
-            switch (codigoMoneda)
+            switch (currecncy)
             {
                 case "USD":
                     culture = CultureInfo.GetCultureInfo("en-US");
@@ -169,13 +183,15 @@ namespace Service.Common.Helpers
                 case "CRC":
                     culture = CultureInfo.GetCultureInfo("es-CR");
                     break;
-                // Agregar más casos para otras monedas si es necesario
+                case "EUR":
+                    culture = CultureInfo.GetCultureInfo("es-ES");
+                    break;
                 default:
                     culture = CultureInfo.InvariantCulture;
                     break;
             }
 
-            return cantidadDecimal.ToString("C", culture).Replace(culture.NumberFormat.CurrencySymbol, "") + " " + codigoMoneda;
+            return cantidadDecimal.ToString("C", culture).Replace(culture.NumberFormat.CurrencySymbol, "") + " " + currecncy;
         }
     }
 }
