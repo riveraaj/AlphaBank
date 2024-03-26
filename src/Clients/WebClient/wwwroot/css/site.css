@@ -99,6 +99,14 @@ input[type = "search"] {
     border-radius: 8px;
 }
 
+textarea {
+    margin-top: 10px !important;
+    background-color: transparent !important;
+    border: 2px solid #789461 !important;
+    border-radius: 8px !important;
+    resize: none;
+}
+
 select {
     margin-top: 10px!important;
     background-color: transparent!important;

@@ -34,8 +34,17 @@
                         <td>@employee.Person.FirstName</td>
                         <td>@employee.Person.SecondName</td>
                         <td>@employee.Person.PhoneNumber</td>
+                    
+                    @if(employee.User.EmailAddress != null)
+                    {
                         <td>@employee.User.EmailAddress</td>
                         <td>@employee.User.Role</td>
+                    }
+                    else
+                    {
+                            <td>------- </td>
+                            <td>------- </td>
+                    }
                     </tr>
                 }
             </tbody>
