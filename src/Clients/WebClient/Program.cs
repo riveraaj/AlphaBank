@@ -9,15 +9,16 @@ using Repository.Common;
 using Repository.Security;
 using Service.Common;
 using Service.Security;
+using UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Add cookie
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options => {
-        options.LoginPath = "/Login/Index";
+        options.LoginPath = "/Security/Login";
         options.ExpireTimeSpan = TimeSpan.FromDays(1);
-        options.AccessDeniedPath = "/";
+        options.AccessDeniedPath = "/Home";
     });
 
 // Add services to the container.
@@ -27,18 +28,20 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AlphaBankDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//Repositories Scoped
+//Repositories Scope
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IPhoneRepository, PhoneRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 //Services Scoped
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
 
 //Add App Insights
 builder.Services.AddApplicationInsightsTelemetry();
@@ -61,6 +64,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Login}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
