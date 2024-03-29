@@ -9,7 +9,11 @@ namespace Repository.BankAccounts {
         private readonly AlphaBankDbContext _context = context;
 
         public async Task<Account?> GetByIdForLoanApplication(string id)
-            => await _context.Accounts.Include(x => x.Customer).FirstOrDefaultAsync(x => x.Id == id);                                    
+            => await _context.Accounts.Include(x => x.Customer).FirstOrDefaultAsync(x => x.Id == id);
+
+        public async Task<ICollection<Account>> GetByPersonIdForLoanApplication(int id)
+            => await _context.Accounts.Include(x => x.TypeCurrency)
+                                        .Where(x => x.Customer.PersonId == id).ToListAsync();
 
         public async Task<bool> CheckIfExistsByAccountNumberAsync(string accountNumber)
             => await _context.Accounts.AnyAsync(x => x.Id.Equals(accountNumber));
