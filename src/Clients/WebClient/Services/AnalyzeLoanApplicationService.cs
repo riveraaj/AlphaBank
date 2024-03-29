@@ -36,7 +36,6 @@ namespace WebClient.Services {
             });
         }
 
-        public async Task<IEnumerable<SelectListItem>> GetTypeCurrencySelectListItems(){
 
             var typeCurrencyList = await _typeCurrencyService.GetAll();
 
