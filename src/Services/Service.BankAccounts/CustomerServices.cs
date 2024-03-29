@@ -1,4 +1,5 @@
-﻿using Dtos.AlphaBank.BankAccounts;
+﻿using Data.AlphaBank;
+using Dtos.AlphaBank.BankAccounts;
 using Interfaces.BankAccounts.Repositories;
 using Interfaces.BankAccounts.Services;
 using Interfaces.Common.Services;
@@ -85,5 +86,8 @@ namespace Service.BankAccounts
                 return [];
             }
         }
+
+        public async Task<Customer?> GetById(int id) 
+            => await _customerRepository.GetByPersonIdAsync(id);
     }
 }
