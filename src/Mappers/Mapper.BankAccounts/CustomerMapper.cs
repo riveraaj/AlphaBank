@@ -1,11 +1,25 @@
 ﻿
 using Data.AlphaBank;
+using Dtos.AlphaBank.AnalyzeLoanOpportunities;
 using Dtos.AlphaBank.BankAccounts;
 using Dtos.AlphaBank.Common;
-using Dtos.AlphaBank.Security;
+using System.Globalization;
 
 namespace Mapper.BankAccounts {
     public static class CustomerMapper {
+
+        public static ShowCustomerLoanDto MapShowCustomerLoan(Customer oCustomer)
+            => new() {
+                Age = DateTime.Today.Year - oCustomer.Person.DateBirth.Year,
+                Address = oCustomer.Person.Address,
+                AverageMonthlySalary = oCustomer.AverageMonthlySalary.ToString("#,0", CultureInfo.InvariantCulture),
+                Email = oCustomer.EmailAddress,
+                FullName = $"{oCustomer.Person.Name} {oCustomer.Person.FirstName} {oCustomer.Person.SecondName}",
+                MaritalStatus = oCustomer.Person.MaritalStatus.Description,
+                Nationality = oCustomer.Person.Nationality.Description, 
+                Occupation = oCustomer.Occupation.Description,
+                PhoneNumber = oCustomer.Person.Phones.FirstOrDefault()!.Number
+            };
 
         public static Customer MapCustomer(CreateCustomerDto oCreateCustomerDto)
             => new() {
