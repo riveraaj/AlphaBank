@@ -26,6 +26,8 @@ namespace Service.Common
 
                 contract.TypeContractId = 1;
 
+                contract.LoanApplicationId = oLoanApplication.Id;
+
                 // Create the Contract PDF and get the file path.
                 contract.PathFile = LoanContractCreationHelper.CreatePdf(oLoanApplication);
                 // Check if the Contract PDF was created
