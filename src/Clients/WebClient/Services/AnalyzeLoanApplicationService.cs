@@ -1,18 +1,15 @@
 ﻿using Interfaces.AnalyzeLoanOpportunities.Services;
 using Interfaces.BankAccounts.Services;
-using Interfaces.Common.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebClient.Services {
     public class AnalyzeLoanApplicationService(ITypeLoanService typeLoanService,
                                         IDeadlineService deadlineService,
-                                        ITypeCurrencyService typeCurrencyService,
                                         IInterestService interestService,
                                         IAccountService accountService) {
 
         private readonly ITypeLoanService _typeLoanService = typeLoanService;
-        private readonly IDeadlineService _deadlineService = deadlineService;
-        private readonly ITypeCurrencyService _typeCurrencyService = typeCurrencyService;
+        private readonly IDeadlineService _deadlineService = deadlineService; 
         private readonly IInterestService _interestService = interestService;
         private readonly IAccountService _accountService = accountService;
 
@@ -31,15 +28,6 @@ namespace WebClient.Services {
             var deadlineList = await _deadlineService.GetAll();
 
             return deadlineList.Select(x => new SelectListItem {
-                Value = x.Id.ToString(),
-                Text = x.Description
-            });
-        }
-
-
-            var typeCurrencyList = await _typeCurrencyService.GetAll();
-
-            return typeCurrencyList.Select(x => new SelectListItem {
                 Value = x.Id.ToString(),
                 Text = x.Description
             });
