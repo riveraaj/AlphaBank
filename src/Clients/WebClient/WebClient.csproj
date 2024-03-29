@@ -24,11 +24,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Dtos\Dtos.AlphaBank\Dtos.AlphaBank.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.AnalyzeLoanOpportunities\Interfaces.AnalyzeLoanOpportunities.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.BankAccounts\Interfaces.BankAccounts.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.GrantingLoans\Interfaces.GrantingLoans.csproj" />
     <ProjectReference Include="..\..\Interfaces\Interfaces.Security\Interfaces.Security.csproj" />
     <ProjectReference Include="..\..\Persistences\Database.AlphaBank\Database.AlphaBank.csproj" />
+    <ProjectReference Include="..\..\Repositories\Repository.AnalyzeLoanOpportunities\Repository.AnalyzeLoanOpportunities.csproj" />
+    <ProjectReference Include="..\..\Repositories\Repository.BankAccounts\Repository.BankAccounts.csproj" />
+    <ProjectReference Include="..\..\Repositories\Repository.Common\Repository.Common.csproj" />
     <ProjectReference Include="..\..\Repositories\Repository.Security\Repository.Security.csproj" />
     <ProjectReference Include="..\..\Repositories\UnitOfWork\UnitOfWork.csproj" />
+    <ProjectReference Include="..\..\Services\Service.AnalyzeLoanOpportunities\Service.AnalyzeLoanOpportunities.csproj" />
+    <ProjectReference Include="..\..\Services\Service.BankAccounts\Service.BankAccounts.csproj" />
     <ProjectReference Include="..\..\Services\Service.Common\Service.Common.csproj" />
+    <ProjectReference Include="..\..\Services\Service.GrantingLoans\Service.GrantingLoans.csproj" />
     <ProjectReference Include="..\..\Services\Service.Security\Service.Security.csproj" />
   </ItemGroup>
 

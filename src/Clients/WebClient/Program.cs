@@ -1,12 +1,20 @@
+using Data.AlphaBank;
 using Database.AlphaBank;
+using Interfaces.AnalyzeLoanOpportunities.Repositories;
+using Interfaces.AnalyzeLoanOpportunities.Services;
+using Interfaces.BankAccounts.Repositories;
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
 using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
+using Repository.AnalyzeLoanOpportunities;
+using Repository.BankAccounts;
 using Repository.Common;
 using Repository.Security;
+using Service.AnalyzeLoanOpportunities;
 using Service.Common;
 using Service.Security;
 using UnitOfWork;
@@ -35,13 +43,15 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IPhoneRepository, PhoneRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<ILoanApplicationRepository, LoanApplicationRepository>();
 
 //Services Scoped
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-
+builder.Services.AddScoped<ILoanApplicationService, LoanApplicationService>();
 
 //Add App Insights
 builder.Services.AddApplicationInsightsTelemetry();
