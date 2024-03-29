@@ -22,6 +22,10 @@ namespace Service.Common.Helpers
 
         public static string CreatePdf(LoanApplication oLoanApplication)
         {
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
 
             var spanish = new CultureInfo("es-CR");
 
@@ -48,7 +52,7 @@ namespace Service.Common.Helpers
             decimal loanAmount = oLoanApplication.Amount;
             string interestPercentage = oLoanApplication.Interest.Description;
             string loanTerm = oLoanApplication.Deadline.Description.Split(' ')[0];
-            decimal paymentAmount = (loanAmount / decimal.Parse(loanTerm)) + (loanAmount * (decimal.Parse(interestPercentage) / 100));
+            decimal paymentAmount = (loanAmount / decimal.Parse(loanTerm));
             string description = oLoanApplication.Justification;
 
             string finalFilePath = System.IO.Path.Combine(filePath, oLoanApplication.Id + "_loan_contract_" + oLoanApplication.Account.Customer.PersonId + ".pdf");
@@ -106,7 +110,7 @@ namespace Service.Common.Helpers
 
                 paragraph = new Paragraph();
                 paragraph.Add(new Text(clientFullName.ToUpper()).SetFont(fontBold));
-                paragraph.Add(" de identificación " + identificationType + " " + identificationNumber + " con domicilio en " + address + " en adelante denominado el “");
+                paragraph.Add(" de número de Identificación " + identificationType + " " + identificationNumber + " con domicilio en " + address + " en adelante denominado el “");
                 paragraph.Add(debtor);
                 paragraph.Add("”.");
                 document.Add(paragraph.AddStyle(paragraphStyle));
@@ -126,7 +130,7 @@ namespace Service.Common.Helpers
                 document.Add(new Paragraph("Las Partes acuerdan el siguiente contrato de préstamo:").AddStyle(paragraphStyle));
 
                 document.Add(new Paragraph("1. Monto del Préstamo:").AddStyle(paragraphStyle).SetMarginLeft(25));
-                document.Add(new Paragraph("i. El Banco otorga al Deudor un préstamo por un monto total de ₡" + MoneyFormat(loanAmount.ToString(), currency) + " (" + long.Parse(loanAmount.ToString()).ToWords(spanish) + ").").AddStyle(paragraphStyle).SetMarginLeft(50));
+                document.Add(new Paragraph("i. El Banco otorga al Deudor un préstamo por un monto total de ₡" + MoneyFormat(loanAmount.ToString(), currency) + " (" + ((long)loanAmount).ToWords(spanish) + ").").AddStyle(paragraphStyle).SetMarginLeft(50));
 
                 document.Add(new Paragraph("2. Tasa de Interés:").AddStyle(paragraphStyle).SetMarginLeft(25));
                 document.Add(new Paragraph("i. La tasa de interés acordada para este préstamo es del " + interestPercentage + "% anual.").AddStyle(paragraphStyle).SetMarginLeft(50));
@@ -135,7 +139,7 @@ namespace Service.Common.Helpers
                 document.Add(new Paragraph("i. El plazo de este préstamo es de " + loanTerm + " meses, comenzando a partir de la fecha de desembolso del préstamo.").AddStyle(paragraphStyle).SetMarginLeft(50));
 
                 document.Add(new Paragraph("4. Forma de Pago:").AddStyle(paragraphStyle).SetMarginLeft(25));
-                document.Add(new Paragraph("i. El Deudor deberá realizar pagos mensuales por el monto de " + MoneyFormat(paymentAmount.ToString(), currency) + " en las fechas acordadas entre Las Partes.").AddStyle(paragraphStyle).SetMarginLeft(50));
+                document.Add(new Paragraph("i. El Deudor deberá realizar pagos mensuales por el monto de " + MoneyFormat(paymentAmount.ToString(), currency) + " (más intereses) en las fechas acordadas entre Las Partes.").AddStyle(paragraphStyle).SetMarginLeft(50));
 
                 document.Add(new Paragraph("5. Penalizaciones por Pagos Atrasados:").AddStyle(paragraphStyle).SetMarginLeft(25));
                 document.Add(new Paragraph("i. En caso de que el Deudor no realice los pagos en las fechas acordadas, se aplicará una penalización sobre el monto adeudado por cada día de retraso.").AddStyle(paragraphStyle).SetMarginLeft(50));
