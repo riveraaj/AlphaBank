@@ -11,5 +11,7 @@ namespace Interfaces.BankAccounts.Services {
         public Task<List<ShowAccountDto>> GetAll();
 
         public Task<List<Account>> GetByIdForLoanApplication(int id);
+
+        public Task<List<ShowAccountForPersonDto>> GetByIdForBankAccount(int id);
     }
 }
