@@ -1,4 +1,4 @@
-﻿using Data.AlphaBank;
+﻿using Dtos.AlphaBank.AnalyzeLoanOpportunities;
 using Dtos.AlphaBank.BankAccounts;
 using Interfaces.BankAccounts.Repositories;
 using Interfaces.BankAccounts.Services;
@@ -63,10 +63,8 @@ namespace Service.BankAccounts
             }
         }
 
-        public async Task<List<ShowCustomerDto>> GetAll()
-        {
-            try
-            {
+        public async Task<List<ShowCustomerDto>> GetAll() {
+            try {
                 //Retrieve all Customers asynchronously from the CustomerRepository.
                 var customerList = await _customerRepository.GetAllAsync();
 
@@ -79,15 +77,17 @@ namespace Service.BankAccounts
 
                 // Return the list of ShowCustomerDto objects.
                 return showCustomerDtoList;
-
-            }
-            catch
-            {
+            }  catch {
                 return [];
             }
         }
 
-        public async Task<Customer?> GetById(int id) 
-            => await _customerRepository.GetByPersonIdAsync(id);
+        public async Task<ShowCustomerLoanDto?> GetById(int id) {
+            var customer = await _customerRepository.GetByPersonIdAsync(id);
+
+            if (customer != null) return CustomerMapper.MapShowCustomerLoan(customer);
+
+            return null;
+        }  
     }
 }
