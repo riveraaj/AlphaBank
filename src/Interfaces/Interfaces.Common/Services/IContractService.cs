@@ -1,5 +1,5 @@
 ﻿using Data.AlphaBank;
-using Dtos.AlphaBank.BankAccounts;
+using Dtos.AlphaBank.Common;
 
 namespace Interfaces.Common.Services
 {
@@ -8,5 +8,6 @@ namespace Interfaces.Common.Services
 
         public Task<bool> LoanTypeCreate(LoanApplication oLoanApplication);
 
+        public Task<List<ShowContractDto>> GetByLoanApplicationID(int id);
     }
 }

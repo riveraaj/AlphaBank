@@ -1,7 +1,8 @@
 ﻿using Data.AlphaBank;
+using Dtos.AlphaBank.Common;
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
-using Microsoft.IdentityModel.Tokens;
+using Mapper.Common;
 using Service.Common.Helpers;
 
 namespace Service.Common
@@ -49,6 +50,28 @@ namespace Service.Common
 
                 //If there's an exception during the process, return false.
                 return false;
+            }
+        }
+
+
+        public async Task<List<ShowContractDto>> GetByLoanApplicationID(int id)
+        {
+            try
+            {
+                //Retrieve Contracts by LoanApplicationId asynchronously from the ContractRepository.
+                var contractList = await _contractRepository.GetByLoanApplicationId(id);
+
+                //Initialize a list to store ShowContractDto objects.
+                var showContractDtoList = new List<ShowContractDto>();
+                foreach (var contract in contractList)
+                    showContractDtoList.Add(ContractMapper.MapShowContractDto(contract));
+
+                // Return the list of ShowContractDto objects.
+                return showContractDtoList;
+            }
+            catch
+            {
+                return [];
             }
         }
 

@@ -17,6 +17,10 @@ namespace Repository.Common
         public async Task CreateAsync(Contract oContract)
             => await _context.Contracts.AddAsync(oContract);
 
+        public async Task<ICollection<Contract>> GetByLoanApplicationId(int id)
+            => await _context.Contracts.Include(x => x.TypeContract)
+                                        .Where(x => x.LoanApplicationId == id).ToListAsync();
+
         public async Task SaveChangesAsync()
             => await _context.SaveChangesAsync();
 
