@@ -35,6 +35,7 @@ namespace Service.GrantingLoans
                 //_logger.LogInformation("----- Loan Granting: Update the ApplicationStatus of the LoanApplication.");
                 //Update the LoanApplication Status to 2 or "Approbado"
                 await _loanApplicationRepository.UpdateApplicationStatus(oLoanApplication.Id, 2);
+                await _loanApplicationRepository.SaveChangesAsync();
 
                 //_logger.LogInformation("----- Loan Granting: Create the Loan in the data base.");
                 //Create Loan Record in the Data Base
