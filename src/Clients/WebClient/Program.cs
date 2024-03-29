@@ -1,23 +1,23 @@
-using Data.AlphaBank;
 using Database.AlphaBank;
 using Interfaces.AnalyzeLoanOpportunities.Repositories;
 using Interfaces.AnalyzeLoanOpportunities.Services;
 using Interfaces.BankAccounts.Repositories;
+using Interfaces.BankAccounts.Services;
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
 using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using Repository.AnalyzeLoanOpportunities;
 using Repository.BankAccounts;
 using Repository.Common;
 using Repository.Security;
 using Service.AnalyzeLoanOpportunities;
+using Service.BankAccounts;
 using Service.Common;
 using Service.Security;
-using UnitOfWork;
+using WebClient.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +45,13 @@ builder.Services.AddScoped<IPhoneRepository, PhoneRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<ILoanApplicationRepository, LoanApplicationRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ITypeLoanRepository, TypeLoanRepository>();
+builder.Services.AddScoped<IDeadlineRepository, DeadlineRepository>();
+builder.Services.AddScoped<ITypeCurrencyRepository, TypeCurrencyRepository>();
+builder.Services.AddScoped<IInterestRepository, InterestRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+
 
 //Services Scoped
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
@@ -52,6 +59,13 @@ builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<ILoanApplicationService, LoanApplicationService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ITypeLoanService, TypeLoanService>();
+builder.Services.AddScoped<IDeadlineService, DeadlineService>();
+builder.Services.AddScoped<ITypeCurrencyService, TypeCurrencyService>();
+builder.Services.AddScoped<IInterestService, InterestService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<AnalyzeLoanApplicationService>();
 
 //Add App Insights
 builder.Services.AddApplicationInsightsTelemetry();
