@@ -1,4 +1,4 @@
-﻿@model Dtos.AlphaBank.Security.UserLoginDto;
+﻿@model AccountOpeningViewModel;
 
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
@@ -6,106 +6,113 @@
 }
 
 <div class="container">
-    <form method="post" class="d-flex justify-content-center" asp-action="" asp-controller="">
-        <div class="card-white-transparent shadow-container mt-5 w-100">
-            <div class="header-card">
-                <div class="row">
-                    <p class="tittle">Apertura de Cuentas Bancarias</p>
-                </div>
-                <br />
+    <div class="card-white-transparent shadow-container mt-5 w-100">
+
+        <div class="header-card">
+            <div class="row">
+                <p class="tittle">Apertura de Cuentas Bancarias</p>
+            </div>
+
+            <br />
+            <form method="get" asp-controller="BankAccounts" asp-action="AccountOppening">
                 <div class="row mt-4">
-                    @* <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
-                        <div class="row">
-                            <div class="col-4 d-flex justify-content-center align-items-center control-label">
-                                Tipo Identificación
-                            </div>
-                            <div class=" col-8">
-                                <input type="text" asp-for="Id" class="form-control input-radius-50 mt-0" />
-                            </div>
-                        </div> 
-                    </div> *@
                     <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 pt-3 pt-sm-3 pt-md-0 pt-lg-0 pt-xl-0">
                         <div class="row">
                             <div class="col-3 d-flex justify-content-center align-items-center control-label">
                                 Identificación
                             </div>
+
                             <div class="col-9">
-                                <input type="text" asp-for="Id" class="form-control input-radius-50 mt-0" />
+                                <input type="text" name="id" class="form-control input-radius-50 mt-0" />
                             </div>
                         </div>
                     </div>
+
                     <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 pt-3 pt-sm-3 pt-md-3 pt-lg-0 pt-xl-0">
                         <input type="submit" value="Consultar" class="btn btn-green w-100" />
                     </div>
                 </div>
+            </form>
+        </div>
 
+        <div class="card-main pt-3">
+            <h5>Información personal:</h5>
+            <div class="row">
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Nombre Completo:</label>
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.FullName ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <label class="control-label">Estado Civil:</label>
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.MaritalStatus ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
+                    <label class="control-label">Edad:</label>
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.Age.ToString() ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Nacionalidad:</label>
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.Nationality ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Ocupación:</label>
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.Occupation ?? "")" disabled />
+                </div>
             </div>
-            <div class="card-main pt-3">
-                <h5>Información personal:</h5>
-                <div class="row">
-                    <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="Id" class="control-label">Nombre Completo:</label>
-                        <input type="text" asp-for="Id" class="form-control" disabled />
-                        <span asp-validation-for="Id" class="text-danger"></span>
-                    </div>
-                    <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                        <label asp-for="Id" class="control-label">Estado Civil:</label>
-                        <input type="text" asp-for="Id" class="form-control" disabled />
-                        <span asp-validation-for="Id" class="text-danger"></span>
-                    </div>
-                    <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
-                        <label asp-for="Id" class="control-label">Edad:</label>
-                        <input type="text" asp-for="Id" class="form-control" disabled />
-                        <span asp-validation-for="Id" class="text-danger"></span>
-                    </div>
-                    <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="Id" class="control-label">Nacionalidad:</label>
-                        <input type="text" asp-for="Id" class="form-control" disabled />
-                        <span asp-validation-for="Id" class="text-danger"></span>
-                    </div>
-                    <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="Id" class="control-label">Ocupación:</label>
-                        <input type="text" asp-for="Id" class="form-control" disabled />
-                        <span asp-validation-for="Id" class="text-danger"></span>
-                    </div>
+
+            <div class="row">
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <label class="control-label">Teléfono:</label>
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.PhoneNumber.ToString() ?? "")" disabled />
                 </div>
-                <div class="row">
-                    <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-                        <label asp-for="Id" class="control-label">Teléfono:</label>
-                        <input type="text" asp-for="Id" class="form-control" disabled />
-                        <span asp-validation-for="Id" class="text-danger"></span>
-                    </div>
-                    <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="Id" class="control-label">Correo Electrónico:</label>
-                        <input type="text" asp-for="Id" class="form-control" disabled />
-                        <span asp-validation-for="Id" class="text-danger"></span>
-                    </div>
-                    <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
-                        <label asp-for="Id" class="control-label">Dirección de Residencia:</label>
-                        <input type="text" asp-for="Id" class="form-control" disabled />
-                        <span asp-validation-for="Id" class="text-danger"></span>
-                    </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Correo Electrónico:</label>
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.Email ?? "")" disabled />
                 </div>
-                <br />
-                <hr />
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
+                    <label class="control-label">Dirección de Residencia:</label>
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.Address ?? "")" disabled />
+                </div>
+            </div>
+
+            <br />
+            <hr />
+            <form method="post" asp-controller="BankAccounts" asp-action="CreateAccount">
                 <div class="row">
                     <h5>Información de la cuenta:</h5>
+
+                    <input type="hidden" asp-for="CreateAccountDto.CustomerId" value="@Model?.ShowCustomerDto.CustomerId" />
+                    <span asp-validation-for="CreateAccountDto.CustomerId" class="text-danger"></span>
+
+                    <input type="hidden" name="personId" value="@Model?.ShowCustomerDto.PersonId" />
+
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="Id" class="control-label">Tipo de cuenta:</label>
-                        <select class="form-control"></select>
-                        <span asp-validation-for="Id" class="text-danger"></span>
+                        <label asp-for="CreateAccountDto.TypeAccountId" class="control-label">Tipo de cuenta:</label>
+                        <select asp-for="CreateAccountDto.TypeAccountId" asp-items="ViewBag.TypeAccount" class="form-control"></select>
+                        <span asp-validation-for="CreateAccountDto.TypeAccountId" class="text-danger"></span>
                     </div>
+
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="Id" class="control-label">Tipo de moneda:</label>
-                        <select class="form-control"></select>
-                        <span asp-validation-for="Id" class="text-danger"></span>
+                        <label asp-for="CreateAccountDto.TypeCurrencyId" class="control-label">Tipo de moneda:</label>
+                        <select asp-for="CreateAccountDto.TypeCurrencyId" asp-items="ViewBag.TypeCurrency" class="form-control"></select>
+                        <span asp-validation-for="CreateAccountDto.TypeCurrencyId" class="text-danger"></span>
                     </div>
                 </div>
+
                 <br />
                 <hr />
+
                 <h5>Cuentas existentes:</h5>
                 <div class="">
                     <table id="tablacuenta" class="mt-4">
+
                         <thead>
                             <tr>
                                 <th>Número de cuenta</th>
@@ -113,20 +120,37 @@
                                 <th>Estado</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        </tbody>
 
+                        <tbody>
+                            @if (Model != null) {
+                                @foreach (var account in Model.ShowAccountForPersonDtoList) {
+                                    <tr>
+                                        <td>@account.AccountId</td>
+                                        <td>@account.TypeCurrency</td>
+                                        <td>@account.State</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
                     </table>
                 </div>
 
                 <div class="form-group">
                     <span class="text-danger">@ViewData["Error"]</span>
                 </div>
+
                 <br />
+
                 <div class="form-group d-flex justify-content-center pt-3">
                     <input type="submit" value="Generar Cuenta" class="btn btn-green" />
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
