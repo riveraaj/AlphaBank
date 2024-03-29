@@ -104,5 +104,25 @@ namespace Service.BankAccounts {
                 return [];
             }
         }
+
+        public async Task<List<ShowAccountForPersonDto>> GetByIdForBankAccount(int id) {
+            try {
+                //Retrieve all accounts asynchronously from the AccountRepository.
+                var accountList = await _accountRepository.GetByPersonIdForLoanApplication(id);
+
+                //Initialize a list to store ShowAccountForPersonDto objects.
+                var showAccountForPersonList = new List<ShowAccountForPersonDto>();
+
+                //Map each account to a ShowAccountForPersonDto and add it to the list.
+                foreach (var account in accountList)
+                    showAccountForPersonList.Add(AccountMapper.MapShowAccountForPersonDto(account));
+
+                // Return the list of ShowAccountForPersonDto objects.
+                return showAccountForPersonList;
+
+            } catch {
+                return [];
+            }
+        }
     }
 }
