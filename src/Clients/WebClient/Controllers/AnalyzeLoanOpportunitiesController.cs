@@ -11,7 +11,8 @@ namespace WebClient.Controllers {
     [Authorize]
     public class AnalyzeLoanOpportunitiesController(ILoanApplicationService loanApplicationService,
                                                     ICustomerService customerService,
-                                                    AnalyzeLoanApplicationService analyzeLoanApplicationService) : Controller {
+                                                    AnalyzeLoanApplicationService analyzeLoanApplicationService,
+                                                    CommonService commonService) : Controller {
 
         private readonly ILoanApplicationService _loanApplicationService
             = loanApplicationService;
@@ -21,6 +22,8 @@ namespace WebClient.Controllers {
         private readonly AnalyzeLoanApplicationService _analyzeLoanApplicationService
             = analyzeLoanApplicationService;
 
+        private readonly CommonService _commonService = commonService;
+
         [HttpGet]
         public async Task<IActionResult> LoanApplication(int? id) {
 
@@ -28,7 +31,7 @@ namespace WebClient.Controllers {
             //SelectList to enter them in a ViewData
             var typeLoanList = await _analyzeLoanApplicationService.GetTypeLoanSelectListItems();
             var deadlineList = await _analyzeLoanApplicationService.GetDeadlineSelectListItems();
-            var typeCurrencyList = await _analyzeLoanApplicationService.GetTypeCurrencySelectListItems();
+            var typeCurrencyList = await _commonService.GetTypeCurrencySelectListItems();
             var interestList = await _analyzeLoanApplicationService.GetInterestSelectListItems();
 
             //ViewData is created for each SelectList and formatted as follows
@@ -40,7 +43,7 @@ namespace WebClient.Controllers {
             if (id.HasValue) { //Validates if the parameter has data
 
                 //A customer is obtained from the id
-                var customer = await _customerService.GetById((int) id);
+                var customer = await _customerService.GetByIdForLoan((int) id);
 
                 if (customer != null) {
                     //The accounts related to the client are searched and saved in a
