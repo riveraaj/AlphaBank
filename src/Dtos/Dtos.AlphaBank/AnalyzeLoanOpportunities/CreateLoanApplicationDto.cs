@@ -10,9 +10,6 @@ namespace Dtos.AlphaBank.AnalyzeLoanOpportunities {
         [StringLength(25, ErrorMessage = "El campo justificación no puede tener más de 200 caracteres.")]
         public string Justification { get; set; } = null!;
 
-        [Required(ErrorMessage = "El campo empleado es obligatorio.")]
-        public int? UserId { get; set; }
-
         [Required(ErrorMessage = "El campo tipo de moneda es obligatorio.")]
         public byte? TypeCurrencyId { get; set; }
 
@@ -33,5 +30,7 @@ namespace Dtos.AlphaBank.AnalyzeLoanOpportunities {
 
         [Required(ErrorMessage = "El campo interes es obligatorio.")]
         public byte? InterestId { get; set; }
+
+        public int UserId { get; set; }
     }
 }
