@@ -10,7 +10,8 @@ namespace Repository.BankAccounts
         private readonly AlphaBankDbContext _context = context;
 
         public async Task<Customer?> GetByPersonIdAsync(int id)
-            => await _context.Customers.Where(x => x.PersonId == id).FirstAsync();
+            => await _context.Customers.Include(x => x.Person)
+                                       .Where(x => x.PersonId == id).FirstAsync();
 
         public async Task<ICollection<Customer>> GetAllAsync()
             => await _context.Customers.Include(x => x.Occupation)
