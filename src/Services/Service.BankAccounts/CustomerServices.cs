@@ -82,12 +82,20 @@ namespace Service.BankAccounts
             }
         }
 
-        public async Task<ShowCustomerLoanDto?> GetById(int id) {
+        public async Task<ShowCustomerLoanDto?> GetByIdForLoan(int id) {
             var customer = await _customerRepository.GetByPersonIdAsync(id);
 
             if (customer != null) return CustomerMapper.MapShowCustomerLoan(customer);
 
             return null;
-        }  
+        }
+
+        public async Task<ShowCustomerDto?> GetByIdForAccount(int id) {
+            var customer = await _customerRepository.GetByPersonIdAsync(id);
+
+            if (customer != null) return CustomerMapper.MapShowCustomerDto(customer);
+
+            return null;
+        }
     }
 }
