@@ -11,7 +11,13 @@ namespace Repository.BankAccounts
 
         public async Task<Customer?> GetByPersonIdAsync(int id)
             => await _context.Customers.Include(x => x.Person)
-                                       .Where(x => x.PersonId == id).FirstAsync();
+                                            .ThenInclude(y => y.Phones)
+                                       .Include(x => x.Person)
+                                            .ThenInclude(y => y.Nationality)
+                                       .Include(x => x.Person)
+                                            .ThenInclude(y => y.MaritalStatus)
+                                       .Include(x => x.Occupation)
+                                       .Where(x => x.PersonId == id).FirstOrDefaultAsync();
 
         public async Task<ICollection<Customer>> GetAllAsync()
             => await _context.Customers.Include(x => x.Occupation)
