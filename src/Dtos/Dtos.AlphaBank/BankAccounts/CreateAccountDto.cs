@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dtos.AlphaBank.BankAccounts
-{
-    public class CreateAccountDto
-    {
-        [Required]
+namespace Dtos.AlphaBank.BankAccounts {
+    public class CreateAccountDto {
+        [Required(ErrorMessage = "Debe de buscar un cliente")]
         public int? CustomerId { get; set; }
 
         [Required(ErrorMessage = "El campo ocupación es obligatorio.")]
@@ -12,6 +10,5 @@ namespace Dtos.AlphaBank.BankAccounts
 
         [Required(ErrorMessage = "El campo ocupación es obligatorio.")]
         public byte? TypeCurrencyId { get; set; }
-
     }
 }
