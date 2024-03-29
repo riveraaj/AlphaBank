@@ -51,6 +51,7 @@ builder.Services.AddScoped<IDeadlineRepository, DeadlineRepository>();
 builder.Services.AddScoped<ITypeCurrencyRepository, TypeCurrencyRepository>();
 builder.Services.AddScoped<IInterestRepository, InterestRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<ITypeAccountRepository, TypeAccountRepository>();
 
 
 //Services Scoped
@@ -66,6 +67,9 @@ builder.Services.AddScoped<ITypeCurrencyService, TypeCurrencyService>();
 builder.Services.AddScoped<IInterestService, InterestService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<AnalyzeLoanApplicationService>();
+builder.Services.AddScoped<CommonService>();
+builder.Services.AddScoped<ITypeAccountService, TypeAccountService>();
+builder.Services.AddScoped<BankAccountService>();
 
 //Add App Insights
 builder.Services.AddApplicationInsightsTelemetry();
