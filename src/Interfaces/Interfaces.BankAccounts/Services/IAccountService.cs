@@ -1,9 +1,8 @@
-﻿using Dtos.AlphaBank.BankAccounts;
+﻿using Data.AlphaBank;
+using Dtos.AlphaBank.BankAccounts;
 
-namespace Interfaces.BankAccounts.Services
-{
-    public interface IAccountService
-    {
+namespace Interfaces.BankAccounts.Services {
+    public interface IAccountService {
 
         public Task<bool> Create(CreateAccountDto createAccountDto);
 
@@ -11,5 +10,6 @@ namespace Interfaces.BankAccounts.Services
 
         public Task<List<ShowAccountDto>> GetAll();
 
+        public Task<List<Account>> GetByIdForLoanApplication(int id);
     }
 }
