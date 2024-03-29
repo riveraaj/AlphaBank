@@ -5,6 +5,8 @@ namespace Interfaces.BankAccounts.Repositories {
 
         public Task<Account?> GetByIdForLoanApplication(string id);
 
+        public Task<ICollection<Account>> GetByPersonIdForLoanApplication(int id);
+
         public Task<bool> CheckIfExistsByAccountNumberAsync(string accountNumber);
 
         public Task<ICollection<Account>> GetAllAsync();
