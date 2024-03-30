@@ -1,7 +1,5 @@
-﻿namespace Dtos.AlphaBank.Common
-{
-    public class ShowContractDto
-    {
+﻿namespace Dtos.AlphaBank.Common {
+    public class ShowContractDTO {
         public string TypeContractDescription { get; set; } = null!;
 
         public DateOnly DateStart { get; set; }

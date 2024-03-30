@@ -13,11 +13,11 @@ namespace Service.BankAccounts {
         private readonly IAccountRepository _accountRepository = accountRepository;
         private readonly ILogger<AccountService> _logger = logger;
 
-        public async Task<bool> Create(CreateAccountDto oCreateAccountDto) {
+        public async Task<bool> Create(CreateAccountDTO oCreateAccountDTO) {
             try {             
 
-                //Map CreateAccountDto to account object using AccountMapper.
-                var account = AccountMapper.MapAccount(oCreateAccountDto);
+                //Map CreateAccountDTO to account object using AccountMapper.
+                var account = AccountMapper.MapAccount(oCreateAccountDTO);
 
                 var accountExist = true;
                 //Set Id (IBAN) of the account
@@ -25,7 +25,6 @@ namespace Service.BankAccounts {
                     account.Id = AccountNumGeneratorHelper.AccountNumberGenerator(account.TypeAccountId, account.TypeCurrencyId);
                     accountExist = await _accountRepository.CheckIfExistsByAccountNumberAsync(account.Id);
                 }
-
 
                 // Set the status of the account to true.
                 account.Status = true;
@@ -73,20 +72,20 @@ namespace Service.BankAccounts {
             }
         }
 
-        public async Task<List<ShowAccountDto>> GetAll() {
+        public async Task<List<ShowAccountDTO>> GetAll() {
             try {
                 //Retrieve all accounts asynchronously from the AccountRepository.
                 var accountList = await _accountRepository.GetAllAsync();
 
-                //Initialize a list to store ShowAccountDto objects.
-                var showAccountDtoList = new List<ShowAccountDto>();
+                //Initialize a list to store ShowAccountDTO objects.
+                var showAccountDTOList = new List<ShowAccountDTO>();
 
-                //Map each account to a ShowAccountDto and add it to the list.
+                //Map each account to a ShowAccountDTO and add it to the list.
                 foreach (var account in accountList)
-                    showAccountDtoList.Add(AccountMapper.MapShowAccountDto(account));
+                    showAccountDTOList.Add(AccountMapper.MapShowAccountDTO(account));
 
-                // Return the list of ShowAccountDto objects.
-                return showAccountDtoList;
+                // Return the list of ShowAccountDTO objects.
+                return showAccountDTOList;
 
             } catch {
                 return [];
@@ -98,26 +97,26 @@ namespace Service.BankAccounts {
                 //Retrieve all accounts asynchronously from the AccountRepository.
                 var accountList = await _accountRepository.GetByPersonIdForLoanApplication(id);
 
-                // Return the list of ShowAccountDto objects.
+                // Return the list of ShowAccountDTO objects.
                 return (List<Account>) accountList;
             } catch {
                 return [];
             }
         }
 
-        public async Task<List<ShowAccountForPersonDto>> GetByIdForBankAccount(int id) {
+        public async Task<List<ShowAccountForPersonDTO>> GetByIdForBankAccount(int id) {
             try {
                 //Retrieve all accounts asynchronously from the AccountRepository.
                 var accountList = await _accountRepository.GetByPersonIdForLoanApplication(id);
 
-                //Initialize a list to store ShowAccountForPersonDto objects.
-                var showAccountForPersonList = new List<ShowAccountForPersonDto>();
+                //Initialize a list to store ShowAccountForPersonDTO objects.
+                var showAccountForPersonList = new List<ShowAccountForPersonDTO>();
 
-                //Map each account to a ShowAccountForPersonDto and add it to the list.
+                //Map each account to a ShowAccountForPersonDTO and add it to the list.
                 foreach (var account in accountList)
-                    showAccountForPersonList.Add(AccountMapper.MapShowAccountForPersonDto(account));
+                    showAccountForPersonList.Add(AccountMapper.MapShowAccountForPersonDTO(account));
 
-                // Return the list of ShowAccountForPersonDto objects.
+                // Return the list of ShowAccountForPersonDTO objects.
                 return showAccountForPersonList;
 
             } catch {

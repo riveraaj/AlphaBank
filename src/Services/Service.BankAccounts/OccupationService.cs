@@ -2,8 +2,7 @@
 using Interfaces.BankAccounts.Repositories;
 using Interfaces.BankAccounts.Services;
 
-namespace Service.BankAccounts
-{
+namespace Service.BankAccounts {
     public class OccupationService(IOccupationRepository occupationRepository)
                                     : IOccupationService {
 
@@ -18,7 +17,6 @@ namespace Service.BankAccounts
                 // If there's an exception during the process, return an empty list.
                 return [];
             }
-
         }
     }
 }

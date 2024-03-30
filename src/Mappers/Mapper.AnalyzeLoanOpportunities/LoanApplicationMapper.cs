@@ -5,19 +5,19 @@ using Dtos.AlphaBank.Reports;
 namespace Mapper.AnalyzeLoanOpportunities {
     public static class LoanApplicationMapper {
 
-        public static LoanApplication MapLoanApplication(CreateLoanApplicationDto oCreateLoanApplicationDto)
+        public static LoanApplication MapLoanApplication(CreateLoanApplicationDTO oCreateLoanApplicationDTO)
             => new() {
-                AccountId = oCreateLoanApplicationDto.AccountId,
-                Amount = (decimal) oCreateLoanApplicationDto.Amount!,
-                DeadlineId = (byte) oCreateLoanApplicationDto.DeadlineId!,
-                InterestId = (byte) oCreateLoanApplicationDto.InterestId!,
-                Justification = oCreateLoanApplicationDto.Justification,
-                TypeCurrencyId = (byte) oCreateLoanApplicationDto.TypeCurrencyId!,
-                TypeLoanId = (byte) oCreateLoanApplicationDto.TypeLoanId!,
-                UserId = (int) oCreateLoanApplicationDto.UserId!
+                AccountId = oCreateLoanApplicationDTO.AccountId,
+                Amount = (decimal) oCreateLoanApplicationDTO.Amount!,
+                DeadlineId = (byte) oCreateLoanApplicationDTO.DeadlineId!,
+                InterestId = (byte) oCreateLoanApplicationDTO.InterestId!,
+                Justification = oCreateLoanApplicationDTO.Justification,
+                TypeCurrencyId = (byte) oCreateLoanApplicationDTO.TypeCurrencyId!,
+                TypeLoanId = (byte) oCreateLoanApplicationDTO.TypeLoanId!,
+                UserId = (int) oCreateLoanApplicationDTO.UserId!
             };
 
-        public static ShowLoanApprovalHistoryDto MapShowLoanApprovalHistoryDto
+        public static ShowLoanApprovalHistoryDTO MapShowLoanApprovalHistoryDTO
             (LoanApplication oLoanApplication) => new() {
                 Amount = oLoanApplication.Amount,
                 DateApplication = oLoanApplication.DateApplication,

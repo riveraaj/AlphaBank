@@ -1,6 +1,6 @@
 ﻿
 namespace Dtos.AlphaBank.BankAccounts {
-    public class ShowCustomerDto {
+    public class ShowCustomerDTO {
 
         public string CustomerId { get; set; } = null!;
 

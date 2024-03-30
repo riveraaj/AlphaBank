@@ -2,12 +2,12 @@
 
 namespace Dtos.AlphaBank.Security
 {
-    public class ShowEmployeeDto {
+    public class ShowEmployeeDTO {
 
         public bool Status { get; set; }
 
-        public ShowPersonDto Person { get; set; } = null!;
+        public ShowPersonDTO Person { get; set; } = null!;
 
-        public ShowUserDto User { get; set; } = null!;
+        public ShowUserDTO User { get; set; } = null!;
     }
 }

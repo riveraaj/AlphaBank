@@ -3,10 +3,10 @@
 namespace WebClient.Models {
     public class AccountOpeningViewModel {
 
-        public ShowCustomerDto ShowCustomerDto { get; set; } = null!;
+        public ShowCustomerDTO Customer { get; set; } = null!;
 
-        public CreateAccountDto CreateAccountDto { get; set; } = null!;
+        public CreateAccountDTO Account { get; set; } = null!;
 
-        public List<ShowAccountForPersonDto> ShowAccountForPersonDtoList { get; set; } = null!;
+        public List<ShowAccountForPersonDTO> AccountList { get; set; } = null!;
     }
 }

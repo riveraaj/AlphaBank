@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dtos.AlphaBank.BankAccounts {
-    public class CreateAccountDto {
+    public class CreateAccountDTO {
         [Required(ErrorMessage = "Debe de buscar un cliente")]
         public int? CustomerId { get; set; }
 

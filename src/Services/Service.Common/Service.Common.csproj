@@ -16,6 +16,7 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
     <ProjectReference Include="..\..\Mappers\Mapper.Common\Mapper.Common.csproj" />
     <ProjectReference Include="..\..\Repositories\UnitOfWork\UnitOfWork.csproj" />
+    <ProjectReference Include="..\Service.BankAccounts\Service.BankAccounts.csproj" />
   </ItemGroup>
 
 </Project>

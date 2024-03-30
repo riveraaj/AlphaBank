@@ -4,17 +4,17 @@ using Dtos.AlphaBank.Common;
 namespace Mapper.Common {
     public static class PersonMapper {
 
-        public static Person MapPerson(CreatePersonDto oCreatePersonDto)
+        public static Person MapPerson(CreatePersonDTO oCreatePersonDTO)
             => new() {
-                Address = oCreatePersonDto.Address,
-                DateBirth = (DateOnly) oCreatePersonDto.DateBirth!,
-                FirstName = oCreatePersonDto.FirstName,
-                MaritalStatusId = (byte) oCreatePersonDto.MaritalStatusId!,
-                NationalityId = (byte) oCreatePersonDto.NationalityId!,
-                Id = (int) oCreatePersonDto.PersonId!,
-                Name = oCreatePersonDto.Name,
-                SecondName = oCreatePersonDto.SecondName,
-                TypeIdentificationId = (byte) oCreatePersonDto.TypeIdentificationId!
+                Address = oCreatePersonDTO.Address,
+                DateBirth = (DateOnly) oCreatePersonDTO.DateBirth!,
+                FirstName = oCreatePersonDTO.FirstName,
+                MaritalStatusId = (byte) oCreatePersonDTO.MaritalStatusId!,
+                NationalityId = (byte) oCreatePersonDTO.NationalityId!,
+                Id = (int) oCreatePersonDTO.PersonId!,
+                Name = oCreatePersonDTO.Name,
+                SecondName = oCreatePersonDTO.SecondName,
+                TypeIdentificationId = (byte) oCreatePersonDTO.TypeIdentificationId!
             };
     }
 }

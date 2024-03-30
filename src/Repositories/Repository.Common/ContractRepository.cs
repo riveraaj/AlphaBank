@@ -3,10 +3,8 @@ using Database.AlphaBank;
 using Interfaces.Common.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Common
-{
-    public class ContractRepository (AlphaBankDbContext context) : IContractRepository
-    {
+namespace Repository.Common {
+    public class ContractRepository (AlphaBankDbContext context) : IContractRepository {
 
         private readonly AlphaBankDbContext _context = context;
 
@@ -23,6 +21,5 @@ namespace Repository.Common
 
         public async Task SaveChangesAsync()
             => await _context.SaveChangesAsync();
-
     }
 }

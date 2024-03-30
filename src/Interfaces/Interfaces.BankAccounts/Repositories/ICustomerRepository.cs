@@ -1,9 +1,7 @@
 ﻿using Data.AlphaBank;
 
-namespace Interfaces.BankAccounts.Repositories
-{
-    public interface ICustomerRepository
-    {
+namespace Interfaces.BankAccounts.Repositories {
+    public interface ICustomerRepository {
 
         public Task<Customer?> GetByPersonIdAsync(int id);
 

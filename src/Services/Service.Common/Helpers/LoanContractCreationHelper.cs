@@ -7,26 +7,18 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using System.Globalization;
-
-using static System.Net.Mime.MediaTypeNames;
 using Text = iText.Layout.Element.Text;
 using Document = iText.Layout.Document;
-using iText.Bouncycastle.Crypto;
 using Humanizer;
 
-namespace Service.Common.Helpers
-{
-    internal static class LoanContractCreationHelper
-    {
+namespace Service.Common.Helpers {
+    internal static class LoanContractCreationHelper {
         private const string filePath = @"C:\Documents\Proyecto-SoftwareIII\Contratos";
 
-        public static string CreatePdf(LoanApplication oLoanApplication)
-        {
-            if (!Directory.Exists(filePath))
-            {
+        public static string CreatePdf(LoanApplication oLoanApplication) {
+            if (!Directory.Exists(filePath))      
                 Directory.CreateDirectory(filePath);
-            }
-
+            
             var spanish = new CultureInfo("es-CR");
 
             string currency = oLoanApplication.TypeCurrency.Description;
@@ -34,19 +26,12 @@ namespace Service.Common.Helpers
             string clientFullName = oLoanApplication.Account.Customer.Person.Name + " " + oLoanApplication.Account.Customer.Person.FirstName + " " + oLoanApplication.Account.Customer.Person.SecondName;
             string identificationType = oLoanApplication.Account.Customer.Person.TypeIdentification.Description;
 
-            string identificationNumber;
-            switch (oLoanApplication.Account.Customer.Person.TypeIdentificationId)
+            string identificationNumber = oLoanApplication.Account.Customer.Person.TypeIdentificationId switch
             {
-                case 1:
-                    identificationNumber = oLoanApplication.Account.Customer.PersonId.ToString("#-####-####");
-                    break;
-                case 2:
-                    identificationNumber = oLoanApplication.Account.Customer.PersonId.ToString("#-###-######");
-                    break;
-                default:
-                    identificationNumber = oLoanApplication.Account.Customer.PersonId.ToString();
-                    break;
-            }
+                1 => oLoanApplication.Account.Customer.PersonId.ToString("#-####-####"),
+                2 => oLoanApplication.Account.Customer.PersonId.ToString("#-###-######"),
+                _ => oLoanApplication.Account.Customer.PersonId.ToString(),
+            };
 
             string address = oLoanApplication.Account.Customer.Person.Address;
             decimal loanAmount = oLoanApplication.Amount;
@@ -55,17 +40,16 @@ namespace Service.Common.Helpers
             decimal paymentAmount = (loanAmount / decimal.Parse(loanTerm));
             string description = oLoanApplication.Justification;
 
-            string finalFilePath = System.IO.Path.Combine(filePath, oLoanApplication.Id + "_loan_contract_" + oLoanApplication.Account.Customer.PersonId + ".pdf");
+            string finalFilePath = System.IO.Path.Combine(filePath, oLoanApplication.Id + "_loan_contract_" 
+                + oLoanApplication.Account.Customer.PersonId + ".pdf");
 
-
-            try
-            {
-                PdfWriter writer = new PdfWriter(finalFilePath);
-                PdfDocument pdf = new PdfDocument(writer);
+            try {
+                PdfWriter writer = new(finalFilePath);
+                PdfDocument pdf = new(writer);
                 PageSize pageSize = PageSize.LETTER; // Tamaño de página carta
                 pdf.SetDefaultPageSize(pageSize); // Establecer el tamaño de página
 
-                Document document = new Document(pdf);
+                Document document = new(pdf);
                 document.SetMargins(65, 80, 65, 80); // Establecer los márgenes personalizados en 80 unidades = 1 pulgada
 
                 //Set Font to Arial (HELVETICA)
@@ -167,33 +151,20 @@ namespace Service.Common.Helpers
                 document.Close();
 
                 return finalFilePath;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return "";
             }
         }
 
-        static string MoneyFormat(string amount, string currecncy)
-        {
+        static string MoneyFormat(string amount, string currecncy) {
             decimal cantidadDecimal = decimal.Parse(amount);
-            CultureInfo culture;
 
-            switch (currecncy)
-            {
-                case "USD":
-                    culture = CultureInfo.GetCultureInfo("en-US");
-                    break;
-                case "CRC":
-                    culture = CultureInfo.GetCultureInfo("es-CR");
-                    break;
-                case "EUR":
-                    culture = CultureInfo.GetCultureInfo("es-ES");
-                    break;
-                default:
-                    culture = CultureInfo.InvariantCulture;
-                    break;
-            }
+            CultureInfo culture = currecncy switch {
+                "USD" => CultureInfo.GetCultureInfo("en-US"),
+                "CRC" => CultureInfo.GetCultureInfo("es-CR"),
+                "EUR" => CultureInfo.GetCultureInfo("es-ES"),
+                _ => CultureInfo.InvariantCulture,
+            };
 
             return cantidadDecimal.ToString("C", culture).Replace(culture.NumberFormat.CurrencySymbol, "") + " " + currecncy;
         }

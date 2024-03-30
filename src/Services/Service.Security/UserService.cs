@@ -5,14 +5,13 @@ using Mapper.Security;
 using Microsoft.Extensions.Logging;
 using Service.Security.Helpers;
 
-namespace Service.Security
-{
+namespace Service.Security {
     public class UserService(IUserRepository userRepository, ILogger<UserService> logger) : IUserService {
 
         private readonly IUserRepository _userRepository = userRepository;
         private readonly ILogger<UserService> _logger = logger;
 
-        public async Task<bool> UserSetup(CreateEmployeeDto oCreateEmployeeDto, IEmployeeRepository oEmployeeRepository) {
+        public async Task<bool> UserSetup(CreateEmployeeDTO oCreateEmployeeDto, IEmployeeRepository oEmployeeRepository) {
 
             //The id of the last registered employee is obtained to assign the user to the employee
             var employee = await oEmployeeRepository.GetLastEmployeeAsync();
@@ -32,7 +31,7 @@ namespace Service.Security
             return true;
         }
 
-        public async Task<bool> Create(CreateUserDto oCreateUserDto) {
+        public async Task<bool> Create(CreateUserDTO oCreateUserDto) {
 
             // Map CreateUserDto to a user object using some mapper (UserMapper).
             var user = UserMapper.MapUser(oCreateUserDto);

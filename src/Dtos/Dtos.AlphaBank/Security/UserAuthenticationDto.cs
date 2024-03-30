@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dtos.AlphaBank.Security {
-    public class UserAuthenticationDto {
+    public class UserAuthenticationDTO {
 
         [Required(ErrorMessage = "El campo id es obligatorio.")]
         public string Id { get; set; } = null!;

@@ -1,10 +1,8 @@
 ﻿using Data.AlphaBank;
 using Interfaces.BankAccounts.Repositories;
 using Interfaces.BankAccounts.Services;
-using System.Collections.Generic;
 
-namespace Service.BankAccounts
-{
+namespace Service.BankAccounts {
     public class CustomerStatusService(ICustomerStatusRepository customerStatusRepository)
                                         : ICustomerStatusService {
 
@@ -15,8 +13,7 @@ namespace Service.BankAccounts
             try {
                 //Retrieve all CustomerStatus asynchronously from the CustomerStatusRepository.
                 return (List<CustomerStatus>) await _customerStatusRepository.GetAllAsync();
-            }
-            catch {
+            } catch {
                 // If there's an exception during the process, return an empty list.
                 return [];
             }

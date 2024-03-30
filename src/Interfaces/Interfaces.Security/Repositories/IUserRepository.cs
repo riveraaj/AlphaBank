@@ -1,10 +1,8 @@
 ﻿using Data.AlphaBank;
 
-namespace Interfaces.Security.Repositories
-{
+namespace Interfaces.Security.Repositories {
 
-    public interface IUserRepository
-    {
+    public interface IUserRepository {
 
         public Task<ICollection<User>> GetAllAsync();
 

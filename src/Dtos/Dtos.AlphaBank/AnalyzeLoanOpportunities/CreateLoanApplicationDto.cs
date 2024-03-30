@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dtos.AlphaBank.AnalyzeLoanOpportunities {
-    public class CreateLoanApplicationDto {
+    public class CreateLoanApplicationDTO {
 
         [Required(ErrorMessage = "El campo monto es obligatorio.")]
         public decimal? Amount { get; set; }
@@ -14,10 +14,10 @@ namespace Dtos.AlphaBank.AnalyzeLoanOpportunities {
         public byte? TypeCurrencyId { get; set; }
 
         [Required(ErrorMessage = "Debe de subir un archivo válido.")]
-        public required FileUploadDto EmployerOrder { get; set; }
+        public required FileUploadDTO EmployerOrder { get; set; }
 
         [Required(ErrorMessage = "Debe de subir un archivo válido.")]
-        public required FileUploadDto SalaryStatement { get; set; }
+        public required FileUploadDTO SalaryStatement { get; set; }
 
         [Required(ErrorMessage = "El campo cuenta es obligatorio.")]
         public string AccountId { get; set; } = null!;

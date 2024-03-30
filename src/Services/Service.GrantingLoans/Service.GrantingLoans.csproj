@@ -10,6 +10,7 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.AnalyzeLoanOpportunities\Interfaces.AnalyzeLoanOpportunities.csproj" />
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
     <ProjectReference Include="..\..\Interfaces\Interfaces.GrantingLoans\Interfaces.GrantingLoans.csproj" />
+    <ProjectReference Include="..\Service.BankAccounts\Service.BankAccounts.csproj" />
   </ItemGroup>
 
 </Project>

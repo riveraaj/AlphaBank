@@ -1,9 +1,6 @@
-﻿namespace Interfaces.GrantingLoans.Services
-{
-    public interface IGrantingLoansService
-    {
+﻿namespace Interfaces.GrantingLoans.Services {
+    public interface IGrantingLoansService {
 
-        public Task<bool> GrantingLoan(int idLoanApplication);
-
+        public Task<bool> GrantingLoan(int id);
     }
 }
