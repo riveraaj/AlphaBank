@@ -19,7 +19,7 @@ namespace Dtos.AlphaBank.AnalyzeLoanOpportunities {
         [Required(ErrorMessage = "Debe de subir un archivo válido.")]
         public required FileUploadDTO SalaryStatement { get; set; }
 
-        [Required(ErrorMessage = "El campo cuenta es obligatorio.")]
+        [Required(ErrorMessage = "Debe de buscar un cliente")]
         public string AccountId { get; set; } = null!;
 
         [Required(ErrorMessage = "El campo plazo es obligatorio.")]
