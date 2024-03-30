@@ -7,80 +7,120 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using System.Globalization;
+
+using static System.Net.Mime.MediaTypeNames;
 using Text = iText.Layout.Element.Text;
 using Document = iText.Layout.Document;
+using iText.Bouncycastle.Crypto;
 using Humanizer;
 
-namespace Service.Common.Helpers {
-    internal static class LoanContractCreationHelper {
+namespace Service.Common.Helpers
+{
+    internal static class LoanContractCreationHelper
+    {
         private const string filePath = @"C:\Documents\Proyecto-SoftwareIII\Contratos";
 
-        public static string CreatePdf(LoanApplication oLoanApplication) {
-            if (!Directory.Exists(filePath))      
+        public static string CreatePdf(LoanApplication oLoanApplication)
+        {
+            // If the folders doesn´t exists, then they will be created
+            if (!Directory.Exists(filePath))
+            {
                 Directory.CreateDirectory(filePath);
-            
+            }
+
+            //Get the CultureInfo from Costa Rica because this will be used by Humanizer Library
             var spanish = new CultureInfo("es-CR");
 
+            //Get the currency description of the LoanApplication
             string currency = oLoanApplication.TypeCurrency.Description;
+            //Get the todays date in string format
             string date = DateTime.Now.ToString("dd 'de' MMMM 'del' yyyy", spanish);
+            //Get the Name, FirstName and SecondName of the Customer Owner of the Account and LoanApplication, then concatenate them into the full name
             string clientFullName = oLoanApplication.Account.Customer.Person.Name + " " + oLoanApplication.Account.Customer.Person.FirstName + " " + oLoanApplication.Account.Customer.Person.SecondName;
+            //Get the TypeIdentification Description of the Customer(Person)
             string identificationType = oLoanApplication.Account.Customer.Person.TypeIdentification.Description;
 
-            string identificationNumber = oLoanApplication.Account.Customer.Person.TypeIdentificationId switch
+            //The IdentificationNumber will be StringFormated based on the TypeIdentificationId
+            string identificationNumber;
+            switch (oLoanApplication.Account.Customer.Person.TypeIdentificationId)
             {
-                1 => oLoanApplication.Account.Customer.PersonId.ToString("#-####-####"),
-                2 => oLoanApplication.Account.Customer.PersonId.ToString("#-###-######"),
-                _ => oLoanApplication.Account.Customer.PersonId.ToString(),
-            };
+                case 1:
+                    // TypeIdentificationId 1 is for "Física" so the format will be assing to the string
+                    identificationNumber = oLoanApplication.Account.Customer.PersonId.ToString("#-####-####");
+                    break;
+                case 2:
+                    // TypeIdentificationId 2 is for "Jurídica" so the format will be assing to the string
+                    identificationNumber = oLoanApplication.Account.Customer.PersonId.ToString("#-###-######");
+                    break;
+                default:
+                    // Default format
+                    identificationNumber = oLoanApplication.Account.Customer.PersonId.ToString();
+                    break;
+            }
 
+            //Get the address of the Customer(Person)
             string address = oLoanApplication.Account.Customer.Person.Address;
+            //Get the loan requested amount of the LoanApplication
             decimal loanAmount = oLoanApplication.Amount;
+            //Get the interest description of the LoanApplication
             string interestPercentage = oLoanApplication.Interest.Description;
+            // Get the loanTerm, taking on consideration that the DeadLine description is in  format "# meses" 
+            // the description will be splited by " ". Then we only get the first element of the list, so it will be "#". 
             string loanTerm = oLoanApplication.Deadline.Description.Split(' ')[0];
+            // Get the PaymentAmount of the Loan dividing the LoanAmount by the LoanTerm (this amount doesn´t include interests)
             decimal paymentAmount = (loanAmount / decimal.Parse(loanTerm));
+            // Get the description or reason of the LoanApplication
             string description = oLoanApplication.Justification;
 
-            string finalFilePath = System.IO.Path.Combine(filePath, oLoanApplication.Id + "_loan_contract_" 
-                + oLoanApplication.Account.Customer.PersonId + ".pdf");
+            // Combine the filePath(Where the contracts will be stored) with the pdf File Name (LoanApplicationId_loan_contract_PersonId.pdf)
+            string finalFilePath = System.IO.Path.Combine(filePath, oLoanApplication.Id + "_loan_contract_" + oLoanApplication.Account.Customer.PersonId + ".pdf");
 
-            try {
-                PdfWriter writer = new(finalFilePath);
-                PdfDocument pdf = new(writer);
-                PageSize pageSize = PageSize.LETTER; // Tamaño de página carta
-                pdf.SetDefaultPageSize(pageSize); // Establecer el tamaño de página
 
-                Document document = new(pdf);
-                document.SetMargins(65, 80, 65, 80); // Establecer los márgenes personalizados en 80 unidades = 1 pulgada
+            try
+            {
+                PdfWriter writer = new PdfWriter(finalFilePath);
+                PdfDocument pdf = new PdfDocument(writer);
+                // Letter page size
+                PageSize pageSize = PageSize.LETTER;
+                // Set page size
+                pdf.SetDefaultPageSize(pageSize);
+
+                Document document = new Document(pdf);
+                // Set the custom margins to 80 units on the sides and 60 units on the top and bottom of the document
+                document.SetMargins(65, 80, 65, 80);
 
                 //Set Font to Arial (HELVETICA)
                 PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
                 PdfFont fontBold = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
 
-                // Definir estilo para el título
+                // Define style for the title
                 Style titleStyle = new Style()
                     .SetFont(fontBold)
                     .SetFontSize(12)
                     .SetTextAlignment(TextAlignment.CENTER)
                     .SetMarginBottom(11 / 2);
 
-                // Definir estilo para el texto
+                // Define style for the text
                 Style paragraphStyle = new Style()
                     .SetFont(font)
                     .SetFontSize(11)
                     .SetTextAlignment(TextAlignment.JUSTIFIED)
                     .SetMarginBottom(11 / 2);
 
+                // Key Words of the contract that will be used in the introduction with Bold Font
                 Text bank = new Text("Banco").SetFont(fontBold);
                 Text debtor = new Text("Deudor").SetFont(fontBold);
                 Text parts = new Text("Partes").SetFont(fontBold);
                 Text part = new Text("Parte").SetFont(fontBold);
 
-
+                // Document Title
                 document.Add(new Paragraph("Contrato de Otorgamiento de Préstamo Bancario").AddStyle(titleStyle));
+                //Documento Date with TextAlignment.LEFT
                 document.Add(new Paragraph("\n"));
                 document.Add(new Paragraph(date).AddStyle(paragraphStyle).SetTextAlignment(TextAlignment.LEFT));
                 document.Add(new Paragraph("\n"));
 
+                // Contract Introduction
                 Paragraph paragraph = new Paragraph();
                 paragraph.Add(new Text("ALPHA BANK").SetFont(fontBold));
                 paragraph.Add(", una institución bancaria costarricense registrada ante la Superintendencia General de Entidades" +
@@ -111,10 +151,12 @@ namespace Service.Common.Helpers {
                 paragraph.Add("”.");
                 document.Add(paragraph.AddStyle(paragraphStyle));
 
+                // Loan agreements
                 document.Add(new Paragraph("Las Partes acuerdan el siguiente contrato de préstamo:").AddStyle(paragraphStyle));
 
                 document.Add(new Paragraph("1. Monto del Préstamo:").AddStyle(paragraphStyle).SetMarginLeft(25));
-                document.Add(new Paragraph("i. El Banco otorga al Deudor un préstamo por un monto total de ₡" + MoneyFormat(loanAmount.ToString(), currency) + " (" + ((long)loanAmount).ToWords(spanish) + ").").AddStyle(paragraphStyle).SetMarginLeft(50));
+                // The Loan Amount is formated to Money Format using the method MoneyFormat() also we get the LoanAmount into words using .ToWords() from the Humanizer Library
+                document.Add(new Paragraph("i. El Banco otorga al Deudor un préstamo por un monto total de " + MoneyFormat(loanAmount.ToString(), currency) + " (" + ((long)loanAmount).ToWords(spanish) + ").").AddStyle(paragraphStyle).SetMarginLeft(50));
 
                 document.Add(new Paragraph("2. Tasa de Interés:").AddStyle(paragraphStyle).SetMarginLeft(25));
                 document.Add(new Paragraph("i. La tasa de interés acordada para este préstamo es del " + interestPercentage + "% anual.").AddStyle(paragraphStyle).SetMarginLeft(50));
@@ -150,22 +192,40 @@ namespace Service.Common.Helpers {
 
                 document.Close();
 
+                // If the creation was succesfully the finalFilePath of the new PDF Contract File is returned.
                 return finalFilePath;
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
+                // An error occurred, so the fiinalFilePath is ""
                 return "";
             }
         }
 
-        static string MoneyFormat(string amount, string currecncy) {
+        // This method is used to change amounts to money format depending of the currency
+        static string MoneyFormat(string amount, string currecncy)
+        {
             decimal cantidadDecimal = decimal.Parse(amount);
+            CultureInfo culture;
 
-            CultureInfo culture = currecncy switch {
-                "USD" => CultureInfo.GetCultureInfo("en-US"),
-                "CRC" => CultureInfo.GetCultureInfo("es-CR"),
-                "EUR" => CultureInfo.GetCultureInfo("es-ES"),
-                _ => CultureInfo.InvariantCulture,
-            };
-
+            // Get the CultureInfo intance base on the culture name
+            switch (currecncy)
+            {
+                case "USD":
+                    culture = CultureInfo.GetCultureInfo("en-US");
+                    break;
+                case "CRC":
+                    culture = CultureInfo.GetCultureInfo("es-CR");
+                    break;
+                case "EUR":
+                    culture = CultureInfo.GetCultureInfo("es-ES");
+                    break;
+                default:
+                    culture = CultureInfo.InvariantCulture;
+                    break;
+            }
+            // The amount is converted to money format based on the culture got in the swith.
+            // To prevent errors the currency simbol is replaced by "" and then the currency parameter is concatenated
             return cantidadDecimal.ToString("C", culture).Replace(culture.NumberFormat.CurrencySymbol, "") + " " + currecncy;
         }
     }
