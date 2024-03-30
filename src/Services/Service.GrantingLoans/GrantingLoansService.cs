@@ -25,6 +25,12 @@ namespace Service.GrantingLoans
                 // Check if we Succesfully get the LoanApplication Object ID
                 if (oLoanApplication == null) return false;
 
+                _logger.LogInformation("----- Loan Granting: Create the Loan in the data base.");
+                //Create Loan Record in the Data Base
+                var loanCreation = await _loanService.Create(oLoanApplication);
+                //Check if we Succesfully create Loan Record in the Data Base
+                if (!loanCreation) return false;
+
                 _logger.LogInformation("----- Loan Granting: Create a registry of Contract.");
                 //Create the Contract PDF File and the Contract in the DataBase
                 var contractCreation = await _contractService.LoanTypeCreate(oLoanApplication);
@@ -35,12 +41,6 @@ namespace Service.GrantingLoans
                 //Update the LoanApplication Status to 2 or "Approbado"
                 await _loanApplicationRepository.UpdateApplicationStatus(oLoanApplication.Id, 2);
                 await _loanApplicationRepository.SaveChangesAsync();
-
-                _logger.LogInformation("----- Loan Granting: Create the Loan in the data base.");
-                //Create Loan Record in the Data Base
-                var loanCreation = await _loanService.Create(oLoanApplication);
-                //Check if we Succesfully create Loan Record in the Data Base
-                if (!loanCreation) return false;
 
                 _logger.LogInformation("----- Loan Granting: Loan Granting process completed successfully.");
 
