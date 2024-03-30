@@ -10,9 +10,11 @@ using System.Globalization;
 using Text = iText.Layout.Element.Text;
 using Document = iText.Layout.Document;
 using Humanizer;
+using iText.IO.Image;
 
 namespace Service.Common.Helpers {
     internal static class LoanContractCreationHelper {
+
         private const string filePath = @"C:\Documents\Proyecto-SoftwareIII\Contratos";
 
         public static string CreatePdf(LoanApplication oLoanApplication) {
@@ -69,8 +71,8 @@ namespace Service.Common.Helpers {
                 pdf.SetDefaultPageSize(pageSize);
 
                 Document document = new(pdf);
-                // Set the custom margins to 80 units on the sides and 60 units on the top and bottom of the document
-                document.SetMargins(65, 80, 65, 80);
+                // Set the custom margins to 80 units on the sides and 55 units on the top and bottom of the document
+                document.SetMargins(55, 80, 55, 80);
 
                 //Set Font to Arial (HELVETICA)
                 PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
@@ -90,11 +92,20 @@ namespace Service.Common.Helpers {
                     .SetTextAlignment(TextAlignment.JUSTIFIED)
                     .SetMarginBottom(11 / 2);
 
+                // Load the bank logo
+                ImageData imageData = ImageDataFactory.Create("https://i.postimg.cc/T3Hsx2hq/bankLogo.png");
+                Image logoImage = new Image(imageData);
+
                 // Key Words of the contract that will be used in the introduction with Bold Font
                 Text bank = new Text("Banco").SetFont(fontBold);
                 Text debtor = new Text("Deudor").SetFont(fontBold);
                 Text parts = new Text("Partes").SetFont(fontBold);
                 Text part = new Text("Parte").SetFont(fontBold);
+
+                // Document Header
+                // Add the logo to the document
+                document.Add(logoImage.ScaleAbsolute(100f, 50f).SetHorizontalAlignment(HorizontalAlignment.CENTER));
+                document.Add(new Paragraph("\n"));
 
                 // Document Title
                 document.Add(new Paragraph("Contrato de Otorgamiento de Préstamo Bancario").AddStyle(titleStyle));
