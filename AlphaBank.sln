@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{BA84
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D0C09AF8-BC70-478F-BEF0-7D29C6DA78B9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{F6CCCD51-8002-4DC9-8803-A8F3587779DC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistences", "Persistences", "{46E13B8A-408E-4800-8372-70D0B0B96E03}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database.AlphaBank", "src\Persistences\Database.AlphaBank\Database.AlphaBank.csproj", "{DAE58D9A-4631-4A8E-8298-3AB6B041B2E8}"
@@ -67,9 +65,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.AnalyzeLoanOpportun
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapper.AnalyzeLoanOpportunities", "src\Mappers\Mapper.AnalyzeLoanOpportunities\Mapper.AnalyzeLoanOpportunities.csproj", "{AFAD435B-BF11-452A-9E63-E9C94A252B33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.GrantingLoans", "src\Interfaces\Interfaces.GrantingLoans\Interfaces.GrantingLoans.csproj", "{6BF3B6B8-3574-4474-A161-CC117B826FD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces.GrantingLoans", "src\Interfaces\Interfaces.GrantingLoans\Interfaces.GrantingLoans.csproj", "{6BF3B6B8-3574-4474-A161-CC117B826FD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.GrantingLoans", "src\Services\Service.GrantingLoans\Service.GrantingLoans.csproj", "{1C846F38-EFD3-4E06-87AF-0542EBB78D03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.GrantingLoans", "src\Services\Service.GrantingLoans\Service.GrantingLoans.csproj", "{1C846F38-EFD3-4E06-87AF-0542EBB78D03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
