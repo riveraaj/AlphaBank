@@ -1,5 +1,5 @@
 ﻿namespace Dtos.AlphaBank.Reports {
-    public class ShowLoanApprovalHistoryDTO {
+    public class ShowLoanApprovalHistoryDto {
 
         public int Id { get; set; }
 

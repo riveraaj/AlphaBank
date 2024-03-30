@@ -1,5 +1,5 @@
 ﻿namespace Dtos.AlphaBank.Security {
-    public class ShowUserDTO {
+    public class ShowUserDto {
         public string EmailAddress { get; set; } = null!;
 
         public string Role { get; set; } = null!;

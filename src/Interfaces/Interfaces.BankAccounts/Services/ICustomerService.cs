@@ -1,14 +1,15 @@
 ﻿using Dtos.AlphaBank.AnalyzeLoanOpportunities;
 using Dtos.AlphaBank.BankAccounts;
+using Interfaces.BankAccounts.Repositories;
 
 namespace Interfaces.BankAccounts.Services {
     public interface ICustomerService {
-        public Task<bool> Create(CreateCustomerDTO oCreateCustomerDTO);
+        public Task<bool> Create(CreateCustomerDto createCustomerDto);
 
-        public Task<List<ShowCustomerDTO>> GetAll();
+        public Task<List<ShowCustomerDto>> GetAll();
 
-        public Task<ShowCustomerLoanDTO?> GetByIdForLoan(int id);
+        public Task<ShowCustomerLoanDto?> GetByIdForLoan(int id);
 
-        public Task<ShowCustomerDTO?> GetByIdForAccount(int id);
+        public Task<ShowCustomerDto?> GetByIdForAccount(int id);
     }
 }

@@ -3,8 +3,8 @@
 namespace Interfaces.AnalyzeLoanOpportunities.Services {
     public interface ILoanApplicationService  {
 
-        public Task<bool> Create(CreateLoanApplicationDTO oCreateLoanApplicationDTO);
+        public Task<bool> Create(CreateLoanApplicationDto oCreateLoanApplicationDto);
 
-        public byte[] ConvertToPdf(FileUploadDTO oFileUploadDTO, string title);
+        public byte[] ConvertToPdf(FileUploadDto fileUploadDto, string title);
     }
 }

@@ -1,10 +1,12 @@
 ﻿using Dtos.AlphaBank.Security;
 
-namespace Interfaces.Security.Services {
-    public interface IEmployeeService {
+namespace Interfaces.Security.Services
+{
+    public interface IEmployeeService
+    {
 
-        public Task<List<ShowEmployeeDTO>> GetAll();
+        public Task<List<ShowEmployeeDto>> GetAll();
 
-        public Task<bool> Create(CreateEmployeeDTO oCreateEmployeeDTO);
+        public Task<bool> Create(CreateEmployeeDto oCreateEmployeeDto);
     }
 }

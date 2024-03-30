@@ -3,7 +3,7 @@ using Dtos.AlphaBank.Common;
 using Dtos.AlphaBank.Security;
 
 namespace Dtos.AlphaBank.BankAccounts {
-    public class ShowAccountDTO {
+    public class ShowAccountDto {
         public string AccountNumber { get; set; } = null!;
 
         public decimal Balance { get; set; }

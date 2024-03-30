@@ -3,7 +3,8 @@ using Database.AlphaBank;
 using Interfaces.Security.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Security {
+namespace Repository.Security
+{
     public class EmployeeRepository(AlphaBankDbContext context) : IEmployeeRepository {
 
         private readonly AlphaBankDbContext _context = context;
@@ -36,5 +37,6 @@ namespace Repository.Security {
 
         public async Task SaveChangesAsync()
             => await _context.SaveChangesAsync();
+
     }
 }

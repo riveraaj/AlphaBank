@@ -41,44 +41,44 @@
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <label class="control-label">Nombre Completo:</label>
-                    <input type="text" class="form-control" value="@(Model?.Customer.FullName ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.FullName ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                     <label class="control-label">Estado Civil:</label>
-                    <input type="text" class="form-control" value="@(Model?.Customer.MaritalStatus ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.MaritalStatus ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
                     <label class="control-label">Edad:</label>
-                    <input type="text" class="form-control" value="@(Model?.Customer.Age.ToString() ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.Age.ToString() ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <label class="control-label">Nacionalidad:</label>
-                    <input type="text" class="form-control" value="@(Model?.Customer.Nationality ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.Nationality ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <label class="control-label">Ocupación:</label>
-                    <input type="text" class="form-control" value="@(Model?.Customer.Occupation ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.Occupation ?? "")" disabled />
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                     <label class="control-label">Teléfono:</label>
-                    <input type="text" class="form-control" value="@(Model?.Customer.PhoneNumber.ToString() ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.PhoneNumber.ToString() ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <label class="control-label">Correo Electrónico:</label>
-                    <input type="text" class="form-control" value="@(Model?.Customer.Email ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.Email ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
                     <label class="control-label">Dirección de Residencia:</label>
-                    <input type="text" class="form-control" value="@(Model?.Customer.Address ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.ShowCustomerDto.Address ?? "")" disabled />
                 </div>
             </div>
 
@@ -88,21 +88,21 @@
                 <div class="row">
                     <h5>Información de la cuenta:</h5>
 
-                    <input type="hidden" asp-for="Account.CustomerId" value="@Model?.Customer.CustomerId" />
-                    <span asp-validation-for="Account.CustomerId" class="text-danger"></span>
+                    <input type="hidden" asp-for="CreateAccountDto.CustomerId" value="@Model?.ShowCustomerDto.CustomerId" />
+                    <span asp-validation-for="CreateAccountDto.CustomerId" class="text-danger"></span>
 
-                    <input type="hidden" name="personId" value="@Model?.Customer.PersonId" />
+                    <input type="hidden" name="personId" value="@Model?.ShowCustomerDto.PersonId" />
 
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="Account.TypeAccountId" class="control-label">Tipo de cuenta:</label>
-                        <select asp-for="Account.TypeAccountId" asp-items="ViewBag.TypeAccount" class="form-control"></select>
-                        <span asp-validation-for="Account.TypeAccountId" class="text-danger"></span>
+                        <label asp-for="CreateAccountDto.TypeAccountId" class="control-label">Tipo de cuenta:</label>
+                        <select asp-for="CreateAccountDto.TypeAccountId" asp-items="ViewBag.TypeAccount" class="form-control"></select>
+                        <span asp-validation-for="CreateAccountDto.TypeAccountId" class="text-danger"></span>
                     </div>
 
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="Account.TypeCurrencyId" class="control-label">Tipo de moneda:</label>
-                        <select asp-for="Account.TypeCurrencyId" asp-items="ViewBag.TypeCurrency" class="form-control"></select>
-                        <span asp-validation-for="Account.TypeCurrencyId" class="text-danger"></span>
+                        <label asp-for="CreateAccountDto.TypeCurrencyId" class="control-label">Tipo de moneda:</label>
+                        <select asp-for="CreateAccountDto.TypeCurrencyId" asp-items="ViewBag.TypeCurrency" class="form-control"></select>
+                        <span asp-validation-for="CreateAccountDto.TypeCurrencyId" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -123,7 +123,7 @@
 
                         <tbody>
                             @if (Model != null) {
-                                @foreach (var account in Model.AccountList) {
+                                @foreach (var account in Model.ShowAccountForPersonDtoList) {
                                     <tr>
                                         <td>@account.AccountId</td>
                                         <td>@account.TypeCurrency</td>

@@ -16,7 +16,7 @@ namespace WebClient.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Id", "Password")] UserLoginDTO oUserLoginDto) {
+        public async Task<IActionResult> Login([Bind("Id", "Password")] UserLoginDto oUserLoginDto) {
 
             if (!ModelState.IsValid) return View();
 

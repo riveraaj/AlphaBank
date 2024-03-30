@@ -2,7 +2,8 @@
 using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
 
-namespace Service.Security {
+namespace Service.Security
+{
     public class SalaryCategoryService(ISalaryCategoryRepository salaryCategoryRepository) 
                                         : ISalaryCategoryService{
 

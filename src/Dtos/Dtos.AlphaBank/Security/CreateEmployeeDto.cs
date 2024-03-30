@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace Dtos.AlphaBank.Security {
-    public class CreateEmployeeDTO {
+    public class CreateEmployeeDto {
 
         [Required(ErrorMessage = "El campo fecha de entrada es obligatorio.")]
         [DataType(DataType.Date, ErrorMessage = "El campo fecha de entrada debe ser una fecha válida.")]
@@ -12,12 +12,12 @@ namespace Dtos.AlphaBank.Security {
         public byte? SalaryCategoryId { get; set; }
 
         [Required]
-        public required CreatePersonDTO Person { get; set; }
+        public required CreatePersonDto Person { get; set; }
 
         [Required]
-        public required CreatePhoneDTO Phone { get; set; }
+        public required CreatePhoneDto Phone { get; set; }
 
         [Required]
-        public required CreateUserDTO User { get; set; }
+        public required CreateUserDto User { get; set; }
     }
 }

@@ -4,12 +4,15 @@ using Database.AlphaBank;
 using Interfaces.Common.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Common {
-    public class TypeCurrencyRepository (AlphaBankDbContext context) : ITypeCurrencyRepository {
+namespace Repository.Common
+{
+    public class TypeCurrencyRepository (AlphaBankDbContext context) : ITypeCurrencyRepository
+    {
 
         private readonly AlphaBankDbContext _context = context;
 
         public async Task<ICollection<TypeCurrency>> GetAllAsync()
             => await _context.TypeCurrencies.ToListAsync();
+
     }
 }

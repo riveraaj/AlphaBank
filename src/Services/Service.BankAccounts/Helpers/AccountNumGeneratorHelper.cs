@@ -1,9 +1,14 @@
-﻿namespace Service.BankAccounts.Helpers {
-    internal class AccountNumGeneratorHelper {
+﻿using System;
 
-        private static readonly Random rnd = new();
+namespace Service.BankAccounts.Helpers
+{
+    internal class AccountNumGeneratorHelper
+    {
 
-        public static string AccountNumberGenerator(int typeAccountId, int typeCurrencyId) {          
+        private static readonly Random rnd = new Random();
+
+        public static string AccountNumberGenerator(int typeAccountId, int typeCurrencyId)
+        {          
             //Contry Code of the IBAN Account
             var countryCode = "CR";
             // Verification Digit Acording with ISO / IEC-7064 (Using MOD97-10 Algorithm), in this case for beta version is an assigned number.
@@ -29,5 +34,6 @@
 
             return accountNumber;
         }
+
     }
 }

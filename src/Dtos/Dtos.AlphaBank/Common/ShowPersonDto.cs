@@ -1,5 +1,5 @@
 ﻿namespace Dtos.AlphaBank.Common {
-    public class ShowPersonDTO {
+    public class ShowPersonDto {
 
         public string Name { get; set; } = null!;
 
