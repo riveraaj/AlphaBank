@@ -6,8 +6,7 @@ using Interfaces.Common.Services;
 using Mapper.BankAccounts;
 using Microsoft.Extensions.Logging;
 
-namespace Service.BankAccounts
-{
+namespace Service.BankAccounts {
     public class CustomerService(IPersonService personService,
                                  ICustomerRepository customerRepository,
                                  ILogger<CustomerService> logger) : ICustomerService {
@@ -83,19 +82,28 @@ namespace Service.BankAccounts
         }
 
         public async Task<ShowCustomerLoanDTO?> GetByIdForLoan(int id) {
-            var customer = await _customerRepository.GetByPersonIdAsync(id);
+            try {
+                var customer = await _customerRepository.GetByPersonIdAsync(id);
 
-            if (customer != null) return CustomerMapper.MapShowCustomerLoan(customer);
+                if (customer != null) return CustomerMapper.MapShowCustomerLoan(customer);
 
-            return null;
+                return null;
+            }
+            catch {
+                return null;
+            }
         }
 
         public async Task<ShowCustomerDTO?> GetByIdForAccount(int id) {
-            var customer = await _customerRepository.GetByPersonIdAsync(id);
+            try {
+                var customer = await _customerRepository.GetByPersonIdAsync(id);
 
-            if (customer != null) return CustomerMapper.MapShowCustomerDTO(customer);
+                if (customer != null) return CustomerMapper.MapShowCustomerDTO(customer);
 
-            return null;
+                return null;
+            } catch {
+                return null;
+            }
         }
     }
 }
