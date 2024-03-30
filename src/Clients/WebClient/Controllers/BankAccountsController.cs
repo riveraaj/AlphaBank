@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.IdentityModel.Tokens;
 using WebClient.Models;
 using WebClient.Services;
 
@@ -21,7 +22,21 @@ namespace WebClient.Controllers {
 
         private readonly CommonService _commonService = commonService;
 
-        public IActionResult AccountClosing() => View();
+
+        [HttpGet]
+        public async Task<IActionResult> AccountClosing(int? id) {
+
+            if (id.HasValue) { //Validates if the parameter has data
+
+                //A customer is obtained from the id
+                var customer = await _customerService.GetByIdForAccount((int)id);
+                var accountList = await _accountService.GetByIdForBankAccount((int)id);
+
+                if (customer != null)
+                    return View(new AccountClosingViewModel { Customer = customer, AccountList = accountList });
+            }
+            return View();
+        }
 
         [HttpGet]
         public async Task<IActionResult> AccountOppening(int? id){
@@ -43,14 +58,14 @@ namespace WebClient.Controllers {
                 var accountList = await _accountService.GetByIdForBankAccount((int) id);
 
                 if (customer != null)
-                    return View(new AccountViewModel { Customer = customer, AccountList = accountList });
+                    return View(new AccountOppeningViewModel { Customer = customer, AccountList = accountList });
             }
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAccount(AccountViewModel oAccountViewModel, int personId) {
+        public async Task<IActionResult> CreateAccount(AccountOppeningViewModel oAccountViewModel, int personId) {
 
             var account = oAccountViewModel.Account;
 
@@ -62,6 +77,23 @@ namespace WebClient.Controllers {
             }
 
             return RedirectToAction("AccountOppening", new { id = personId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CloseAccount(string accountId, int personId) {
+
+            if (!accountId.IsNullOrEmpty()) {
+
+                var result = await _accountService.Remove(accountId);
+
+                if (!result) {
+                    ViewData["Error"] = "*Hubo un error en el cierre de cuenta, intentelo más tarde.";
+                    return RedirectToAction("AccountClosing");
+                }
+                return RedirectToAction("AccountClosing", new { id = personId });
+            }
+            return RedirectToAction("AccountClosing");
         }
     }
 }
