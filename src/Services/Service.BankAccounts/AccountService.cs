@@ -58,7 +58,10 @@ namespace Service.BankAccounts {
             try {
                 _logger.LogInformation("----- Remove Account: Start the removement of an account");
 
-                await _accountRepository.RemoveAsync(accountNumber);
+                var result = await _accountRepository.RemoveAsync(accountNumber);
+
+                if (!result) return false;
+
                 await _accountRepository.SaveChangesAsync();
 
                 _logger.LogInformation("----- Remove Account: Removement completed and saved successfully.");
