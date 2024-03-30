@@ -88,6 +88,9 @@
 
             <h5>Cuentas existentes:</h5>
             <div class="">
+                <div class="form-group">
+                    <span class="text-danger">@ViewData["Error"]</span>
+                </div>
                 <table id="tablacuenta" class="mt-4">
 
                     <thead>
@@ -100,34 +103,31 @@
                     </thead>
 
                     <tbody>
-                        @if (Model != null)
-                        {
-                            @foreach (var account in Model.AccountList)
-                            {
+                        @if (Model != null) {
+                            @foreach (var account in Model.AccountList) {
                                 <tr>
                                     <td>@account.AccountId</td>
                                     <td>@account.TypeCurrency</td>
                                     <td>@account.State</td>
-                                    <form method="post" asp-controller="BankAccounts" asp-action="CloseAccount">
+                                    @if (account.State.Equals("Activa")) {
+                                        <form method="post" asp-controller="BankAccounts" asp-action="CloseAccount">
 
-                                        <input name="accountId" value="@account.AccountId" type="hidden" />
-                                        <input type="hidden" name="personId" value="@Model?.Customer.PersonId" />
+                                            <input name="accountId" value="@account.AccountId" type="hidden" />
+                                            <input type="hidden" name="personId" value="@Model?.Customer.PersonId" />
 
-                                    <td>
-                                        <input type="submit" value="Cerrar Cuenta" class="btn btn-green" />
-                                    </td>
-                                    </form>
+                                        <td>
+                                            <input type="submit" value="Cerrar Cuenta" class="btn btn-green" />
+                                        </td>
+                                        </form>
+                                    }else{
+                                        <td> </td>
+                                    }
                                 </tr>
                             }
                         }
                     </tbody>
                 </table>
             </div>
-
-            <div class="form-group">
-                <span class="text-danger">@ViewData["Error"]</span>
-            </div>
-
         </div>
     </div>
 </div>

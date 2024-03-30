@@ -90,8 +90,11 @@
                 <div class="row">
                     <h5>Información de la cuenta:</h5>
 
-                    <input type="hidden" asp-for="Account.CustomerId" value="@Model?.Customer.CustomerId" />
-                    <span asp-validation-for="Account.CustomerId" class="text-danger"></span>
+                    <div class="form-group">
+                        <span class="text-danger">@ViewData["CustomerError"]</span>
+                    </div>
+
+                    <input type="hidden"  asp-for="Account.CustomerId" value="@Model?.Customer.CustomerId"/>
 
                     <input type="hidden" name="personId" value="@Model?.Customer.PersonId" />
 
@@ -150,6 +153,7 @@
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     @{
