@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dtos.AlphaBank.Security {
-    public class UserLoginDto {
+    public class UserLoginDTO {
 
         [Required(ErrorMessage = "Por favor, ingrese su identificación")]
         [RegularExpression("([0-9]+)", ErrorMessage = "Por favor, ingrese una identificación valida.")]

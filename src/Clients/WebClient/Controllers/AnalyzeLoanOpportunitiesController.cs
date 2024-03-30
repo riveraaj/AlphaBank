@@ -9,13 +9,13 @@ using WebClient.Services;
 namespace WebClient.Controllers {
 
     [Authorize]
-    public class AnalyzeLoanOpportunitiesController(ILoanApplicationService loanApplicationService,
+    public class AnalyzeLoanOpportunitiesController(//ILoanApplicationService loanApplicationService,
                                                     ICustomerService customerService,
                                                     AnalyzeLoanApplicationService analyzeLoanApplicationService,
                                                     CommonService commonService) : Controller {
 
-        private readonly ILoanApplicationService _loanApplicationService
-            = loanApplicationService;
+        //private readonly ILoanApplicationService _loanApplicationService
+            //= loanApplicationService;
 
         private readonly ICustomerService _customerService = customerService;
 
@@ -51,7 +51,7 @@ namespace WebClient.Controllers {
                     var accountList = await _analyzeLoanApplicationService.GetAccountSelectListItems((int)id);
                     ViewData["Account"] = new SelectList(accountList, "Value", "Text");
 
-                    return View(new LoanApplicationViewModel { ShowCustomerLoanDto = customer });
+                    return View(new LoanApplicationViewModel { Customer = customer });
                 }
             }
 

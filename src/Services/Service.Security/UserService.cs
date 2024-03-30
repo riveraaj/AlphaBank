@@ -5,24 +5,23 @@ using Mapper.Security;
 using Microsoft.Extensions.Logging;
 using Service.Security.Helpers;
 
-namespace Service.Security
-{
+namespace Service.Security {
     public class UserService(IUserRepository userRepository, ILogger<UserService> logger) : IUserService {
 
         private readonly IUserRepository _userRepository = userRepository;
         private readonly ILogger<UserService> _logger = logger;
 
-        public async Task<bool> UserSetup(CreateEmployeeDto oCreateEmployeeDto, IEmployeeRepository oEmployeeRepository) {
+        public async Task<bool> UserSetup(CreateEmployeeDTO oCreateEmployeeDTO, IEmployeeRepository oEmployeeRepository) {
 
             //The id of the last registered employee is obtained to assign the user to the employee
             var employee = await oEmployeeRepository.GetLastEmployeeAsync();
             var employeeId = employee!.Id;
 
             //The searched id is assigned to the model to perform the registration.
-            oCreateEmployeeDto.User.EmployeeId = employeeId;
+            oCreateEmployeeDTO.User.EmployeeId = employeeId;
 
             //The user service is called to create the user.
-            var result = await Create(oCreateEmployeeDto.User);
+            var result = await Create(oCreateEmployeeDTO.User);
 
             if (!result) {
                 //If there's an exception during the process return false.
@@ -32,10 +31,10 @@ namespace Service.Security
             return true;
         }
 
-        public async Task<bool> Create(CreateUserDto oCreateUserDto) {
+        public async Task<bool> Create(CreateUserDTO oCreateUserDTO) {
 
             // Map CreateUserDto to a user object using some mapper (UserMapper).
-            var user = UserMapper.MapUser(oCreateUserDto);
+            var user = UserMapper.MapUser(oCreateUserDTO);
 
             //Encrypt the user's password using some encryption method (EncryptorHelper).
             user.Password = EncryptorHelper.Encrypt(user.Password);

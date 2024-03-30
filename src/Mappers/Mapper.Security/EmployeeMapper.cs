@@ -4,22 +4,22 @@ using Dtos.AlphaBank.Security;
 
 namespace Mapper.Security {
     public static class EmployeeMapper {
-        public static Employee MapEmployee(CreateEmployeeDto oCreateEmployeeDto)
+        public static Employee MapEmployee(CreateEmployeeDTO oCreateEmployeeDTO)
             => new() {
-                PersonId = (int) oCreateEmployeeDto.Person!.PersonId!,
-                DateEntry = (DateOnly) oCreateEmployeeDto.DateEntry!,
-                SalaryCategoryId = (byte) oCreateEmployeeDto.SalaryCategoryId!
+                PersonId = (int) oCreateEmployeeDTO.Person!.PersonId!,
+                DateEntry = (DateOnly) oCreateEmployeeDTO.DateEntry!,
+                SalaryCategoryId = (byte) oCreateEmployeeDTO.SalaryCategoryId!
             };
 
-        public static ShowEmployeeDto MapShowEmployeeDto(Employee oEmployee) {
-            var showEmployeeDto = new ShowEmployeeDto {
+        public static ShowEmployeeDTO MapShowEmployeeDTO(Employee oEmployee) {
+            var showEmployeeDto = new ShowEmployeeDTO {
                 Status = oEmployee.Status,
-                Person = new ShowPersonDto {
+                Person = new ShowPersonDTO {
                     Name = oEmployee.Person.Name,
                     FirstName = oEmployee.Person.FirstName,
                     SecondName = oEmployee.Person.SecondName
                 },
-                User = new ShowUserDto()
+                User = new ShowUserDTO()
             };
 
             if (oEmployee.Person.Phones.Any())

@@ -18,10 +18,10 @@ namespace Service.AnalyzeLoanOpportunities {
 
         private readonly ILogger<LoanApplicationService> _logger = logger;
 
-        public async Task<bool> Create(CreateLoanApplicationDto oCreateLoanApplicationDto) {
+        public async Task<bool> Create(CreateLoanApplicationDTO oCreateLoanApplicationDTO) {
             try {
                 // Create loan application
-                var loanApplication = LoanApplicationMapper.MapLoanApplication(oCreateLoanApplicationDto);
+                var loanApplication = LoanApplicationMapper.MapLoanApplication(oCreateLoanApplicationDTO);
                 loanApplication.DateApplication = DateOnly.FromDateTime(DateTime.Now);
                 loanApplication.ApplicationStatusId = 1;
 
@@ -33,8 +33,8 @@ namespace Service.AnalyzeLoanOpportunities {
                 string salaryStatementTitle = $"SalaryStatement-{account.Customer.PersonId}-{loanApplication.DateApplication}";
 
                 // Convert files to PDF and save them to the file system
-                byte[] employerOrder = ConvertToPdf(oCreateLoanApplicationDto.EmployerOrder, employerOrderTitle);
-                byte[] salaryStatement = ConvertToPdf(oCreateLoanApplicationDto.SalaryStatement, salaryStatementTitle);
+                byte[] employerOrder = ConvertToPdf(oCreateLoanApplicationDTO.EmployerOrder, employerOrderTitle);
+                byte[] salaryStatement = ConvertToPdf(oCreateLoanApplicationDTO.SalaryStatement, salaryStatementTitle);
 
                 string pathEmployerOrder = SaveFileHelper.SaveFile(employerOrder, employerOrderTitle);
                 string pathSalaryStatement = SaveFileHelper.SaveFile(salaryStatement, salaryStatementTitle);
@@ -60,14 +60,14 @@ namespace Service.AnalyzeLoanOpportunities {
             }
         }
 
-        public byte[] ConvertToPdf(FileUploadDto fileUploadDto, string title) {
+        public byte[] ConvertToPdf(FileUploadDTO oFileUploadDTO, string title) {
 
-            string fileExtension = Path.GetExtension(fileUploadDto.ContentType);
+            string fileExtension = Path.GetExtension(oFileUploadDTO.ContentType);
 
             return fileExtension.ToLower() switch {
-                ".txt" => FileConverterHelper.ConvertTxtToPdf(fileUploadDto, title),
-                ".doc" or ".docx" => FileConverterHelper.ConvertWordToPdf(fileUploadDto, title),
-                _ => FileConverterHelper.CopyPdf(fileUploadDto, title),// Convert to PDF by default if the file extension is not supported
+                ".txt" => FileConverterHelper.ConvertTxtToPdf(oFileUploadDTO, title),
+                ".doc" or ".docx" => FileConverterHelper.ConvertWordToPdf(oFileUploadDTO, title),
+                _ => FileConverterHelper.CopyPdf(oFileUploadDTO, title),// Convert to PDF by default if the file extension is not supported
             };
         }
     }

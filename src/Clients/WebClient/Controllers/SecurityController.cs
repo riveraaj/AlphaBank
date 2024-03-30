@@ -16,11 +16,11 @@ namespace WebClient.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Id", "Password")] UserLoginDto oUserLoginDto) {
+        public async Task<IActionResult> Login([Bind("Id", "Password")] UserLoginDTO oUserLoginDTO) {
 
             if (!ModelState.IsValid) return View();
 
-            var (result, userAuthentication) = await _userAuthenticatorService.UserAuthenticator(oUserLoginDto);
+            var (result, userAuthentication) = await _userAuthenticatorService.UserAuthenticator(oUserLoginDTO);
 
             if (!result) {
                 ViewData["Error"] = "*Hubo un error en el inicio de sesión, intentelo más tarde.";

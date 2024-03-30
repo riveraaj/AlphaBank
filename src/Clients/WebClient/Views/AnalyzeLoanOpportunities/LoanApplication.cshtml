@@ -42,49 +42,49 @@
             <div class="row">
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <label lass="control-label">Nombre Completo:</label>
-                    <input type="text" class="form-control" value="@(Model?.ShowCustomerLoanDto.FullName ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.Customer.FullName ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                     <label class="control-label">Estado Civil:</label>
-                    <input type="text" class="form-control" value="@(Model?.ShowCustomerLoanDto.MaritalStatus ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.Customer.MaritalStatus ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
                     <label class="control-label">Edad:</label>
-                    <input type="text" class="form-control" value="@(Model?.ShowCustomerLoanDto.Age.ToString() ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.Customer.Age.ToString() ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <label class="control-label">Nacionalidad:</label>
-                    <input type="text" class="form-control" value="@(Model?.ShowCustomerLoanDto.Nationality ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.Customer.Nationality ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <label class="control-label">Ocupación:</label>
-                    <input type="text" class="form-control" value="@(Model?.ShowCustomerLoanDto.Occupation ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.Customer.Occupation ?? "")" disabled />
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
                     <label class="control-label">Teléfono:</label>
-                    <input type="text" class="form-control" value="@(Model?.ShowCustomerLoanDto.PhoneNumber.ToString() ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.Customer.PhoneNumber.ToString() ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                     <label class="control-label">Correo Electrónico:</label>
-                    <input type="text" class="form-control" value="@(Model?.ShowCustomerLoanDto.Email ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.Customer.Email ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
                     <label class="control-label">Dirección de Residencia:</label>
-                    <input type="text" class="form-control" value="@(Model?.ShowCustomerLoanDto.Address ?? "")" disabled />
+                    <input type="text" class="form-control" value="@(Model?.Customer.Address ?? "")" disabled />
                 </div>
 
                 <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <label class="control-label">Salario Promedio Mensual:</label>
-                    <input type="text" class="form-control" value="@(Model != null ? "₡" + Model.ShowCustomerLoanDto.AverageMonthlySalary.ToString() : "")" disabled />
+                    <input type="text" class="form-control" value="@(Model != null ? "₡" + Model.Customer.AverageMonthlySalary.ToString() : "")" disabled />
                 </div>
             </div>
 
@@ -101,13 +101,13 @@
 
                             <div class="col-12 col-12 px-5 pt-5 pb-3 form-box bg-dark bg-opacity-10 text-center fs-5">
                                 <i class="fa fa-solid fa-download font-50"></i>
-                                <label asp-for="CreateLoanApplicationDto.EmployerOrder" class="small col-12">
+                                <label asp-for="LoanApplication.EmployerOrder" class="small col-12">
                                     Seleccione el archivo
                                     <span> Aquí </span>
                                 </label>
-                                <input type="file" asp-for="CreateLoanApplicationDto.EmployerOrder" class="opacity-0" onchange="fileUpload()">
+                                <input type="file" asp-for="LoanApplication.EmployerOrder" class="opacity-0" onchange="fileUpload()">
                             </div>
-                            <span asp-validation-for="CreateLoanApplicationDto.EmployerOrder" class="text-danger"></span>
+                            <span asp-validation-for="LoanApplication.EmployerOrder" class="text-danger"></span>
                             <div>
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-12 col-12">
@@ -125,13 +125,13 @@
 
                             <div class="col-12 col-12 px-5 pt-5 pb-3 form-box bg-dark bg-opacity-10 text-center fs-5">
                                 <i class="fa fa-solid fa-download font-50"></i>
-                                <label asp-for="CreateLoanApplicationDto.SalaryStatement" class="small col-12">
+                                <label asp-for="LoanApplication.SalaryStatement" class="small col-12">
                                     Seleccione el archivo
                                     <span> Aquí </span>
                                 </label>
-                                <input type="file" asp-for="CreateLoanApplicationDto.SalaryStatement" class="opacity-0" onchange="fileUpload()">                              
+                                <input type="file" asp-for="LoanApplication.SalaryStatement" class="opacity-0" onchange="fileUpload()">                              
                             </div>
-                            <span asp-validation-for="CreateLoanApplicationDto.SalaryStatement" class="text-danger"></span>
+                            <span asp-validation-for="LoanApplication.SalaryStatement" class="text-danger"></span>
 
                             <div>
                                 <div class="row d-flex justify-content-center">
@@ -154,49 +154,49 @@
                     <input type="hidden" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" disabled />
   
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="CreateLoanApplicationDto.TypeLoanId" class="control-label">Tipo de préstamo:</label>
-                        <select asp-for="CreateLoanApplicationDto.TypeLoanId" asp-items="ViewBag.TypeLoan" class="form-control"></select>
-                        <span asp-validation-for="CreateLoanApplicationDto.TypeLoanId" class="text-danger"></span>
+                        <label asp-for="LoanApplication.TypeLoanId" class="control-label">Tipo de préstamo:</label>
+                        <select asp-for="LoanApplication.TypeLoanId" asp-items="ViewBag.TypeLoan" class="form-control"></select>
+                        <span asp-validation-for="LoanApplication.TypeLoanId" class="text-danger"></span>
                     </div>
 
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="CreateLoanApplicationDto.DeadlineId" class="control-label">Plazo:</label>
-                        <select asp-for="CreateLoanApplicationDto.DeadlineId" asp-items="ViewBag.Deadline" class="form-control"></select>
-                        <span asp-validation-for="CreateLoanApplicationDto.DeadlineId" class="text-danger"></span>
+                        <label asp-for="LoanApplication.DeadlineId" class="control-label">Plazo:</label>
+                        <select asp-for="LoanApplication.DeadlineId" asp-items="ViewBag.Deadline" class="form-control"></select>
+                        <span asp-validation-for="LoanApplication.DeadlineId" class="text-danger"></span>
                     </div>
 
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="CreateLoanApplicationDto.TypeCurrencyId" class="control-label">Moneda:</label>
-                        <select asp-for="CreateLoanApplicationDto.TypeCurrencyId" asp-items="ViewBag.TypeCurrency" class="form-control"></select>
-                        <span asp-validation-for="CreateLoanApplicationDto.TypeCurrencyId" class="text-danger"></span>
+                        <label asp-for="LoanApplication.TypeCurrencyId" class="control-label">Moneda:</label>
+                        <select asp-for="LoanApplication.TypeCurrencyId" asp-items="ViewBag.TypeCurrency" class="form-control"></select>
+                        <span asp-validation-for="LoanApplication.TypeCurrencyId" class="text-danger"></span>
                     </div>
 
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="CreateLoanApplicationDto.Amount" class="control-label">Monto a solicitar:</label>
-                        <input type="number" asp-for="CreateLoanApplicationDto.Amount" class="form-control" />
-                        <span asp-validation-for="CreateLoanApplicationDto.Amount" class="text-danger"></span>
+                        <label asp-for="LoanApplication.Amount" class="control-label">Monto a solicitar:</label>
+                        <input type="number" asp-for="LoanApplication.Amount" class="form-control" />
+                        <span asp-validation-for="LoanApplication.Amount" class="text-danger"></span>
                     </div>
 
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="CreateLoanApplicationDto.InterestId" class="control-label">Interés:</label>
-                        <select asp-for="CreateLoanApplicationDto.InterestId" asp-items="ViewBag.Interest" class="form-control"></select>
-                        <span asp-validation-for="CreateLoanApplicationDto.InterestId" class="text-danger"></span>
+                        <label asp-for="LoanApplication.InterestId" class="control-label">Interés:</label>
+                        <select asp-for="LoanApplication.InterestId" asp-items="ViewBag.Interest" class="form-control"></select>
+                        <span asp-validation-for="LoanApplication.InterestId" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <label asp-for="CreateLoanApplicationDto.Justification" class="control-label">Justificación:</label>
-                        <textarea asp-for="CreateLoanApplicationDto.Justification" class="form-control"></textarea>
-                        <span asp-validation-for="CreateLoanApplicationDto.Justification" class="text-danger"></span>
+                        <label asp-for="LoanApplication.Justification" class="control-label">Justificación:</label>
+                        <textarea asp-for="LoanApplication.Justification" class="form-control"></textarea>
+                        <span asp-validation-for="LoanApplication.Justification" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-                        <label asp-for="CreateLoanApplicationDto.AccountId" class="control-label">Cuenta Bancaria:</label>
-                        <select asp-for="CreateLoanApplicationDto.AccountId" asp-items="ViewBag.Account" width="300" class="form-control"></select>
-                        <span asp-validation-for="CreateLoanApplicationDto.AccountId" class="text-danger"></span>
+                        <label asp-for="LoanApplication.AccountId" class="control-label">Cuenta Bancaria:</label>
+                        <select asp-for="LoanApplication.AccountId" asp-items="ViewBag.Account" width="300" class="form-control"></select>
+                        <span asp-validation-for="LoanApplication.AccountId" class="text-danger"></span>
                     </div>
                 </div>
 

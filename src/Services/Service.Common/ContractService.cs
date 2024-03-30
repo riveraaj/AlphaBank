@@ -3,23 +3,21 @@ using Dtos.AlphaBank.Common;
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
 using Mapper.Common;
+using Microsoft.Extensions.Logging;
 using Service.Common.Helpers;
 
-namespace Service.Common
-{
-    public class ContractService (IContractRepository contractRepository/*,
-                                ILogger<AccountService> logger*/) : IContractService
-    {
-        public readonly IContractRepository _contractRepository = contractRepository;
-        //public readonly ILogger<AccountService> _logger = logger;
+namespace Service.Common {
+    public class ContractService (IContractRepository contractRepository,
+                                ILogger<ContractService> logger) : IContractService {
 
-        public async Task<bool> LoanTypeCreate (LoanApplication oLoanApplication)
-        {
-            try
-            {
-                Contract contract = new Contract ();
+        private readonly IContractRepository _contractRepository = contractRepository;
+        private readonly ILogger<ContractService> _logger = logger;
 
-                contract.DateStart = DateOnly.FromDateTime(DateTime.UtcNow);
+        public async Task<bool> LoanTypeCreate (LoanApplication oLoanApplication)  {
+            try {
+                Contract contract = new() {
+                    DateStart = DateOnly.FromDateTime(DateTime.UtcNow)
+                };
 
                 contract.DateCompletion = contract.DateStart.AddMonths(int.Parse(oLoanApplication.Deadline.Description.Split(' ')[0]));
 
@@ -34,46 +32,40 @@ namespace Service.Common
                 // Check if the Contract PDF was created
                 if (string.IsNullOrEmpty(contract.PathFile)) return false;
 
-                //_logger.LogInformation("----- Create Contract: Start the creation of an contract registry");
+                _logger.LogInformation("----- Create Contract: Start the creation of an contract registry");
 
                 await _contractRepository.CreateAsync(contract);
                 await _contractRepository.SaveChangesAsync();
 
-                //_logger.LogInformation("----- Create Contract: Creation completed and saved successfully.");
+                _logger.LogInformation("----- Create Contract: Creation completed and saved successfully.");
 
                 //Return true to indicate successful creation.
                 return true;
             }
             catch (Exception e)
             {
-                //_logger.LogError($"----- Create Contract: An error occurred while creating and saving to the database. More about error: {e.Message}");
+                _logger.LogError($"----- Create Contract: An error occurred while creating and saving to the database. More about error: {e.Message}");
 
                 //If there's an exception during the process, return false.
                 return false;
             }
         }
 
-
-        public async Task<List<ShowContractDto>> GetByLoanApplicationID(int id)
-        {
-            try
-            {
+        public async Task<List<ShowContractDTO>> GetByLoanApplicationID(int id) {
+            try {
                 //Retrieve Contracts by LoanApplicationId asynchronously from the ContractRepository.
                 var contractList = await _contractRepository.GetByLoanApplicationId(id);
 
                 //Initialize a list to store ShowContractDto objects.
-                var showContractDtoList = new List<ShowContractDto>();
+                var showContractDtoList = new List<ShowContractDTO>();
                 foreach (var contract in contractList)
-                    showContractDtoList.Add(ContractMapper.MapShowContractDto(contract));
+                    showContractDtoList.Add(ContractMapper.MapShowContractDTO(contract));
 
                 // Return the list of ShowContractDto objects.
                 return showContractDtoList;
-            }
-            catch
-            {
+            } catch {
                 return [];
             }
         }
-
     }
 }

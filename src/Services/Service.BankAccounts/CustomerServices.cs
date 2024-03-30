@@ -16,16 +16,16 @@ namespace Service.BankAccounts
         private readonly ICustomerRepository _customerRepository = customerRepository;
         private readonly ILogger<CustomerService> _logger = logger;
 
-        public async Task<bool> Create(CreateCustomerDto oCreateCustomerDto) {
+        public async Task<bool> Create(CreateCustomerDTO oCreateCustomerDTO) {
             try {
                 //Get personId
-                var personId = (int)oCreateCustomerDto.Person.PersonId!;
+                var personId = (int) oCreateCustomerDTO.Person.PersonId!;
 
                 //The id of the person is added to the reference of phone
-                oCreateCustomerDto.Phone.PersonId = personId;
+                oCreateCustomerDTO.Phone.PersonId = personId;
 
                 //Map CreateCustomerDto to customer object using CustomerMapper.
-                var customer = CustomerMapper.MapCustomer(oCreateCustomerDto);
+                var customer = CustomerMapper.MapCustomer(oCreateCustomerDTO);
 
                 // Set the status of the customer to true.
                 customer.Status = true;
@@ -38,7 +38,7 @@ namespace Service.BankAccounts
 
                 //Validate that the person is not exempt in order to create it.
                 if (person == null) {
-                    var result = await _personService.Create(oCreateCustomerDto.Person, oCreateCustomerDto.Phone);
+                    var result = await _personService.Create(oCreateCustomerDTO.Person, oCreateCustomerDTO.Phone);
                     if (!result) return false;
                 }
 
@@ -63,17 +63,17 @@ namespace Service.BankAccounts
             }
         }
 
-        public async Task<List<ShowCustomerDto>> GetAll() {
+        public async Task<List<ShowCustomerDTO>> GetAll() {
             try {
                 //Retrieve all Customers asynchronously from the CustomerRepository.
                 var customerList = await _customerRepository.GetAllAsync();
 
                 //Initialize a list to store ShowCustomerDto objects.
-                var showCustomerDtoList = new List<ShowCustomerDto>();
+                var showCustomerDtoList = new List<ShowCustomerDTO>();
 
                 //Map each customer to a ShowCustomerDto and add it to the list.
                 foreach (var customer in customerList)
-                    showCustomerDtoList.Add(CustomerMapper.MapShowCustomerDto(customer));
+                    showCustomerDtoList.Add(CustomerMapper.MapShowCustomerDTO(customer));
 
                 // Return the list of ShowCustomerDto objects.
                 return showCustomerDtoList;
@@ -82,7 +82,7 @@ namespace Service.BankAccounts
             }
         }
 
-        public async Task<ShowCustomerLoanDto?> GetByIdForLoan(int id) {
+        public async Task<ShowCustomerLoanDTO?> GetByIdForLoan(int id) {
             var customer = await _customerRepository.GetByPersonIdAsync(id);
 
             if (customer != null) return CustomerMapper.MapShowCustomerLoan(customer);
@@ -90,10 +90,10 @@ namespace Service.BankAccounts
             return null;
         }
 
-        public async Task<ShowCustomerDto?> GetByIdForAccount(int id) {
+        public async Task<ShowCustomerDTO?> GetByIdForAccount(int id) {
             var customer = await _customerRepository.GetByPersonIdAsync(id);
 
-            if (customer != null) return CustomerMapper.MapShowCustomerDto(customer);
+            if (customer != null) return CustomerMapper.MapShowCustomerDTO(customer);
 
             return null;
         }

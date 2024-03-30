@@ -3,8 +3,7 @@ using Database.AlphaBank;
 using Interfaces.Security.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Security
-{
+namespace Repository.Security {
     public class RoleRepository(AlphaBankDbContext context) : IRoleRepository {
 
         private readonly AlphaBankDbContext _context = context;

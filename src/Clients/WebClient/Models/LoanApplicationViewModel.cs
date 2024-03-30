@@ -3,8 +3,8 @@
 namespace WebClient.Models {
     public class LoanApplicationViewModel {
 
-        public ShowCustomerLoanDto ShowCustomerLoanDto { get; set; } = null!;
+        public ShowCustomerLoanDTO Customer { get; set; } = null!;
 
-        public CreateLoanApplicationDto CreateLoanApplicationDto { get; set; } = null!;
+        public CreateLoanApplicationDTO LoanApplication { get; set; } = null!;
     }
 }

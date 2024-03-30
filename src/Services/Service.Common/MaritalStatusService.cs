@@ -2,8 +2,7 @@
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
 
-namespace Service.Common
-{
+namespace Service.Common {
     public class MaritalStatusService(IMaritalStatusRepository maritalStatusRepository)
                                         : IMaritalStatusService{
 
@@ -14,8 +13,7 @@ namespace Service.Common
             try{
                 //Retrieve all MaritalStatus asynchronously from the MaritalStatusRepository.
                 return (List<MaritalStatus>) await _maritalStatusRepository.GetAllAsync();
-            }
-            catch  {
+            } catch  {
                 // If there's an exception during the process, return an empty list.
                 return [];
             }

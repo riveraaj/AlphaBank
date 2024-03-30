@@ -2,8 +2,7 @@
 using Interfaces.Security.Repositories;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace UnitOfWork
-{
+namespace UnitOfWork {
     public class UnitOfWork (AlphaBankDbContext context) : IUnitOfWork {
 
         private readonly AlphaBankDbContext _context = context;

@@ -7,7 +7,7 @@ using System.Globalization;
 namespace Mapper.BankAccounts {
     public static class CustomerMapper {
 
-        public static ShowCustomerLoanDto MapShowCustomerLoan(Customer oCustomer)
+        public static ShowCustomerLoanDTO MapShowCustomerLoan(Customer oCustomer)
             => new() {
                 Age = DateTime.Today.Year - oCustomer.Person.DateBirth.Year,
                 Address = oCustomer.Person.Address,
@@ -20,15 +20,15 @@ namespace Mapper.BankAccounts {
                 PhoneNumber = oCustomer.Person.Phones.FirstOrDefault()!.Number
             };
 
-        public static Customer MapCustomer(CreateCustomerDto oCreateCustomerDto)
+        public static Customer MapCustomer(CreateCustomerDTO oCreateCustomerDTO)
             => new() {
-                EmailAddress = oCreateCustomerDto.EmailAddress, 
-                AverageMonthlySalary = (decimal) oCreateCustomerDto.AverageMonthlySalary!,
-                PersonId = (int) oCreateCustomerDto.Person.PersonId!,
-                OccupationId = (byte) oCreateCustomerDto.OccupationId!
+                EmailAddress = oCreateCustomerDTO.EmailAddress, 
+                AverageMonthlySalary = (decimal) oCreateCustomerDTO.AverageMonthlySalary!,
+                PersonId = (int) oCreateCustomerDTO.Person.PersonId!,
+                OccupationId = (byte) oCreateCustomerDTO.OccupationId!
             };
 
-        public static ShowCustomerDto MapShowCustomerDto(Customer oCustomer)
+        public static ShowCustomerDTO MapShowCustomerDTO(Customer oCustomer)
          => new() {
              CustomerId = oCustomer.Id.ToString(),
              PersonId = oCustomer.PersonId,

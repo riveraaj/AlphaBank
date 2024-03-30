@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dtos.AlphaBank.Common {
-    public class CreatePersonDto {
+    public class CreatePersonDTO {
 
         [Required(ErrorMessage = "El campo identificación es obligatorio.")]
         public int? PersonId { get; set; }

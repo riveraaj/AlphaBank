@@ -12,9 +12,9 @@ namespace Service.Security
         private readonly IRoleRepository _roleRepository = roleRepository;
         private readonly ILogger<RoleService> _logger = logger;
 
-        public async Task<bool> Create(CreateRoleDto oCreateRoleDto) {
+        public async Task<bool> Create(CreateRoleDTO oCreateRoleDTO) {
             // Map CreateRoleDto to a role object using some mapper (RoleMapper)
-            var role = RoleMapper.MapRole(oCreateRoleDto);
+            var role = RoleMapper.MapRole(oCreateRoleDTO);
 
             try {
 

@@ -43,16 +43,16 @@ namespace WebClient.Controllers {
                 var accountList = await _accountService.GetByIdForBankAccount((int) id);
 
                 if (customer != null)
-                    return View(new AccountOpeningViewModel { ShowCustomerDto = customer, ShowAccountForPersonDtoList = accountList });
+                    return View(new AccountViewModel { Customer = customer, AccountList = accountList });
             }
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAccount(AccountOpeningViewModel oAccountOpeningViewModel, int personId) {
+        public async Task<IActionResult> CreateAccount(AccountViewModel oAccountViewModel, int personId) {
 
-            var account = oAccountOpeningViewModel.CreateAccountDto;
+            var account = oAccountViewModel.Account;
 
             var result = await _accountService.Create(account);
 

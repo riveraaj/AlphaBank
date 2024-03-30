@@ -2,8 +2,7 @@
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
 
-namespace Service.Common
-{
+namespace Service.Common {
     public class TypePhoneService(ITypePhoneRepository typePhoneRepository) 
                                     : ITypePhoneService {
 

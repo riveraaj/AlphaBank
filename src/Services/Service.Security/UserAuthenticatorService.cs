@@ -4,8 +4,7 @@ using Interfaces.Security.Services;
 using Microsoft.Extensions.Logging;
 using Service.Security.Helpers;
 
-namespace Service.Security
-{
+namespace Service.Security {
     public class UserAuthenticatorService(IUserRepository userRepository, 
                                            ILogger<UserAuthenticatorService> logger) 
                                            : IUserAuthenticatorService {
@@ -15,15 +14,15 @@ namespace Service.Security
 
         //This method helps us to validate and send a message
         //in response to the user's login process.
-        public async Task<(bool, UserAuthenticationDto?)> UserAuthenticator(UserLoginDto oUserLoginDto) {
+        public async Task<(bool, UserAuthenticationDTO?)> UserAuthenticator(UserLoginDTO oUserLoginDTO) {
 
             _logger.LogInformation("---- The user's credentials begin to be validated.");
 
             //We obtain the values returned by the method
-            var (validatedUser, userAuth) = await ValidateUserId((int) oUserLoginDto.Id!);
+            var (validatedUser, userAuth) = await ValidateUserId((int) oUserLoginDTO.Id!);
 
-            var validatedUserPassword = await ValidateUserPassword((int) oUserLoginDto.Id,
-                                                                    oUserLoginDto.Password);
+            var validatedUserPassword = await ValidateUserPassword((int) oUserLoginDTO.Id,
+                                                                    oUserLoginDTO.Password);
             //Validate that the outputs are invalid
             if (!validatedUser || !validatedUserPassword) {
                 _logger.LogError("---- User authentication failed");
@@ -36,13 +35,13 @@ namespace Service.Security
         }
 
         //This function returns true or false if a user with the credential id is found.
-        public async Task<(bool, UserAuthenticationDto?)> ValidateUserId(int id) {
+        public async Task<(bool, UserAuthenticationDTO?)> ValidateUserId(int id) {
 
             var user = await _userRepository.GetByPersonIdAsync(id);
 
             if (user == null) return (false, null);
 
-            else return (true, new UserAuthenticationDto
+            else return (true, new UserAuthenticationDTO
             { Id = user.Id.ToString(), Role = user.RoleId.ToString() });
         }
 
