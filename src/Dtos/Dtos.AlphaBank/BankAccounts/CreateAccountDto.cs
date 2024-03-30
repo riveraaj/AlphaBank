@@ -2,13 +2,12 @@
 
 namespace Dtos.AlphaBank.BankAccounts {
     public class CreateAccountDTO {
-        [Required(ErrorMessage = "Debe de buscar un cliente")]
-        public int? CustomerId { get; set; }
+        public int CustomerId { get; set; }
 
-        [Required(ErrorMessage = "El campo ocupación es obligatorio.")]
+        [Required(ErrorMessage = "El campo tipo de cuenta es obligatorio.")]
         public byte? TypeAccountId { get; set; }
 
-        [Required(ErrorMessage = "El campo ocupación es obligatorio.")]
+        [Required(ErrorMessage = "El campo tipo de moneda es obligatorio.")]
         public byte? TypeCurrencyId { get; set; }
     }
 }
