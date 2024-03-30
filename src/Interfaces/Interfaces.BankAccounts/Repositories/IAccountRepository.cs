@@ -7,7 +7,7 @@ namespace Interfaces.BankAccounts.Repositories {
         public Task<bool> CheckIfExistsByAccountNumberAsync(string accountNumber);
         public Task<ICollection<Account>> GetAllAsync();
         public Task CreateAsync(Account oAccount);
-        public Task RemoveAsync(string accountNumber);
+        public Task<bool> RemoveAsync(string accountNumber);
         public Task SaveChangesAsync();
     }
 }
