@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dtos.AlphaBank.AnalyzeLoanOpportunities {
-    public class FileUploadDTO {
+    public class FileUploadDto {
         [Required]
         public string FileName { get; set; } = null!;
 

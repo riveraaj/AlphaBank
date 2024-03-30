@@ -3,7 +3,7 @@ using Dtos.AlphaBank.Common;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dtos.AlphaBank.BankAccounts {
-    public class CreateCustomerDTO {
+    public class CreateCustomerDto {
 
         [Required(ErrorMessage = "El campo correo es obligatorio.")]
         [RegularExpression(@"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
@@ -19,9 +19,9 @@ namespace Dtos.AlphaBank.BankAccounts {
         public byte? OccupationId { get; set; }
 
         [Required]
-        public required CreatePersonDTO Person { get; set; }
+        public required CreatePersonDto Person { get; set; }
 
         [Required]
-        public required CreatePhoneDTO Phone { get; set; }
+        public required CreatePhoneDto Phone { get; set; }
     }
 }

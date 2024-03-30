@@ -5,15 +5,16 @@ using Interfaces.Security.Services;
 using Mapper.Security;
 using Microsoft.Extensions.Logging;
 
-namespace Service.Security {
+namespace Service.Security
+{
     public class RoleService(IRoleRepository roleRepository, ILogger<RoleService> logger) : IRoleService {
 
         private readonly IRoleRepository _roleRepository = roleRepository;
         private readonly ILogger<RoleService> _logger = logger;
 
-        public async Task<bool> Create(CreateRoleDTO oCreateRoleDTO) {
+        public async Task<bool> Create(CreateRoleDto oCreateRoleDto) {
             // Map CreateRoleDto to a role object using some mapper (RoleMapper)
-            var role = RoleMapper.MapRole(oCreateRoleDTO);
+            var role = RoleMapper.MapRole(oCreateRoleDto);
 
             try {
 

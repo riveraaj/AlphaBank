@@ -1,5 +1,5 @@
 ﻿namespace Dtos.AlphaBank.AnalyzeLoanOpportunities {
-    public class ShowCustomerLoanDTO {
+    public class ShowCustomerLoanDto {
         public string FullName { get; set; } = null!;
 
         public string MaritalStatus { get; set; } = null!;

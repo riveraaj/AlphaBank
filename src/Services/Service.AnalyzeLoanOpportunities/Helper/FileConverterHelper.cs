@@ -6,7 +6,7 @@ using iText.Layout.Element;
 namespace Service.AnalyzeLoanOpportunities.Helper {
     internal static class FileConverterHelper {
 
-        public static byte[] ConvertTxtToPdf(FileUploadDTO oFileUploadDTO, string pdfTitle) {
+        public static byte[] ConvertTxtToPdf(FileUploadDto oFileUploadDto, string pdfTitle) {
 
             using MemoryStream ms = new();
 
@@ -19,7 +19,7 @@ namespace Service.AnalyzeLoanOpportunities.Helper {
                 Document doc = new(pdf);
 
                 //Write the content of the file to the PDF
-                string textContent = System.Text.Encoding.UTF8.GetString(oFileUploadDTO.FileContent);
+                string textContent = System.Text.Encoding.UTF8.GetString(oFileUploadDto.FileContent);
                 Paragraph paragraph = new(textContent);
                 doc.Add(paragraph);
 
@@ -29,9 +29,9 @@ namespace Service.AnalyzeLoanOpportunities.Helper {
             return ms.ToArray();
         }
 
-        public static byte[] ConvertWordToPdf(FileUploadDTO oFileUploadDTO, string pdfTitle) {
+        public static byte[] ConvertWordToPdf(FileUploadDto oFileUploadDto, string pdfTitle) {
             // Load the Word document from the byte array
-            using MemoryStream input = new(oFileUploadDTO.FileContent);
+            using MemoryStream input = new(oFileUploadDto.FileContent);
             // Create a new MemoryStream to save the PDF
             using MemoryStream output = new();
 
@@ -67,9 +67,9 @@ namespace Service.AnalyzeLoanOpportunities.Helper {
             return output.ToArray();
         }
 
-        public static byte[] CopyPdf(FileUploadDTO oFileUploadDTO, string pdfTitle) {
+        public static byte[] CopyPdf(FileUploadDto oFileUploadDto, string pdfTitle) {
             // Create a MemoryStream to load the original PDF
-            using MemoryStream input = new(oFileUploadDTO.FileContent);
+            using MemoryStream input = new(oFileUploadDto.FileContent);
 
             // Create a MemoryStream to store the copied PDF
             using MemoryStream output = new();

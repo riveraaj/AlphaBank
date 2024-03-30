@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dtos.AlphaBank.Security {
-    public class CreateUserDTO {
+    public class CreateUserDto {
 
         [Required(ErrorMessage = "El campo correo es obligatorio.")]
         [RegularExpression(@"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",

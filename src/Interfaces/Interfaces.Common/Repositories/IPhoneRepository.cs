@@ -1,7 +1,9 @@
 ﻿using Data.AlphaBank;
 
-namespace Interfaces.Common.Repositories {
-    public interface IPhoneRepository {
+namespace Interfaces.Common.Repositories
+{
+    public interface IPhoneRepository
+    {
 
         public Task CreateAsync(Phone oPhone);
     }

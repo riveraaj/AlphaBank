@@ -3,7 +3,8 @@ using Database.AlphaBank;
 using Interfaces.BankAccounts.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.BankAccounts {
+namespace Repository.BankAccounts
+{
     public class OccupationRepository(AlphaBankDbContext context) : IOccupationRepository {
 
         private readonly AlphaBankDbContext _context = context;

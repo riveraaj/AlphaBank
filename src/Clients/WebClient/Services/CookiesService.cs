@@ -3,15 +3,16 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
-namespace WebClient.Services {
+namespace WebClient.Services
+{
     partial class CookiesService {
 
         //This method creates the claims and the cookie for a user session.
-        public static async Task CreateAuthenticationCookies(HttpContext oHttpContext, UserAuthenticationDTO oUserAuthenticationDTO)  {
+        public static async Task CreateAuthenticationCookies(HttpContext oHttpContext, UserAuthenticationDto oUserAuthenticationDto)  {
 
             var claims = new List<Claim> {
-                new (ClaimTypes.Role, oUserAuthenticationDTO.Role),
-                new (ClaimTypes.NameIdentifier, oUserAuthenticationDTO.Id),
+                new (ClaimTypes.Role, oUserAuthenticationDto.Role),
+                new (ClaimTypes.NameIdentifier, oUserAuthenticationDto.Id),
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

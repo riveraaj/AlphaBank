@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dtos.AlphaBank.Common {
-    public class CreatePhoneDTO {
+    public class CreatePhoneDto {
 
         [Required(ErrorMessage = "El campo tipo de telefono es obligatorio.")]
         public byte? TypePhoneId { get; set; }

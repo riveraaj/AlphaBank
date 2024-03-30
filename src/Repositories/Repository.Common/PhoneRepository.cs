@@ -2,7 +2,8 @@
 using Database.AlphaBank;
 using Interfaces.Common.Repositories;
 
-namespace Repository.Common {
+namespace Repository.Common
+{
     public class PhoneRepository(AlphaBankDbContext context) : IPhoneRepository {
 
         private readonly AlphaBankDbContext _context = context;

@@ -4,14 +4,14 @@ using Dtos.AlphaBank.BankAccounts;
 namespace Mapper.BankAccounts {
     public static class AccountMapper {
 
-        public static Account MapAccount(CreateAccountDTO oCreateAccountDTO)
+        public static Account MapAccount(CreateAccountDto oCreateAccountDto)
             => new() {
-                CustomerId = (int) oCreateAccountDTO.CustomerId!,
-                TypeAccountId = (byte) oCreateAccountDTO.TypeAccountId!,
-                TypeCurrencyId = (byte) oCreateAccountDTO.TypeCurrencyId!,
+                CustomerId = (int) oCreateAccountDto.CustomerId!,
+                TypeAccountId = (byte) oCreateAccountDto.TypeAccountId!,
+                TypeCurrencyId = (byte) oCreateAccountDto.TypeCurrencyId!,
             };
 
-        public static ShowAccountDTO MapShowAccountDTO(Account oAccount)
+        public static ShowAccountDto MapShowAccountDto(Account oAccount)
             => new() {
                 AccountNumber = oAccount.Id,
                 Balance = oAccount.Balance,
@@ -21,7 +21,7 @@ namespace Mapper.BankAccounts {
                 CustomerID = oAccount.CustomerId
             };
 
-        public static ShowAccountForPersonDTO MapShowAccountForPersonDTO(Account oAccount)
+        public static ShowAccountForPersonDto MapShowAccountForPersonDto(Account oAccount)
             => new() {
                 AccountId = oAccount.Id,
                 State = (oAccount.Status) ? "Activa" : "Inactiva",

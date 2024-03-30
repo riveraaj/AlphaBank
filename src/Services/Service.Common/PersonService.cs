@@ -6,7 +6,8 @@ using Interfaces.Security.Repositories;
 using Mapper.Common;
 using Microsoft.Extensions.Logging;
 
-namespace Service.Common {
+namespace Service.Common
+{
     public class PersonService(ILogger<PersonService> logger,
                                 IPersonRepository personRepository,
                                 IPhoneRepository phoneRepository,
@@ -20,12 +21,12 @@ namespace Service.Common {
         public async Task<Person?> GetById(int id) 
             => await _personRepository.GetByIdAsync(id);
 
-        public async Task<bool> Create(CreatePersonDTO oCreatePersonDTO,
-                                        CreatePhoneDTO oCreatePhoneDTO) {
+        public async Task<bool> Create(CreatePersonDto oCreatePersonDto, 
+                                        CreatePhoneDto oCreatePhoneDto) {
 
             // Map CreateEmployeeDto to person and phone
-            var person = PersonMapper.MapPerson(oCreatePersonDTO);
-            var phone = PhoneMapper.MapPhone(oCreatePhoneDTO);
+            var person = PersonMapper.MapPerson(oCreatePersonDto);
+            var phone = PhoneMapper.MapPhone(oCreatePhoneDto);
 
             // Set the Deceased of the person to false.
             person.Deceased = false;
