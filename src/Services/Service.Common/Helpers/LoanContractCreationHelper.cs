@@ -150,7 +150,7 @@ namespace Service.Common.Helpers {
 
                 document.Add(new Paragraph("1. Monto del Préstamo:").AddStyle(paragraphStyle).SetMarginLeft(25));
                 // The Loan Amount is formated to Money Format using the method MoneyFormat() also we get the LoanAmount into words using .ToWords() from the Humanizer Library
-                document.Add(new Paragraph("i. El Banco otorga al Deudor un préstamo por un monto total de " + MoneyFormat(loanAmount.ToString(), currency) + " (" + ((long)loanAmount).ToWords(spanish) + ").").AddStyle(paragraphStyle).SetMarginLeft(50));
+                document.Add(new Paragraph("i. El Banco otorga al Deudor un préstamo por un monto total de " + MoneyFormatHelper.MoneyFormat(loanAmount.ToString(), currency) + " (" + ((long)loanAmount).ToWords(spanish) + ").").AddStyle(paragraphStyle).SetMarginLeft(50));
 
                 document.Add(new Paragraph("2. Tasa de Interés:").AddStyle(paragraphStyle).SetMarginLeft(25));
                 document.Add(new Paragraph("i. La tasa de interés acordada para este préstamo es del " + interestPercentage + "% anual.").AddStyle(paragraphStyle).SetMarginLeft(50));
@@ -159,7 +159,7 @@ namespace Service.Common.Helpers {
                 document.Add(new Paragraph("i. El plazo de este préstamo es de " + loanTerm + " meses, comenzando a partir de la fecha de desembolso del préstamo.").AddStyle(paragraphStyle).SetMarginLeft(50));
 
                 document.Add(new Paragraph("4. Forma de Pago:").AddStyle(paragraphStyle).SetMarginLeft(25));
-                document.Add(new Paragraph("i. El Deudor deberá realizar pagos mensuales por el monto de " + MoneyFormat(paymentAmount.ToString(), currency) + " (más intereses) en las fechas acordadas entre Las Partes.").AddStyle(paragraphStyle).SetMarginLeft(50));
+                document.Add(new Paragraph("i. El Deudor deberá realizar pagos mensuales por el monto de " + MoneyFormatHelper.MoneyFormat(paymentAmount.ToString(), currency) + " (más intereses) en las fechas acordadas entre Las Partes.").AddStyle(paragraphStyle).SetMarginLeft(50));
 
                 document.Add(new Paragraph("5. Penalizaciones por Pagos Atrasados:").AddStyle(paragraphStyle).SetMarginLeft(25));
                 document.Add(new Paragraph("i. En caso de que el Deudor no realice los pagos en las fechas acordadas, se aplicará una penalización sobre el monto adeudado por cada día de retraso.").AddStyle(paragraphStyle).SetMarginLeft(50));
@@ -192,23 +192,6 @@ namespace Service.Common.Helpers {
                 // An error occurred, so the fiinalFilePath is ""
                 return "";
             }
-        }
-
-        // This method is used to change amounts to money format depending of the currency
-        static string MoneyFormat(string amount, string currecncy) {
-            decimal cantidadDecimal = decimal.Parse(amount);
-
-            CultureInfo culture = currecncy switch
-            {
-                "USD" => CultureInfo.GetCultureInfo("en-US"),
-                "CRC" => CultureInfo.GetCultureInfo("es-CR"),
-                "EUR" => CultureInfo.GetCultureInfo("es-ES"),
-                _ => CultureInfo.InvariantCulture,
-            };
-
-            // The amount is converted to money format based on the culture got in the swith.
-            // To prevent errors the currency simbol is replaced by "" and then the currency parameter is concatenated
-            return cantidadDecimal.ToString("C", culture).Replace(culture.NumberFormat.CurrencySymbol, "") + " " + currecncy;
         }
     }
 }
