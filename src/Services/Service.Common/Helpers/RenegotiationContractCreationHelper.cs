@@ -60,8 +60,8 @@ namespace Service.Common.Helpers
             string description = oLoan.LoanApplication.Justification;
 
 
-            // Combine the filePath(Where the contracts will be stored) with the pdf File Name (LoanApplicationId_loan_contract_PersonId.pdf)
-            string finalFilePath = System.IO.Path.Combine(filePath, oLoan.LoanApplication.Id + "_loan_renegotiation_"
+            // Combine the filePath(Where the contracts will be stored) with the pdf File Name (LoanId_loan_renegotiation_PersonId.pdf)
+            string finalFilePath = System.IO.Path.Combine(filePath, oLoan.Id + "_loan_renegotiation_"
                 + oLoan.LoanApplication.Account.Customer.PersonId + ".pdf");
 
             try
