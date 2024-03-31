@@ -41,7 +41,14 @@ namespace WebClient.Controllers {
         }
 
         [Authorize(Roles = "1")]
-        public async Task<IActionResult> EmployeeList() =>
-            View(await _employeeService.GetAll());
+        public async Task<IActionResult> EmployeeList()
+        {
+            
+            string script = "<script>AlertSucces('Carga exitosa','La información se cargó correctamente');</script>";
+
+            // Pasar el script a la vista utilizando ViewBag
+            ViewBag.AlertSuccess = script;
+            return View(await _employeeService.GetAll()); 
+        }
     }
 }

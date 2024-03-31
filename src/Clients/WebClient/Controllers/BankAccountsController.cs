@@ -22,7 +22,7 @@ namespace WebClient.Controllers {
 
         public async Task<IActionResult> AccountClosing(int? id) {
 
-            if (TempData.TryGetValue("Error", out object? value))  ViewData["Error"] = value;
+            if (TempData.TryGetValue("AlertError", out object? value))  ViewBag.AlertError = value;
             
             if (id.HasValue) { //Validates if the parameter has data
                 //A customer is obtained from the id
@@ -44,7 +44,9 @@ namespace WebClient.Controllers {
                 var result = await _accountService.Remove(accountId);
 
                 if (!result) {
-                    TempData["Error"] = "*Hubo un error en el cierre de cuenta ya que aún tiene fondos, intentelo más tarde.";
+                    string script = "<script>AlertError('Hubo un error','En el cierre de cuenta ya que aún tiene fondos, intentelo más tarde.');</script>";
+
+                    TempData["AlertError"] = script;
                     return RedirectToAction("AccountClosing", new { id = personId });
                 }
                 return RedirectToAction("AccountClosing", new { id = personId });

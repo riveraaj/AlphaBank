@@ -24,7 +24,7 @@
                             </div>
 
                             <div class="col-9">
-                                <input type="text" name="id" class="form-control input-radius-50 mt-0" value="@Model.Customer.PersonId"/>
+                                <input type="text" name="id" class="form-control input-radius-50 mt-0" value="@Model?.Customer.PersonId"/>
                             </div>
                         </div>
                     </div>
@@ -88,9 +88,7 @@
 
             <h5>Cuentas existentes:</h5>
             <div class="">
-                <div class="form-group">
-                    <span class="text-danger">@ViewData["Error"]</span>
-                </div>
+                
                 <table id="tablacuenta" class="mt-4">
 
                     <thead>
