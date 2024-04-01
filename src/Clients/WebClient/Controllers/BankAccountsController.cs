@@ -88,10 +88,10 @@ namespace WebClient.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAccount(AccountOppeningViewModel oAccountViewModel, int personId) {
+        public async Task<IActionResult> CreateAccount(AccountOppeningViewModel oAccountOppeningViewModel, int personId) {
 
             string script;
-            var account = oAccountViewModel.Account;
+            var account = oAccountOppeningViewModel.Account;
 
             //Manual validation of the account model
             var accountValidationContext = new ValidationContext(account, serviceProvider: null, items: null);
