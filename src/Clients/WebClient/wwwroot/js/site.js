@@ -1,28 +1,29 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿//Upload a file
+function fileUpload(inputId, ulId) {
 
-// Write your JavaScript code.
+    const files = [],
+        fileInput = document.getElementById(inputId),
+        fileList = document.getElementById(ulId),
+        fileName = fileInput.value.split("\\").pop();
 
-// upload a file
-function fileUpload() {
-    let files = [];
-    let fileName = document.getElementById('file').value.split("\\").pop();
-    files.push(fileName);
+    fileList.innerHTML = '';
+
+    files.push(fileName)
     console.log(files);
-    // when the file is uploaded
-    if (document.getElementById('file').value != "") {
+
+    //When the file is uploaded
+    if (fileInput.value != "") {
         setTimeout(() => {
-            //           create list of files
-            files.forEach(function (item) {
-                item = item.toLowerCase();
+            //create list of files
+            files.forEach(file => {
+                file = file.toLowerCase();
                 let list = document.createElement("li");
-                
-                list.innerText = item;
-                
-                document.getElementById('list').appendChild(list);
+
+                list.innerText = file;
+
+                fileList.appendChild(list);
                 $(list).addClass("li-drag-drop");
-                
-            })
+            });
         }, 400);
     }
 }
