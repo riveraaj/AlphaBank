@@ -22,8 +22,9 @@ namespace WebClient.Controllers {
 
         public async Task<IActionResult> AccountClosing(int? id) {
 
-            if (TempData.TryGetValue("AlertError", out object? value))  ViewBag.AlertError = value;
-            
+            if (TempData.TryGetValue("AlertError", out object? error))  ViewBag.AlertError = error;
+            if (TempData.TryGetValue("AlertSuccess", out object? success)) ViewBag.AlertSuccess = success;
+
             if (id.HasValue) { //Validates if the parameter has data
                 //A customer is obtained from the id
                 var customer = await _customerService.GetByIdForAccount((int)id);
@@ -39,16 +40,21 @@ namespace WebClient.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CloseAccount(string accountId, int personId) {
 
+            string script;
+
             if (!accountId.IsNullOrEmpty()) {
 
                 var result = await _accountService.Remove(accountId);
 
                 if (!result) {
-                    string script = "<script>AlertError('Hubo un error','En el cierre de cuenta ya que aún tiene fondos, intentelo más tarde.');</script>";
+                    script = "<script>AlertError('Hubo un error','La cuenta aún tiene fondos.');</script>";
 
                     TempData["AlertError"] = script;
                     return RedirectToAction("AccountClosing", new { id = personId });
                 }
+                script = $"<script>AlertSuccess('Cuenta cerrada exitosamente','La cuenta {accountId} se inactivo.');</script>";
+                
+                TempData["AlertSuccess"] = script;
                 return RedirectToAction("AccountClosing", new { id = personId });
             }
             return RedirectToAction("AccountClosing");
@@ -56,6 +62,8 @@ namespace WebClient.Controllers {
 
         [HttpGet]
         public async Task<IActionResult> AccountOppening(int? id){
+
+            if (TempData.TryGetValue("AlertSuccess", out object? success)) ViewBag.AlertSuccess = success;
 
             //We obtain all the lists of data to be used in the select forms formatted in
             //SelectList to enter them in a ViewData
@@ -82,6 +90,7 @@ namespace WebClient.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAccount(AccountOppeningViewModel oAccountViewModel, int personId) {
 
+            string script;
             var account = oAccountViewModel.Account;
 
             //Manual validation of the account model
@@ -98,9 +107,14 @@ namespace WebClient.Controllers {
             var result = await _accountService.Create(account);
 
             if (!result) {
-                ViewData["Error"] = "*Hubo un error en la apertura de cuenta, intentelo más tarde.";
+                script = "<script>AlertError('Hubo un error','No se ha podido abrir la cuenta, inténtelo más tarde.');</script>";
+
+                ViewData["AlertError"] = script;
                 return View("AccountOppening");
             }
+            script = "<script>AlertSuccess('Cuenta creada exitosamente','');</script>";
+
+            TempData["AlertSuccess"] = script;
             return RedirectToAction("AccountOppening", new { id = personId });
         }
     }
