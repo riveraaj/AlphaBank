@@ -1,4 +1,5 @@
-﻿using Interfaces.AnalyzeLoanOpportunities.Services;
+﻿using Dtos.AlphaBank.AnalyzeLoanOpportunities;
+using Interfaces.AnalyzeLoanOpportunities.Services;
 using Interfaces.BankAccounts.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -51,6 +52,23 @@ namespace WebClient.Services {
                 Value = x.Id.ToString(),
                 Text = $"{x.Id} - {x.TypeCurrency.Description}"
             });
+        }
+
+        public async Task<FileUploadDTO> ConvertFileUploadDTO(IFormFile file) {
+
+            using var ms = new MemoryStream();
+
+            await file.CopyToAsync(ms); //Copy file contents to MemoryStream
+
+            var content = ms.ToArray(); //Convertir MemoryStream a byte[]
+
+            var fileDTO = new FileUploadDTO { //Create DTO with file data
+                FileName = file.FileName,
+                ContentType = file.ContentType,
+                FileContent = content
+            };
+
+            return fileDTO;
         }
     }
 }
