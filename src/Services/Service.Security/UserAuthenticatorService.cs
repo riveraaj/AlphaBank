@@ -30,31 +30,36 @@ namespace Service.Security {
             }
 
             _logger.LogInformation("---- The user was successfully authenticated");
-
             return (true, userAuth);
         }
 
         //This function returns true or false if a user with the credential id is found.
         public async Task<(bool, UserAuthenticationDTO?)> ValidateUserId(int id) {
+            try {
+                var user = await _userRepository.GetByPersonIdAsync(id);
 
-            var user = await _userRepository.GetByPersonIdAsync(id);
+                if (user == null) return (false, null);
 
-            if (user == null) return (false, null);
-
-            else return (true, new UserAuthenticationDTO
-            { Id = user.Id.ToString(), Role = user.RoleId.ToString() });
+                else return (true, new UserAuthenticationDTO
+                { Id = user.Id.ToString(), Role = user.RoleId.ToString() });
+            } catch {
+                return (false, null);
+            }
         }
 
         //This function returns true or false if the password credentials are correct.
         public async Task<bool> ValidateUserPassword(int id, string password) {
+            try {
+                var user = await _userRepository.GetByPersonIdAsync(id);
 
-            var user = await _userRepository.GetByPersonIdAsync(id);
+                if (user == null) return false;
 
-            if (user == null) return false;
+                var pass = user.Password;
 
-            var pass = user.Password;
-
-            return EncryptorHelper.ValidateEncryption(password, pass);
+                return EncryptorHelper.ValidateEncryption(password, pass);
+            } catch {
+                return false;
+            }
         }
     }
 }
