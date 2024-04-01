@@ -1,6 +1,8 @@
-﻿using Dtos.AlphaBank.AnalyzeLoanOpportunities;
+﻿using Aspose.Words.Drawing;
+using Aspose.Words;
+using Dtos.AlphaBank.AnalyzeLoanOpportunities;
+using iText.IO.Image;
 using iText.Kernel.Pdf;
-using iText.Layout;
 using iText.Layout.Element;
 
 namespace Service.AnalyzeLoanOpportunities.Helper {
@@ -16,11 +18,11 @@ namespace Service.AnalyzeLoanOpportunities.Helper {
                 // Set PDF title
                 pdf.GetDocumentInfo().SetTitle(pdfTitle);
 
-                Document doc = new(pdf);
+                iText.Layout.Document doc = new(pdf);
 
                 //Write the content of the file to the PDF
                 string textContent = System.Text.Encoding.UTF8.GetString(oFileUploadDTO.FileContent);
-                Paragraph paragraph = new(textContent);
+                iText.Layout.Element.Paragraph paragraph = new(textContent);
                 doc.Add(paragraph);
 
                 doc.Close();
@@ -42,7 +44,7 @@ namespace Service.AnalyzeLoanOpportunities.Helper {
             PdfDocument pdf = new(writer);
 
             // Initialize document
-            Document doc = new(pdf);
+            iText.Layout.Document doc = new(pdf);
 
             // Load the Word document
             Aspose.Words.Document wordDoc = new(input);
@@ -52,8 +54,21 @@ namespace Service.AnalyzeLoanOpportunities.Helper {
                 // Iterate through paragraphs of the section
                 foreach (Aspose.Words.Paragraph wordParagraph in wordSection.Body.Paragraphs.Cast<Aspose.Words.Paragraph>()) {
                     // Convert each paragraph to a PDF paragraph and add it to the PDF document
-                    Paragraph pdfParagraph = new(wordParagraph.GetText());
+                    iText.Layout.Element.Paragraph pdfParagraph = new(wordParagraph.GetText());
                     doc.Add(pdfParagraph);
+                }
+            }
+
+            // Process inline images
+            NodeCollection shapes = wordDoc.GetChildNodes(NodeType.Shape, true);
+            foreach (Shape shape in shapes.Cast<Shape>()) {
+                if (shape.HasImage) {
+                    // Extract image data and add it to PDF
+                    MemoryStream imageData = new();
+                    shape.ImageData.Save(imageData);
+                    // Add image data to PDF document
+                    Image image = new (ImageDataFactory.Create(imageData.ToArray()));
+                    doc.Add(image);
                 }
             }
 
