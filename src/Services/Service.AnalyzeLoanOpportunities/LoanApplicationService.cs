@@ -29,8 +29,11 @@ namespace Service.AnalyzeLoanOpportunities {
                 var account = await _accountRepository.GetByIdForLoanApplication(loanApplication.AccountId);
 
                 // Create titles for the documents
-                string employerOrderTitle = $"EmployerOrder-{account!.Customer.PersonId}-{loanApplication.DateApplication}";
-                string salaryStatementTitle = $"SalaryStatement-{account.Customer.PersonId}-{loanApplication.DateApplication}";
+                string employerOrderTitle = $"EmployerOrder-{account!.Customer.PersonId}" +
+                    $"-{loanApplication.DateApplication.ToString("dd-MM-yy").Replace('/', '-')}";
+
+                string salaryStatementTitle = $"SalaryStatement-{account.Customer.PersonId}" +
+                    $"-{loanApplication.DateApplication.ToString("dd-MM-yy").Replace('/', '-')}";
 
                 // Convert files to PDF and save them to the file system
                 byte[] employerOrder = ConvertToPdf(oCreateLoanApplicationDTO.EmployerOrder, employerOrderTitle);
@@ -62,11 +65,9 @@ namespace Service.AnalyzeLoanOpportunities {
 
         public byte[] ConvertToPdf(FileUploadDTO oFileUploadDTO, string title) {
 
-            string fileExtension = Path.GetExtension(oFileUploadDTO.ContentType);
-
-            return fileExtension.ToLower() switch {
-                ".txt" => FileConverterHelper.ConvertTxtToPdf(oFileUploadDTO, title),
-                ".doc" or ".docx" => FileConverterHelper.ConvertWordToPdf(oFileUploadDTO, title),
+            return oFileUploadDTO.ContentType.ToLower() switch {
+                "text/plain" => FileConverterHelper.ConvertTxtToPdf(oFileUploadDTO, title),
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => FileConverterHelper.ConvertWordToPdf(oFileUploadDTO, title),
                 _ => FileConverterHelper.CopyPdf(oFileUploadDTO, title),// Convert to PDF by default if the file extension is not supported
             };
         }
