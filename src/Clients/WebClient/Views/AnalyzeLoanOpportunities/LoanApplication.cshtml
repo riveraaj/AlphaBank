@@ -91,7 +91,7 @@
             <br />
             <hr />
 
-            <form>
+            <form asp-controller="AnalyzeLoanOpportunities" asp-action="Create" enctype="multipart/form-data">
                 <div class="row">
                     <h5>Archivos Adjuntos:</h5>
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
@@ -99,19 +99,19 @@
                         <section class="mt-3">
                             <h5>Orden Patronal:</h5>
 
-                            <div class="col-12 col-12 px-5 pt-5 pb-3 form-box bg-dark bg-opacity-10 text-center fs-5">
+                            <div class="col-12 col-12 px-5 pt-5 pb-5 form-box bg-dark bg-opacity-10 text-center fs-5 position-relative">
                                 <i class="fa fa-solid fa-download font-50"></i>
-                                <label asp-for="LoanApplication.EmployerOrder" class="small col-12">
+                                <label for="files" class="small col-12 pb-2">
                                     Seleccione el archivo
                                     <span> Aquí </span>
                                 </label>
-                                <input type="file" asp-for="LoanApplication.EmployerOrder" class="opacity-0" onchange="fileUpload()">
+                                <input type="file" name="files" id="order" class="opacity-0" accept=".docx, .txt, .pdf" required onchange="fileUpload('order', 'orderList')">
                             </div>
-                            <span asp-validation-for="LoanApplication.EmployerOrder" class="text-danger"></span>
+
                             <div>
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-12 col-12">
-                                        <ul class="list-group mx-auto my-3 rounded-0" id="list">
+                                        <ul class="list-group mx-auto my-3 rounded-0" id="orderList">
                                         </ul>
                                     </div>
                                 </div>
@@ -123,20 +123,19 @@
                         <section class="mt-3">
                             <h5>Constancia salarial:</h5>
 
-                            <div class="col-12 col-12 px-5 pt-5 pb-3 form-box bg-dark bg-opacity-10 text-center fs-5">
+                            <div class="col-12 col-12 px-5 pt-5 pb-5 form-box bg-dark bg-opacity-10 text-center fs-5 position-relative py-2">
                                 <i class="fa fa-solid fa-download font-50"></i>
-                                <label asp-for="LoanApplication.SalaryStatement" class="small col-12">
+                                <label for="files" class="small col-12 pb-2">
                                     Seleccione el archivo
                                     <span> Aquí </span>
                                 </label>
-                                <input type="file" asp-for="LoanApplication.SalaryStatement" class="opacity-0" onchange="fileUpload()">                              
+                                <input type="file" id="salary" name="files" class="opacity-0" accept=".docx, .txt, .pdf" required onchange="fileUpload('salary', 'salaryList')">
                             </div>
-                            <span asp-validation-for="LoanApplication.SalaryStatement" class="text-danger"></span>
 
                             <div>
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-12 col-12">
-                                        <ul class="list-group mx-auto my-3 rounded-0" id="list">
+                                        <ul class="list-group mx-auto my-3 rounded-0" id="salaryList">
                                         </ul>
                                     </div>
                                 </div>
@@ -151,7 +150,7 @@
                 <h5>Información del préstamo:</h5>
                 <div class="row">
 
-                    <input type="hidden" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" disabled />
+                    <input type="hidden" value="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-for="LoanApplication.UserId"/>
   
                     <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
                         <label asp-for="LoanApplication.TypeLoanId" class="control-label">Tipo de préstamo:</label>
@@ -201,7 +200,7 @@
                 </div>
 
                 <div class="form-group">
-                    <span class="text-danger">@ViewData["Error"]</span>
+                    <span class="text-danger">@ViewData["CustomerError"]</span>
                 </div>
 
                 <br />
