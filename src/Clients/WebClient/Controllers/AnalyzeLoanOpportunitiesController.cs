@@ -3,19 +3,20 @@ using Interfaces.BankAccounts.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 using WebClient.Models;
 using WebClient.Services;
 
 namespace WebClient.Controllers {
 
     [Authorize]
-    public class AnalyzeLoanOpportunitiesController(//ILoanApplicationService loanApplicationService,
+    public class AnalyzeLoanOpportunitiesController(ILoanApplicationService loanApplicationService,
                                                     ICustomerService customerService,
                                                     AnalyzeLoanApplicationService analyzeLoanApplicationService,
                                                     CommonService commonService) : Controller {
 
-        //private readonly ILoanApplicationService _loanApplicationService
-            //= loanApplicationService;
+        private readonly ILoanApplicationService _loanApplicationService
+            = loanApplicationService;
 
         private readonly ICustomerService _customerService = customerService;
 
@@ -26,6 +27,9 @@ namespace WebClient.Controllers {
 
         [HttpGet]
         public async Task<IActionResult> LoanApplication(int? id) {
+
+            if (TempData.TryGetValue("AlertError", out object? error)) ViewBag.AlertError = error;
+            if (TempData.TryGetValue("AlertSuccess", out object? success)) ViewBag.AlertSuccess = success;
 
             //We obtain all the lists of data to be used in the select forms formatted in
             //SelectList to enter them in a ViewData
@@ -54,8 +58,45 @@ namespace WebClient.Controllers {
                     return View(new LoanApplicationViewModel { Customer = customer });
                 }
             }
-
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(LoanApplicationViewModel oLoanApplicationViewModel, List<IFormFile> files) {
+
+            string script;
+
+            oLoanApplicationViewModel.LoanApplication.EmployerOrder 
+                = await _analyzeLoanApplicationService.ConvertFileUploadDTO(files[0]);
+
+            oLoanApplicationViewModel.LoanApplication.SalaryStatement 
+                = await _analyzeLoanApplicationService.ConvertFileUploadDTO(files[1]);
+
+            var loanApplication = oLoanApplicationViewModel.LoanApplication;
+
+            //Manual validation of the loanApplication model
+            var loanApplicationValidationContext = new ValidationContext(loanApplication, serviceProvider: null, items: null);
+            var loanApplicationValidationResults = new List<ValidationResult>();
+            bool loanApplicationIsValid = Validator.TryValidateObject(loanApplication, loanApplicationValidationContext,
+                loanApplicationValidationResults, validateAllProperties: true);
+
+            if (!loanApplicationIsValid) {
+                ViewData["CustomerError"] = "*Debe de buscar un cliente";
+                return View("LoanApplication");
+            }
+
+            var result = await _loanApplicationService.Create(loanApplication);
+
+            if (!result){
+                script = "<script>AlertError('Hubo un error','No se ha podido crear la solicitud, inténtelo más tarde.');</script>";
+
+                TempData["AlertError"] = script;
+                return RedirectToAction("LoanApplication");
+            }
+            script = "<script>AlertSuccess('Solicitud creada exitosamente','');</script>";
+
+            TempData["AlertSuccess"] = script;
+            return RedirectToAction("LoanApplication"); ;
         }
     }
 }
