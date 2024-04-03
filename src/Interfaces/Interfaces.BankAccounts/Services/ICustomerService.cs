@@ -7,5 +7,6 @@ namespace Interfaces.BankAccounts.Services {
         public Task<List<ShowCustomerDTO>> GetAll();
         public Task<ShowCustomerLoanDTO?> GetByIdForLoan(int id);
         public Task<ShowCustomerDTO?> GetByIdForAccount(int id);
+        public Task Update(int id, byte customerStatusId);
     }
 }
