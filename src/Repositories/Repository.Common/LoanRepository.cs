@@ -73,14 +73,14 @@ namespace Repository.Common
         public async Task CreateAsync(Loan oLoan)
             => await _context.Loans.AddAsync(oLoan);
 
-        public async Task UpdateLoanStatus(int id, byte loanStatementId)
-        {
-            var loanStatus = await _context.Loans.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task UpdateLoanStatementAsync(int id, byte loanStatementId) {
+            var loan = await _context.Loans.FirstOrDefaultAsync(x => x.Id == id);
+            loan!.LoanStatementId = loanStatementId;
+        }
 
-            if (loanStatus == null)
-                return;
-
-            loanStatus.LoanStatementId = loanStatementId;
+        public async Task UpdateRemainingQuotasAsync(int id) {
+            var loan = await _context.Loans.FirstOrDefaultAsync(x => x.Id == id);
+            loan!.RemainingQuotas -= 1;
         }
 
         public async Task SaveChangesAsync()
