@@ -15,6 +15,25 @@ namespace Service.BankAccounts {
         private readonly ICustomerRepository _customerRepository = customerRepository;
         private readonly ILogger<CustomerService> _logger = logger;
 
+        public async Task<List<ShowCustomerDTO>> GetAll() {
+            try {
+                //Retrieve all Customers asynchronously from the CustomerRepository.
+                var customerList = await _customerRepository.GetAllAsync();
+
+                //Initialize a list to store ShowCustomerDto objects.
+                var showCustomerDtoList = new List<ShowCustomerDTO>();
+
+                //Map each customer to a ShowCustomerDto and add it to the list.
+                foreach (var customer in customerList)
+                    showCustomerDtoList.Add(CustomerMapper.MapShowCustomerDTO(customer));
+
+                // Return the list of ShowCustomerDto objects.
+                return showCustomerDtoList;
+            } catch {
+                return [];
+            }
+        }
+
         public async Task<bool> Create(CreateCustomerDTO oCreateCustomerDTO) {
             try {
                 //Get personId
@@ -62,22 +81,17 @@ namespace Service.BankAccounts {
             }
         }
 
-        public async Task<List<ShowCustomerDTO>> GetAll() {
+        public async Task Update(int id, byte customerStatusId) {
             try {
-                //Retrieve all Customers asynchronously from the CustomerRepository.
-                var customerList = await _customerRepository.GetAllAsync();
+                _logger.LogInformation("----- Create Customer: Start the creation of an employee registry");
+                
+                await _customerRepository.UpdateAsync(id, customerStatusId);
+                await _customerRepository.SaveChangesAsync();
 
-                //Initialize a list to store ShowCustomerDto objects.
-                var showCustomerDtoList = new List<ShowCustomerDTO>();
-
-                //Map each customer to a ShowCustomerDto and add it to the list.
-                foreach (var customer in customerList)
-                    showCustomerDtoList.Add(CustomerMapper.MapShowCustomerDTO(customer));
-
-                // Return the list of ShowCustomerDto objects.
-                return showCustomerDtoList;
-            }  catch {
-                return [];
+                _logger.LogInformation("----- Create Customer: Creation completed and saved successfully.");
+            }
+            catch (Exception e) {
+                _logger.LogError($"----- Update Customer: An error occurred while updating and saving to the database. More about error: {e.Message}");
             }
         }
 
