@@ -28,6 +28,11 @@ namespace Repository.BankAccounts {
         public async Task CreateAsync(Customer oCustomer)
             => await _context.Customers.AddAsync(oCustomer);
 
+        public async Task UpdateAsync(int id, byte customerStatusId) {
+            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
+            customer!.CustomerStatusId = customerStatusId;
+        }
+
         public async Task SaveChangesAsync()
             => await _context.SaveChangesAsync();
     }
