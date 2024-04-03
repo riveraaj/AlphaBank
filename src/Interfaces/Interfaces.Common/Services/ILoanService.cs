@@ -1,12 +1,9 @@
 ﻿using Data.AlphaBank;
-using Dtos.AlphaBank.BankAccounts;
 
-namespace Interfaces.Common.Services
-{
-    public interface ILoanService
-    {
-
+namespace Interfaces.Common.Services {
+    public interface ILoanService {
         public Task<bool> Create(LoanApplication oLoanApplication);
-
+        public Task UpdateStatement(int id, byte loanStatementId);
+        public Task UpdateQuotas(int id);
     }
 }
