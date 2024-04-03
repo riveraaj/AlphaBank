@@ -5,6 +5,7 @@ namespace Interfaces.BankAccounts.Repositories {
         public Task<Customer?> GetByPersonIdAsync(int id);
         public Task<ICollection<Customer>> GetAllAsync();
         public Task CreateAsync(Customer oCustomer);
+        public Task UpdateAsync(int id, byte customerStatusId);
         public Task SaveChangesAsync();
     }
 }
