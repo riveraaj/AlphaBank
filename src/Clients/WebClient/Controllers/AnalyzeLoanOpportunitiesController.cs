@@ -13,8 +13,7 @@ namespace WebClient.Controllers {
     public class AnalyzeLoanOpportunitiesController(ILoanApplicationService loanApplicationService,
                                                     ICustomerService customerService,
                                                     AnalyzeLoanApplicationService analyzeLoanApplicationService,
-                                                    CommonService commonService) : Controller
-    {
+                                                    CommonService commonService) : Controller {
 
         private readonly ILoanApplicationService _loanApplicationService
             = loanApplicationService;
@@ -27,8 +26,7 @@ namespace WebClient.Controllers {
         private readonly CommonService _commonService = commonService;
 
         [HttpGet]
-        public async Task<IActionResult> LoanApplication(int? id)
-        {
+        public async Task<IActionResult> LoanApplication(int? id){
 
             if (TempData.TryGetValue("AlertError", out object? error)) ViewBag.AlertError = error;
             if (TempData.TryGetValue("AlertSuccess", out object? success)) ViewBag.AlertSuccess = success;
@@ -46,14 +44,12 @@ namespace WebClient.Controllers {
             ViewData["TypeCurrency"] = new SelectList(typeCurrencyList, "Value", "Text");
             ViewData["Interest"] = new SelectList(interestList, "Value", "Text");
 
-            if (id.HasValue)
-            { //Validates if the parameter has data
+            if (id.HasValue) { //Validates if the parameter has data
 
                 //A customer is obtained from the id
                 var customer = await _customerService.GetByIdForLoan((int)id);
 
-                if (customer != null)
-                {
+                if (customer != null) {
                     //The accounts related to the client are searched and saved in a
                     //ViewData to be shown in a select of the form.
                     var accountList = await _analyzeLoanApplicationService.GetAccountSelectListItems((int)id);
@@ -66,8 +62,7 @@ namespace WebClient.Controllers {
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(LoanApplicationViewModel oLoanApplicationViewModel, List<IFormFile> files)
-        {
+        public async Task<IActionResult> Create(LoanApplicationViewModel oLoanApplicationViewModel, List<IFormFile> files){
 
             string script;
 
@@ -85,16 +80,14 @@ namespace WebClient.Controllers {
             bool loanApplicationIsValid = Validator.TryValidateObject(loanApplication, loanApplicationValidationContext,
                 loanApplicationValidationResults, validateAllProperties: true);
 
-            if (!loanApplicationIsValid)
-            {
+            if (!loanApplicationIsValid) {
                 ViewData["CustomerError"] = "*Debe de buscar un cliente";
                 return View("LoanApplication");
             }
 
             var result = await _loanApplicationService.Create(loanApplication);
 
-            if (!result)
-            {
+            if (!result) {
                 script = "<script>AlertError('Hubo un error','No se ha podido crear la solicitud, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
@@ -104,8 +97,6 @@ namespace WebClient.Controllers {
 
             TempData["AlertSuccess"] = script;
             return RedirectToAction("LoanApplication"); ;
-        }
-
-        
+        }   
     }
 }
