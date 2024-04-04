@@ -25,6 +25,9 @@ namespace Service.GrantingLoans
                 // Check if we Succesfully get the LoanApplication Object ID
                 if (oLoanApplication == null) return false;
 
+                // Check if the ApplicationStatusId is only 1 (Pendiente), if the Loan Application is not Pending the Loan can´t be granted
+                if (oLoanApplication.ApplicationStatusId != 1) return false;
+
                 // In case the grantingLoan boolean value is False, the Loan will be Denied and only the status will be updated
                 if (!grantingLoan) {
                     _logger.LogInformation("----- Loan Granting: Update the ApplicationStatus of the LoanApplication.");
