@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Dtos.AlphaBank.AnalyzeLoanOpportunities.ShowLoanApplicationDTO>;
+
+@{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
     ViewData["Title"] = "Evaluación Solicitudes Préstamo";
 }
@@ -13,7 +15,7 @@
 
             <br />
 
-            <form method="get" asp-controller="BankAccounts" asp-action="AccountOppening">
+            <form method="get" asp-controller="" asp-action="">
                 <div class="row mt-4">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 pt-3 pt-sm-3 pt-md-0 pt-lg-0 pt-xl-0">
                         <div class="row">
@@ -57,20 +59,23 @@
                                 <th>Tipo Préstamo</th>
                                 <th>Fecha de Solicitud</th>
                                 <th>Identificación del solicitante</th>
+                                <th>Moneda</th>
                                 <th>Monto</th>
                             </tr>
                         </thead>
 
                         <tbody>
-
+                            @foreach(var item in Model) {
                             <tr>
                                 <td></td>
-                                <td>prueba</td>
-                                <td>prueba</td>
-                                <td>prueba</td>
-                                <td>prueba</td>
-                                <td>prueba</td>
+                                <td>@item.Id</td>
+                                <td>@item.TypeLoan</td>
+                                <td>@item.DateApplication</td>
+                                <td>@item.PersonId</td>
+                                <td>@item.TypeCurrency</td>
+                                <td>@item.Amount</td>
                             </tr>
+                            }                      
                         </tbody>
                     </table>
                 </div>
