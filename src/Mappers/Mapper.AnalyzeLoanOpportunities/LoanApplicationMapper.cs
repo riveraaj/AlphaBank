@@ -1,6 +1,6 @@
 ﻿using Data.AlphaBank;
 using Dtos.AlphaBank.AnalyzeLoanOpportunities;
-using Dtos.AlphaBank.Reports;
+using System.Globalization;
 
 namespace Mapper.AnalyzeLoanOpportunities {
     public static class LoanApplicationMapper {
@@ -17,13 +17,14 @@ namespace Mapper.AnalyzeLoanOpportunities {
                 UserId = (int) oCreateLoanApplicationDTO.UserId!
             };
 
-        public static ShowLoanApprovalHistoryDTO MapShowLoanApprovalHistoryDTO
-            (LoanApplication oLoanApplication) => new() {
-                Amount = oLoanApplication.Amount,
+        public static ShowLoanApplicationDTO MapShowLoanApplicationDTO(LoanApplication oLoanApplication) 
+            => new() {
+                Amount = oLoanApplication.Amount.ToString("#,0", CultureInfo.InvariantCulture),
                 DateApplication = oLoanApplication.DateApplication,
                 Id = oLoanApplication.Id,
                 PersonId = oLoanApplication.Account.Customer.PersonId,
-                TypeLoan = oLoanApplication.TypeLoan.Description
+                TypeLoan = oLoanApplication.TypeLoan.Description,
+                TypeCurrency = oLoanApplication.TypeCurrency.Description
             };
     }
 }
