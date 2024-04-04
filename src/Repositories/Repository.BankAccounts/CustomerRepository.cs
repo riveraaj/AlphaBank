@@ -23,6 +23,10 @@ namespace Repository.BankAccounts {
                                        .Include(x => x.CustomerStatus)
                                        .Include(x => x.Person)
                                             .ThenInclude(p => p.Phones)
+                                        .Include(x => x.Person)
+                                            .ThenInclude(y => y.Nationality)
+                                       .Include(x => x.Person)
+                                            .ThenInclude(y => y.MaritalStatus)
                                        .ToListAsync();
 
         public async Task CreateAsync(Customer oCustomer)

@@ -1,0 +1,124 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
+    ViewData["Title"] = "Evaluación Solicitudes Préstamo";
+}
+
+<div class="container">
+    <div class="card-white-transparent shadow-container mt-5 w-100">
+
+        <div class="header-card">
+            <div class="row">
+                <p class="tittle">Evaluación de Solicitudes de Préstamos</p>
+            </div>
+
+            <br />
+
+            <form method="get" asp-controller="BankAccounts" asp-action="AccountOppening">
+                <div class="row mt-4">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 pt-3 pt-sm-3 pt-md-0 pt-lg-0 pt-xl-0">
+                        <div class="row">
+                            <div class="col-3 d-flex justify-content-center align-items-center control-label text-end">
+                                Criterio de Búsqueda:
+                            </div>
+
+                            <div class="col-9">
+                                <select class="form-control select-border-50 m-0"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 pt-3 pt-sm-3 pt-md-0 pt-lg-0 pt-xl-0">
+                        <div class="row">
+                            <div class="col-3 d-flex justify-content-center align-items-center control-label text-end">
+                                Valor de Búsqueda:
+                            </div>
+
+                            <div class="col-9">
+                                <input type="text" name="id" class="form-control input-radius-50 mt-0" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 pt-3 pt-sm-3 pt-md-3 pt-lg-0 pt-xl-0">
+                        <input type="submit" value="Consultar" class="btn btn-green w-100" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="card-main table-responsive pt-3">
+
+                <h5>Lista de Préstamos Pendientes de Evaluación:</h5>
+                <div class="">
+                    <table id="tablaevaluacion" class="mt-4">
+
+                        <thead>
+                            <tr>
+                                <th>Acción</th>
+                                <th>Número de Solicitud</th>
+                                <th>Tipo Préstamo</th>
+                                <th>Fecha de Solicitud</th>
+                                <th>Identificación del solicitante</th>
+                                <th>Monto</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td></td>
+                                <td>prueba</td>
+                                <td>prueba</td>
+                                <td>prueba</td>
+                                <td>prueba</td>
+                                <td>prueba</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script type="text/javascript">
+    $('#tablaevaluacion').DataTable({
+        "responsive": true,
+        "aServerSide": true,
+        "autoWidth": false,
+        "deferRender": true,
+        "retrieve": true,
+        "processing": true,
+        "paging": true,
+        "dom": 'Bfrtip',
+        "buttons": ["csv", "excel", "pdf"],
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+</script>

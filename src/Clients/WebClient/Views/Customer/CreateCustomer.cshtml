@@ -1,0 +1,74 @@
+﻿@model Dtos.AlphaBank.BankAccounts.CreateCustomerDTO
+
+@{
+    ViewData["Title"] = "CreateCustomer";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="CreateCustomer">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Person.PersonId" class="control-label">Identificación:</label>
+                <input asp-for="Person.PersonId" class="form-control" />
+                <span asp-validation-for="Person.PersonId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Name" class="control-label">Nombre</label>
+                <input asp-for="Person.Name" class="form-control" />
+                <span asp-validation-for="Person.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.FirstName" class="control-label">Primer Apellido</label>
+                <input asp-for="Person.FirstName" class="form-control" />
+                <span asp-validation-for="Person.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.SecondName" class="control-label">Segundo Apellido:</label>
+                <input asp-for="Person.SecondName" class="form-control" />
+                <span asp-validation-for="Person.SecondName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.Address" class="control-label">Dirección:</label>
+                <input asp-for="Person.Address" class="form-control" />
+                <span asp-validation-for="Person.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.TypeIdentificationId" class="control-label">Tipo identificación:</label>
+                <input asp-for="Person.TypeIdentificationId" class="form-control" />
+                <span asp-validation-for="Person.TypeIdentificationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.NationalityId" class="control-label">Nacionalidad:</label>
+                <input asp-for="Person.NationalityId" class="form-control" />
+                <span asp-validation-for="Person.NationalityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Person.MaritalStatusId" class="control-label">Estado Civil:</label>
+                <input asp-for="Person.MaritalStatusId" class="form-control" />
+                <span asp-validation-for="Person.MaritalStatusId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AverageMonthlySalary" class="control-label"></label>
+                <input asp-for="AverageMonthlySalary" class="form-control" />
+                <span asp-validation-for="AverageMonthlySalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OccupationId" class="control-label"></label>
+                <input asp-for="OccupationId" class="form-control" />
+                <span asp-validation-for="OccupationId" class="text-danger"></span>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

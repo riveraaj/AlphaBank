@@ -123,6 +123,12 @@ select {
     border-radius: 8px!important;
 }
 
+.select-border-50 {
+    background-color: transparent !important;
+    border: 2px solid #789461 !important;
+    border-radius: 25px !important;
+}
+
 .input-radius-50 {
     margin-top: 0px;
     background-color: transparent !important;
@@ -147,6 +153,26 @@ select {
     font-weight: 500;
     color: white;
 
+}
+
+.btn-green-border-8 {
+    border-radius: 8px;
+    background-color: #789461;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+}
+
+.btn-close-border-8 {
+    border-radius: 8px;
+    background-color: #6c757d;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
 }
 .button.dt-button, div.dt-button, a.dt-button {
     background-image: linear-gradient(to bottom, #789461 0%, #789461 0%);
@@ -269,4 +295,12 @@ label {
     border: 2px dashed #789461;
     margin-bottom: 10px;
     font-size: 12px;
+}
+
+.btn-action {
+    background: #789461;
+    border: 0px solid;
+    font-size: 26px;
+    color: white;
+    border-radius: 8px;
 }

@@ -52,7 +52,7 @@ namespace WebClient.Controllers {
                     TempData["AlertError"] = script;
                     return RedirectToAction("AccountClosing", new { id = personId });
                 }
-                script = $"<script>AlertSuccess('Cuenta cerrada exitosamente','La cuenta {accountId} se inactivo.');</script>";
+                script = $"<script>AlertSuccess('Cuenta cerrada exitosamente','La cuenta {accountId} se inactivó.');</script>";
                 
                 TempData["AlertSuccess"] = script;
                 return RedirectToAction("AccountClosing", new { id = personId });
