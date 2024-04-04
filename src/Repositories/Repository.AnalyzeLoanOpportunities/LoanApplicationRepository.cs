@@ -10,11 +10,10 @@ namespace Repository.AnalyzeLoanOpportunities {
         private readonly AlphaBankDbContext _context = context;
 
         public async Task<ICollection<LoanApplication>> GetAllAsync()
-            => await _context.LoanApplications.ToListAsync();
-
-        public async Task<ICollection<LoanApplication>> GetAllAsyncForReport()
             => await _context.LoanApplications.Include(x => x.Account)
                                                 .ThenInclude(x => x.Customer)
+                                              .Include(x => x.TypeLoan)
+                                              .Include(x => x.TypeCurrency)
                                               .ToListAsync();
 
         public async Task<LoanApplication?> GetByIdForContract(int id)
