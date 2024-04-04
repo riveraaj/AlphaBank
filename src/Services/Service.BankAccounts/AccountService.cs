@@ -102,7 +102,7 @@ namespace Service.BankAccounts {
                 var accountList = await _accountRepository.GetByPersonIdForLoanApplication(id);
 
                 // Return the list of ShowAccountDto objects.
-                return (List<Account>) accountList;
+                return accountList.Where(x => x.Status == true).ToList();
             } catch {
                 return [];
             }
