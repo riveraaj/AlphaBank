@@ -5,63 +5,33 @@ namespace Database.AlphaBank;
 public partial class AlphaBankDbContext(DbContextOptions<AlphaBankDbContext> options) : DbContext(options) {
 
     public virtual DbSet<Account> Accounts { get; set; }
-
     public virtual DbSet<ApplicationStatus> ApplicationStatuses { get; set; }
-
     public virtual DbSet<CollectionHistory> CollectionHistories { get; set; }
-
-    public virtual DbSet<CollectionStatus> CollectionStatuses { get; set; }
-
     public virtual DbSet<Contract> Contracts { get; set; }
-
     public virtual DbSet<Customer> Customers { get; set; }
-
     public virtual DbSet<CustomerStatus> CustomerStatuses { get; set; }
-
     public virtual DbSet<Deadline> Deadlines { get; set; }
-
     public virtual DbSet<Employee> Employees { get; set; }
-
     public virtual DbSet<Interest> Interests { get; set; }
-
     public virtual DbSet<Loan> Loans { get; set; }
-
     public virtual DbSet<LoanApplication> LoanApplications { get; set; }
-
     public virtual DbSet<LoanStatement> LoanStatements { get; set; }
-
     public virtual DbSet<MaritalStatus> MaritalStatuses { get; set; }
-
     public virtual DbSet<Message> Messages { get; set; }
-
     public virtual DbSet<Nationality> Nationalities { get; set; }
-
     public virtual DbSet<Notification> Notifications { get; set; }
-
     public virtual DbSet<Occupation> Occupations { get; set; }
-
     public virtual DbSet<Person> People { get; set; }
-
     public virtual DbSet<Phone> Phones { get; set; }
-
     public virtual DbSet<Role> Roles { get; set; }
-
     public virtual DbSet<SalaryCategory> SalaryCategories { get; set; }
-
     public virtual DbSet<TypeAccount> TypeAccounts { get; set; }
-
     public virtual DbSet<TypeContract> TypeContracts { get; set; }
-
     public virtual DbSet<TypeCurrency> TypeCurrencies { get; set; }
-
     public virtual DbSet<TypeIdentification> TypeIdentifications { get; set; }
-
     public virtual DbSet<TypeLoan> TypeLoans { get; set; }
-
     public virtual DbSet<TypeNotification> TypeNotifications { get; set; }
-
     public virtual DbSet<TypePhone> TypePhones { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
 
     //Detailed description of the structure of the database and
@@ -125,7 +95,6 @@ public partial class AlphaBankDbContext(DbContextOptions<AlphaBankDbContext> opt
             entity.Property(e => e.Amount)
                 .HasColumnType("money")
                 .HasColumnName("amount");
-            entity.Property(e => e.CollectionStatusId).HasColumnName("collection_status_id");
             entity.Property(e => e.DateDeposit).HasColumnName("date_deposit");
             entity.Property(e => e.Deadline).HasColumnName("deadline");
             entity.Property(e => e.DepositMount)
@@ -137,29 +106,10 @@ public partial class AlphaBankDbContext(DbContextOptions<AlphaBankDbContext> opt
                 .HasColumnName("moratorium_interest");
             entity.Property(e => e.QuotaNumber).HasColumnName("quota_number");
 
-            entity.HasOne(d => d.CollectionStatus).WithMany(p => p.CollectionHistories)
-                .HasForeignKey(d => d.CollectionStatusId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__collectio__colle__02084FDA");
-
             entity.HasOne(d => d.Loan).WithMany(p => p.CollectionHistories)
                 .HasForeignKey(d => d.LoanId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__collectio__loan___02FC7413");
-        });
-
-        modelBuilder.Entity<CollectionStatus>(entity => {
-            entity.HasKey(e => e.Id).HasName("PK__collecti__3213E83F532CE6D9");
-
-            entity.ToTable("collection_status");
-
-            entity.Property(e => e.Id)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("id");
-            entity.Property(e => e.Description)
-                .HasMaxLength(25)
-                .IsUnicode(false)
-                .HasColumnName("description");
         });
 
         modelBuilder.Entity<Contract>(entity => {
