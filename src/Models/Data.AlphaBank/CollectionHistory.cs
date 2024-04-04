@@ -8,8 +8,6 @@ public partial class CollectionHistory {
     public DateOnly DateDeposit { get; set; }
     public decimal DepositMount { get; set; }
     public decimal MoratoriumInterest { get; set; }
-    public byte CollectionStatusId { get; set; }
     public int LoanId { get; set; }
-    public virtual CollectionStatus CollectionStatus { get; set; } = null!;
     public virtual Loan Loan { get; set; } = null!;
 }
