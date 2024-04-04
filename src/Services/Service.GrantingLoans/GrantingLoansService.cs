@@ -15,7 +15,7 @@ namespace Service.GrantingLoans
         private readonly ILoanService _loanService = loanService;
         private readonly ILogger<GrantingLoansService> _logger = logger;
 
-        public async Task<bool> GrantingLoan(int idLoanApplication) {
+        public async Task<bool> GrantingLoan(int idLoanApplication, bool grantingLoan) {
 			try {
                 _logger.LogInformation("----- Loan Granting: Start the process of granting a loan.");
 
@@ -24,6 +24,17 @@ namespace Service.GrantingLoans
                 var oLoanApplication = await _loanApplicationRepository.GetByIdForContract(idLoanApplication);
                 // Check if we Succesfully get the LoanApplication Object ID
                 if (oLoanApplication == null) return false;
+
+                // In case the grantingLoan boolean value is False, the Loan will be Denied and only the status will be updated
+                if (!grantingLoan) {
+                    _logger.LogInformation("----- Loan Granting: Update the ApplicationStatus of the LoanApplication.");
+                    //Update the LoanApplication Status to 3 or "Denegado"
+                    await _loanApplicationRepository.UpdateApplicationStatus(oLoanApplication.Id, 3);
+                    await _loanApplicationRepository.SaveChangesAsync();
+
+                    _logger.LogInformation("----- Loan Granting: Loan Granting process completed successfully.");
+                    return true;
+                }
 
                 _logger.LogInformation("----- Loan Granting: Create the Loan in the data base.");
                 //Create Loan Record in the Data Base
