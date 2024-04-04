@@ -18,6 +18,28 @@ namespace Service.AnalyzeLoanOpportunities {
 
         private readonly ILogger<LoanApplicationService> _logger = logger;
 
+        public async Task<List<ShowLoanApplicationDTO>> GetAllForGrantLoan() {
+            try {
+                //Attempt to retrieve all loan application asynchronously from the AccountRepository.
+                var loanApplicationList = await _loanApplicationRepository.GetAllAsync();
+
+                var filteredList = loanApplicationList.Where(x => x.ApplicationStatusId == 1);
+
+                //Initialize a list to store ShowLoanApplicationDTO objects.
+                var finalList = new List<ShowLoanApplicationDTO>();
+
+                //Map each loan application to a ShowLoanApplicationDTO and add it to the list.
+                foreach (var loanApplication in filteredList)
+                    finalList.Add(LoanApplicationMapper.MapShowLoanApplicationDTO(loanApplication));
+
+                //Return the list of ShowLoanApplicationDTO objects.
+                return finalList;
+            } catch {
+                //If there's an exception during the process, return null.
+                return [];
+            }
+        }
+
         public async Task<bool> Create(CreateLoanApplicationDTO oCreateLoanApplicationDTO) {
             try {
                 // Create loan application
