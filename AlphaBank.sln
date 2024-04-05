@@ -75,8 +75,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service.ContinueLoans", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapper.ContinueLoans", "src\Mappers\Mapper.ContinueLoans\Mapper.ContinueLoans.csproj", "{F52FA7D4-31E8-4EC9-8C37-55D497320E14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.ContinueLoans", "src\Repositories\Repository.ContinueLoans\Repository.ContinueLoans.csproj", "{4541FB9A-AF84-47BE-A6A0-F2C507BFD2DC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,10 +189,6 @@ Global
 		{F52FA7D4-31E8-4EC9-8C37-55D497320E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F52FA7D4-31E8-4EC9-8C37-55D497320E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F52FA7D4-31E8-4EC9-8C37-55D497320E14}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4541FB9A-AF84-47BE-A6A0-F2C507BFD2DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4541FB9A-AF84-47BE-A6A0-F2C507BFD2DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4541FB9A-AF84-47BE-A6A0-F2C507BFD2DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4541FB9A-AF84-47BE-A6A0-F2C507BFD2DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -227,7 +221,6 @@ Global
 		{A4952C82-E814-4279-BE2D-E619D37FF32A} = {055310DA-AC61-4D52-B6B8-84B24CDEF5A7}
 		{B4571D61-703F-4810-892C-3FF9D9783E20} = {D0C09AF8-BC70-478F-BEF0-7D29C6DA78B9}
 		{F52FA7D4-31E8-4EC9-8C37-55D497320E14} = {6A8B1632-8463-4A25-A43C-5751B89840BB}
-		{4541FB9A-AF84-47BE-A6A0-F2C507BFD2DC} = {F123F593-D34C-4947-B25A-745AA92DDA3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F2F7AD8-F594-44C9-A77B-6B2CA0922419}
