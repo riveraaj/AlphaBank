@@ -8,7 +8,7 @@ namespace Service.Common {
     public class LoanService (ILoanRepository loanRepository,
                                ILogger<AccountService> logger) : ILoanService {
 
-        private ILoanRepository _loanRepository = loanRepository;
+        private readonly ILoanRepository _loanRepository = loanRepository;
         private readonly ILogger<AccountService> _logger = logger;
 
         public async Task<bool> Create (LoanApplication oLoanApplication) {
@@ -31,8 +31,8 @@ namespace Service.Common {
 
                 //Return true to indicate successful creation.
                 return true;
-            } catch (Exception e) {
-                _logger.LogError($"----- Create Loan: An error occurred while creating and saving to the database. More about error: {e.Message}");
+            } catch {
+                _logger.LogError("----- Create Loan: An error occurred while creating and saving to the database. More about error");
 
                 //If there's an exception during the process, return false.
                 return false;
@@ -47,8 +47,8 @@ namespace Service.Common {
                 await _loanRepository.SaveChangesAsync();
 
                 _logger.LogInformation("----- Update Loan Statement: Update completed and saved successfully.");
-            } catch (Exception e) {
-                _logger.LogError($"----- Update Loan Statement: An error occurred while updating and saving to the database. More about error: {e.Message}");
+            } catch {
+                _logger.LogError("----- Update Loan Statement: An error occurred while updating and saving to the database.");
             }
         }
 
@@ -60,8 +60,8 @@ namespace Service.Common {
                 await _loanRepository.SaveChangesAsync();
 
                 _logger.LogInformation("----- Update Loan Quotas: Update completed and saved successfully.");
-            } catch (Exception e) {
-                _logger.LogError($"----- Update Loan Quotas: An error occurred while updating and saving to the database. More about error: {e.Message}");
+            } catch {
+                _logger.LogError("----- Update Loan Quotas: An error occurred while updating and saving to the database.");
             }
         }
     }

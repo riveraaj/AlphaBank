@@ -84,8 +84,8 @@ namespace Service.Security {
 
                 //Return true to indicate successful creation.
                 return true;
-            } catch (Exception e) {
-                _logger.LogError($"----- Create Employee: An error occurred while creating and saving to the database. More about error: {e.Message}");
+            } catch {
+                _logger.LogError("----- Create Employee: An error occurred while creating and saving to the database.");
 
                 //If there's an exception during the process, return false.
                 return false;

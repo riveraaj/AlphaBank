@@ -3,8 +3,7 @@ using Interfaces.Common.Services;
 using Interfaces.GrantingLoans.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Service.GrantingLoans
-{
+namespace Service.GrantingLoans {
     public class GrantingLoansService (ILoanApplicationRepository loanApplicationRepository,
                                        IContractService contractService,
                                        ILoanService loanService,
@@ -59,8 +58,8 @@ namespace Service.GrantingLoans
                 _logger.LogInformation("----- Loan Granting: Loan Granting process completed successfully.");
 
                 return true;
-			} catch (Exception e) {
-                _logger.LogError($"----- Loan Granting: An error occurred while granting loan. More about error: {e.Message}");
+			} catch {
+                _logger.LogError("----- Loan Granting: An error occurred while granting loan.");
 
                 //If there's an exception during the process, return false.
                 return false;

@@ -78,9 +78,9 @@ namespace Service.AnalyzeLoanOpportunities {
 
                 return true;
             }
-            catch (Exception e)  {
+            catch {
                 // Handle errors and log them appropriately
-                _logger.LogError($"----- Create Loan Application: An error occurred while creating and saving to the database. More about error: {e.Message}");
+                _logger.LogError("----- Create Loan Application: An error occurred while creating and saving to the database. More about error:");
                 return false;
             }
         }

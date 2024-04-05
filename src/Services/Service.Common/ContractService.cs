@@ -41,10 +41,8 @@ namespace Service.Common {
 
                 //Return true to indicate successful creation.
                 return true;
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"----- Create Contract: An error occurred while creating and saving to the database. More about error: {e.Message}");
+            } catch {
+                _logger.LogError("----- Create Contract: An error occurred while creating and saving to the database.");
 
                 //If there's an exception during the process, return false.
                 return false;
