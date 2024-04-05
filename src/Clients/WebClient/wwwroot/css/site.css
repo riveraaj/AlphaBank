@@ -163,6 +163,7 @@ select {
     font-size: 14px;
     font-weight: 500;
     color: white;
+    border: 0px solid;
 }
 
 .btn-close-border-8 {

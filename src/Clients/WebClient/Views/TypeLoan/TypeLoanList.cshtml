@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
+    ViewData["Title"] = "Lista de Tipos de Préstamos";
+}
+
+<div class="card-white-transparent shadow-container mt-5">
+    <div class="header-card">
+        <p class="tittle">Tipos de Préstamos</p>
+        <div class="form-group d-flex justify-content-center pt-3">
+            <Button class="btn btn-green" id="btnCreateTypeLoan">Agregar</Button>
+        </div>
+    </div>
+    <div class="card-main table-responsive text-nowrap pt-3">
+        <table id="tableTypeLoan" class="mt-4">
+            <thead>
+                <tr>
+                    <th>Acciones</th>
+                    <th>Id</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customer in Model)
+                {
+                    <tr>
+                        <td>
+                            <button class="btn-action">
+                                <i class="fa fa-solid fa-edit"></i>
+                            </button>
+                            <button class="btn-action">
+                                <i class="fa fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>Prueba</td>
+                        <td>Prueba</td>
+
+
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="modalCreateTypeLoan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Plazos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="contentCreateTypeLoan">
+                    <!-- Parcial view -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
+                <form method="post">
+                    <button type="submit" class="btn btn-green-border-8" action="">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#tableTypeLoan').DataTable({
+        "responsive": true,
+        "aServerSide": true,
+        "autoWidth": false,
+        "deferRender": true,
+        "retrieve": true,
+        "processing": true,
+        "paging": true,
+        "dom": 'Bfrtip',
+        "buttons": ["csv", "excel", "pdf"],
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+</script>
+

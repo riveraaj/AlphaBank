@@ -46,3 +46,41 @@ document.addEventListener('DOMContentLoaded', () => {
 //        $('#modalCreateCustomer').modal('show');
 //    });
 //});
+
+$(document).ready(function () {
+    $('#btnCreateDeadlines').click(function () {
+        $('#contentCreateCustomer').load('/Deadlines/showDeadlines');
+        $('#modalCreateDeadlines').modal('show');
+    });
+});
+
+$(document).ready(function () {
+    $('#btnCreateInterestRates').click(function () {
+        $('#contentCreateCustomer').load('/InterestRates/showIntesrestRates');
+        $('#modalCreateIntesrestRates').modal('show');
+    });
+});
+$(document).ready(function () {
+    $('#btnCreateTypeCurrency').click(function () {
+        $('#contentCreateTypeCurrency').load('/TypeCurrency/showTypeCurrency');
+        $('#modalCreateTypeCurrency').modal('show');
+    });
+});
+$(document).ready(function () {
+    $('#btnCreateTypeAccount').click(function () {
+        $('#contentCreateTypeAccount').load('/TypeAccount/showTypeAccount');
+        $('#modalCreateTypeAccount').modal('show');
+    });
+});
+$(document).ready(function () {
+    $('#btnCreateTypeLoan').click(function () {
+        $('#contentCreateTypeLoan').load('/TypeLoan/showTypeLoan');
+        $('#modalCreateTypeLoan').modal('show');
+    });
+});
+$(document).ready(function () {
+    $('#btnCreateRoles').click(function () {
+        $('#contentCreateRoles').load('/Roles/showRoles');
+        $('#modalCreateRoles').modal('show');
+    });
+});

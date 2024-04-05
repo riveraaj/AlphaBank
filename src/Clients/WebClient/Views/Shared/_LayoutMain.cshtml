@@ -51,7 +51,7 @@
                                         <a><i class="fa fa-solid fa-address-card"></i> Análisis de préstamos <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a asp-controller="AnalyzeLoanOpportunities" asp-action="LoanApplication">Solicitud de Préstamo</a></li>
-                                            
+
                                         </ul>
                                     </li>
                                     <li>
@@ -63,6 +63,7 @@
                                     <li>
                                         <a><i class="fa fa-table"></i> Seguimiento de prestamos <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
+                                            <li><a asp-controller="MonitoringLoanStatus" asp-action="MonitoringLoanStatus">Evaluar Solicitudes de Préstamos</a></li>
                                         </ul>
                                     </li>
                                     <li>
@@ -79,6 +80,12 @@
                                         <a><i class="fa fa-solid fa-gear"></i>Mantenimientos <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a asp-controller="Customer" asp-action="CustomerList">Clientes</a></li>
+                                            <li><a asp-controller="Deadlines" asp-action="DeadlinesList">Plazos</a></li>
+                                            <li><a asp-controller="InterestRates" asp-action="InterestRatesList">Tasas de Interés</a></li>
+                                            <li><a asp-controller="TypeCurrency" asp-action="TypeCurrencyList">Tipo de Moneda</a></li>
+                                            <li><a asp-controller="TypeAccount" asp-action="TypeAccountList">Tipos de Cuenta</a></li>
+                                            <li><a asp-controller="TypeLoan" asp-action="TypeLoanList">Tipos de Préstamos</a></li>
+                                            <li><a asp-controller="Roles" asp-action="RolesList">Roles</a></li>
                                         </ul>
                                     </li>
                                     <li>

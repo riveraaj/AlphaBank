@@ -53,6 +53,14 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                                 <li><a class="dropdown-item" asp-controller="AnalyzeLoanOpportunities" asp-action="LoanApplication">Solicitud de préstamo</a></li>
                                 <li><a class="dropdown-item" asp-controller="GrantLoan" asp-action="EvaluationLoanApplications">Evaluar Solicitudes de Préstamos</a></li>
+                                <li><a class="dropdown-item" asp-controller="MonitoringLoanStatus" asp-action="MonitoringLoanStatus">Seguimiento Estado de Préstamos</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Recuperación de Préstamos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                             </ul>
                         </li>
 
@@ -63,6 +71,12 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                                 <li><a class="dropdown-item" asp-controller="Customer" asp-action="CustomerList">Clientes</a></li>
+                                <li><a class="dropdown-item" asp-controller="Deadlines" asp-action="DeadlinesList">Plazos</a></li>
+                                <li><a class="dropdown-item" asp-controller="InterestRates" asp-action="InterestRatesList">Tasas de Interés</a></li>
+                                <li><a class="dropdown-item" asp-controller="TypeCurrency" asp-action="TypeCurrencyList">Tipos de Moneda</a></li>
+                                <li><a class="dropdown-item" asp-controller="TypeAccount" asp-action="TypeAccountList">Tipos de Cuenta</a></li>
+                                <li><a class="dropdown-item" asp-controller="TypeLoan" asp-action="TypeLoanList">Tipos de Préstamos</a></li>
+                                <li><a class="dropdown-item" asp-controller="Roles" asp-action="RolesList">Roles</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
