@@ -1,6 +1,6 @@
 ﻿using Dtos.AlphaBank.ContinueLoans;
+using Interfaces.ContinueLoans.Repositories;
 using Mapper.ContinueLoans;
-using Repository.ContinueLoans.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace Service.ContinueLoans {

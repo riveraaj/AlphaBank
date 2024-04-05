@@ -12,7 +12,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Dtos\Dtos.AlphaBank\Dtos.AlphaBank.csproj" />
-		<ProjectReference Include="..\..\Interfaces\Repository.ContinueLoans\Repository.ContinueLoans.csproj" />
+		<ProjectReference Include="..\..\Interfaces\Repository.ContinueLoans\Interfaces.ContinueLoans.csproj" />
 		<ProjectReference Include="..\..\Mappers\Mapper.ContinueLoans\Mapper.ContinueLoans.csproj" />
 	</ItemGroup>
 
