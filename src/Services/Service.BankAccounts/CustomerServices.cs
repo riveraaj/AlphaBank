@@ -39,6 +39,9 @@ namespace Service.BankAccounts {
                 //Get personId
                 var personId = (int) oCreateCustomerDTO.Person.PersonId!;
 
+                var customerByPersonId = await _customerRepository.GetByPersonIdAsync(personId);
+                if (customerByPersonId != null) return false;
+
                 //The id of the person is added to the reference of phone
                 oCreateCustomerDTO.Phone.PersonId = personId;
 
@@ -59,10 +62,6 @@ namespace Service.BankAccounts {
                     var result = await _personService.Create(oCreateCustomerDTO.Person, oCreateCustomerDTO.Phone);
                     if (!result) return false;
                 }
-
-                var customerByPersonId = await _customerRepository.GetByPersonIdAsync(personId);
-
-                if (customerByPersonId != null) return false;
 
                 _logger.LogInformation("----- Create Customer: Start the creation of an employee registry");
 
