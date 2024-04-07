@@ -2,14 +2,14 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
-    ViewData["Title"] = "Lista de Clientes";
+    ViewData["Title"] = "Clientes";
 }
 
 <div class="card-white-transparent shadow-container mt-5">
     <div class="header-card">
         <p class="tittle">Clientes</p>
         <div class="form-group d-flex justify-content-center pt-3">
-            <Button class="btn btn-green" id="btnCreateCustomer">Agregar Cliente</Button>
+            <button class="btn btn-green" id="btnCreateCustomer">Agregar Cliente</button>
         </div>
     </div>
     <div class="card-main table-responsive text-nowrap pt-3">
@@ -61,17 +61,17 @@
                 <h5 class="modal-title" id="exampleModalLabel">Agregar Cliente</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div id="contentCreateCustomer">
-                    <!-- Parcial view -->
+            <form method="post" asp-controller="Customer" asp-action="Create">
+                <div class="modal-body">
+                    <div id="contentCreateCustomer">
+                        <!-- Parcial view -->
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
-                <form method="post" asp-controller="Customer" asp-action="createCustomer">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-green-border-8" action="">Guardar</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -113,3 +113,18 @@
         }
     });
 </script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+@if (ViewData["ShowCreateCustomerModal"] != null && (bool) ViewData["ShowCreateCustomerModal"] !) {
+
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('btnCreateCustomer').click();
+        });
+    </script>
+}
