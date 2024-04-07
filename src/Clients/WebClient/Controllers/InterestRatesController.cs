@@ -1,51 +1,14 @@
-﻿using Dtos.AlphaBank.Security;
-using Interfaces.BankAccounts.Services;
+﻿using Interfaces.BankAccounts.Services;
 using Interfaces.Security.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebClient.Services;
 
-namespace WebClient.Controllers
-{
+namespace WebClient.Controllers {
     public class InterestRatesController(IUserAuthenticatorService userAuthenticatorService,
-                                    ICustomerService customerService) : Controller
-    {
+                                    ICustomerService customerService) : Controller {
 
         private readonly IUserAuthenticatorService _userAuthenticatorService = userAuthenticatorService;
         private readonly ICustomerService _customerService = customerService;
-        public IActionResult Login() =>
-            User.Identity!.IsAuthenticated ? Redirect("~/Home/Index") : View();
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("Id", "Password")] UserLoginDTO oUserLoginDTO)
-        {
-
-            if (!ModelState.IsValid) return View();
-
-            var (result, userAuthentication) = await _userAuthenticatorService.UserAuthenticator(oUserLoginDTO);
-
-            if (!result)
-            {
-                ViewData["Error"] = "*Hubo un error en el inicio de sesión, intentelo más tarde.";
-                return View();
-            }
-
-            await CookiesService.CreateAuthenticationCookies(HttpContext, userAuthentication!);
-
-            return Redirect("~/Home/Index");
-        }
-
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-            await CookiesService.RemoveAuthenticationCookie(HttpContext);
-            return RedirectToAction("Login");
-        }
-
-        [Authorize(Roles = "1")]
         public async Task<IActionResult> InterestRatesList()
         {
 
@@ -61,11 +24,8 @@ namespace WebClient.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> InterestRates()
-        {
-
-            return View();
-        }
+        public IActionResult InterestRates() => View();
+        
 
     }
 }
