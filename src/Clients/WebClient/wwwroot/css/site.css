@@ -92,7 +92,9 @@ nav {
 input[type = "text"],
 input[type = "password"],
 input[type = "number"],
-input[type = "search"] {
+input[type = "search"],
+input[type = "tel"],
+input[type = "date"] {
     margin-top: 10px;
     background-color: transparent;
     border: 2px solid #789461;
