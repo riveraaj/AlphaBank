@@ -52,6 +52,13 @@ builder.Services.AddScoped<ITypeCurrencyRepository, TypeCurrencyRepository>();
 builder.Services.AddScoped<IInterestRepository, InterestRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<ITypeAccountRepository, TypeAccountRepository>();
+builder.Services.AddScoped<IOccupationRepository, OccupationRepository>();
+builder.Services.AddScoped<ITypePhoneRepository, TypePhoneRepository>();
+builder.Services.AddScoped<ITypeIdentificationRepository, TypeIdentificationRepository>();
+builder.Services.AddScoped<INationalityRepository, NationalityRepository>();
+builder.Services.AddScoped<IMaritalStatusRepository, MaritalStatusRepository>();
+builder.Services.AddScoped<IInterestRepository, InterestRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 
 //Services Scoped
@@ -64,12 +71,16 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ITypeLoanService, TypeLoanService>();
 builder.Services.AddScoped<IDeadlineService, DeadlineService>();
 builder.Services.AddScoped<ITypeCurrencyService, TypeCurrencyService>();
+builder.Services.AddScoped<IOccupationService, OccupationService>();
+builder.Services.AddScoped<ITypePhoneService, TypePhoneService>();
+builder.Services.AddScoped<ITypeIdentificationService, TypeIdentificationService>();
+builder.Services.AddScoped<INationalityService, NationalityService>();
+builder.Services.AddScoped<IMaritalStatusService, MaritalStatusService>();
 builder.Services.AddScoped<IInterestService, InterestService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<AnalyzeLoanApplicationService>();
 builder.Services.AddScoped<CommonService>();
 builder.Services.AddScoped<ITypeAccountService, TypeAccountService>();
-builder.Services.AddScoped<BankAccountService>();
 
 //Add App Insights
 builder.Services.AddApplicationInsightsTelemetry();
