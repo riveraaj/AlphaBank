@@ -65,5 +65,15 @@ namespace Service.Common {
                 return [];
             }
         }
+
+        public async Task<Contract?> GetByLoanApplicationId(int id) {
+            try {
+                //Get loan application by id.
+                return await _contractRepository.GetByLoanApplicationID(id);
+            } catch {
+                // If there's an exception during the process, return an empty list.
+                return null;
+            }
+        } 
     }
 }
