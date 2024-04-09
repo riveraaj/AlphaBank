@@ -80,6 +80,7 @@ builder.Services.AddScoped<IInterestService, InterestService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<AnalyzeLoanApplicationService>();
 builder.Services.AddScoped<CommonService>();
+builder.Services.AddScoped<BankAccountService>();
 builder.Services.AddScoped<ITypeAccountService, TypeAccountService>();
 
 //Add App Insights
