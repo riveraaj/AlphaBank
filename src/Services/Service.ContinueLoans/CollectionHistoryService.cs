@@ -24,6 +24,8 @@ namespace Service.ContinueLoans {
                 //Get Loan By Id
                 var loan = await _loanService.GetById((int) oCreateCollectionHistoryDTO.LoanId!);
 
+                if(loan!.RemainingQuotas == 0) return false;
+
                 //Get Contract By Loan Application
                 var contract = await _contractService.GetByLoanApplicationId(loan!.LoanApplicationId);
 
@@ -42,6 +44,10 @@ namespace Service.ContinueLoans {
 
                 await _collectionHistoryRepository.CreateAsync(collectionHistory);
                 await _collectionHistoryRepository.SaveChangesAsync();
+
+                await _loanService.UpdateQuotas(loan.Id);
+
+                if (loan!.RemainingQuotas == 1) await _loanService.UpdateStatement(loan.Id, 5);
 
                 _logger.LogInformation("----- Create  Collection History: Creation completed and saved successfully.");
                 return true;
