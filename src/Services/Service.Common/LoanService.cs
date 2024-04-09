@@ -64,5 +64,15 @@ namespace Service.Common {
                 _logger.LogError("----- Update Loan Quotas: An error occurred while updating and saving to the database.");
             }
         }
+
+        public async Task<Loan?> GetById(int id) {
+            try {
+                //Get loan by id.
+                return await _loanRepository.GetById(id);
+            } catch {
+                // If there's an exception during the process, return an empty list.
+                return null;
+            }
+        }
     }
 }
