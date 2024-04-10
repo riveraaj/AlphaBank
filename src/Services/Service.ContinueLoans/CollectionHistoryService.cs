@@ -1,6 +1,8 @@
-﻿using Dtos.AlphaBank.ContinueLoans;
+﻿using Data.AlphaBank;
+using Dtos.AlphaBank.ContinueLoans;
 using Interfaces.Common.Services;
 using Interfaces.ContinueLoans.Repositories;
+using Interfaces.ContinueLoans.Services;
 using Mapper.ContinueLoans;
 using Microsoft.Extensions.Logging;
 
@@ -8,7 +10,7 @@ namespace Service.ContinueLoans {
     public class CollectionHistoryService(ICollectionHistoryRepository collectionHistoryRepository,
                                           ILoanService loanService,
                                           IContractService contractService,
-                                          ILogger<CollectionHistoryService> logger) {
+                                          ILogger<CollectionHistoryService> logger) : ICollectionHistoryService {
 
         private readonly ICollectionHistoryRepository _collectionHistoryRepository
             = collectionHistoryRepository;
@@ -18,6 +20,15 @@ namespace Service.ContinueLoans {
         private readonly ILoanService _loanService = loanService;
 
         private readonly ILogger<CollectionHistoryService> _logger = logger;
+
+        public async Task<List<CollectionHistory>> GetAll() {
+            try {
+                //Retrieve Contracts by LoanApplicationId asynchronously from the ContractRepository.
+                return (List<CollectionHistory>)await _collectionHistoryRepository.GetAllAsync();
+            } catch {
+                return [];
+            }
+        }
 
         public async Task<bool> Create(CreateCollectionHistoryDTO oCreateCollectionHistoryDTO) {
             try {
@@ -29,12 +40,21 @@ namespace Service.ContinueLoans {
                 //Get Contract By Loan Application
                 var contract = await _contractService.GetByLoanApplicationId(loan!.LoanApplicationId);
 
+                //Get last collection history
+                var lastCollectionHistory = await _collectionHistoryRepository.GetLastByLoanId(loan!.Id);
+
                 // Create collection history
                 var collectionHistory = CollectionHistoryMapper.MapCollectionHistory(oCreateCollectionHistoryDTO);
                 collectionHistory.DateDeposit = DateOnly.FromDateTime(DateTime.Now);
-                collectionHistory.Deadline = contract!.DateStart;
+
+                if (lastCollectionHistory == null) {
+                    collectionHistory.Deadline = contract!.DateStart.AddMonths(1);
+                } else {
+                    collectionHistory.Deadline = lastCollectionHistory.Deadline.AddMonths(1);
+                }
+
                 collectionHistory.QuotaNumber = loan.RemainingQuotas;
-                collectionHistory.Amount = (contract.LoanApplication.Amount / loan.RemainingQuotas);
+                collectionHistory.Amount = (contract!.LoanApplication.Amount / loan.RemainingQuotas);
                 collectionHistory.DepositMount = (decimal) oCreateCollectionHistoryDTO.DepositAmount!;
                 collectionHistory.LoanId = loan.Id;
                 int daysOverdue = CalculateDaysOverdue(collectionHistory.DateDeposit, collectionHistory.Deadline);
