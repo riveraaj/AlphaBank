@@ -1,15 +1,18 @@
 ﻿using Interfaces.AnalyzeLoanOpportunities.Repositories;
+using Interfaces.BankAccounts.Repositories;
 using Interfaces.Common.Services;
 using Interfaces.GrantingLoans.Services;
 using Microsoft.Extensions.Logging;
 
 namespace Service.GrantingLoans {
     public class GrantingLoansService (ILoanApplicationRepository loanApplicationRepository,
+                                       IAccountRepository accountRepository,
                                        IContractService contractService,
                                        ILoanService loanService,
                                        ILogger<GrantingLoansService> logger) : IGrantingLoansService {
 
         private readonly ILoanApplicationRepository _loanApplicationRepository = loanApplicationRepository;
+        private readonly IAccountRepository _accountRepository = accountRepository;
         private readonly IContractService _contractService = contractService;
         private readonly ILoanService _loanService = loanService;
         private readonly ILogger<GrantingLoansService> _logger = logger;
@@ -64,6 +67,36 @@ namespace Service.GrantingLoans {
                 //If there's an exception during the process, return false.
                 return false;
 			}
+        }
+
+        public async Task<bool> AddLoanFunds(int idLoanApplication){
+            try
+            {
+                _logger.LogInformation("----- Loan Granting: Start the process of adding funds into the account.");
+
+                _logger.LogInformation("----- Loan Granting: Lookup of Loan Application by ID.");
+                //Get LoanApplication Objetct by ID
+                var oLoanApplication = await _loanApplicationRepository.GetByIdForContract(idLoanApplication);
+                // Check if we Succesfully get the LoanApplication Object ID
+                if (oLoanApplication == null) return false;
+
+                //Check if the Loan Application Status is 3 or "Denegado"
+                if (oLoanApplication.ApplicationStatusId == 3) return false;
+
+                await _accountRepository.AddFundsAsync(oLoanApplication.Account.Id, oLoanApplication.Amount);
+                await _accountRepository.SaveChangesAsync();
+
+                _logger.LogInformation("----- Loan Granting: Adding funds into the account process completed successfully.");
+
+                return true;
+            }
+            catch
+            {
+                _logger.LogError("----- Loan Granting: An error occurred while adding funds into the account.");
+
+                //If there's an exception during the process, return false.
+                return false;
+            }
         }
     }
 }
