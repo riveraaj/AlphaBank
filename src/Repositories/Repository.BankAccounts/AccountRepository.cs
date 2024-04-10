@@ -38,6 +38,17 @@ namespace Repository.BankAccounts {
             return true;
         }
 
+        public async Task<bool> AddFundsAsync(string accountNumber, decimal loanAmount)
+        {
+            var account = await _context.Accounts.FirstOrDefaultAsync(x => x.Id == accountNumber);
+
+            if (account == null) return false;
+
+            account.Balance = account.Balance + loanAmount;
+
+            return true;
+        }
+
         public async Task SaveChangesAsync()
             => await _context.SaveChangesAsync();
     }
