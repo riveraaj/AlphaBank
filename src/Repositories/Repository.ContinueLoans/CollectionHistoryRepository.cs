@@ -12,6 +12,13 @@ namespace Repository.ContinueLoans {
         public async Task<ICollection<CollectionHistory>> GetAllAsync()
             => await _context.CollectionHistories.ToListAsync();
 
+        public async Task<CollectionHistory?> GetLastByLoanId(int id)
+            => await _context.CollectionHistories.Include(x => x.Loan)  
+                                                    .ThenInclude(x => x.LoanApplication)
+                                                        .ThenInclude(x => x.Account)
+                                                            .ThenInclude(x => x.Customer)
+                                                  .LastOrDefaultAsync(x => x.LoanId == id);
+
         public async Task CreateAsync(CollectionHistory oCollectionHistory)
             => await _context.CollectionHistories.AddAsync(oCollectionHistory);
 
