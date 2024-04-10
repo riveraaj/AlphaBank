@@ -80,8 +80,8 @@ namespace Service.GrantingLoans {
                 // Check if we Succesfully get the LoanApplication Object ID
                 if (oLoanApplication == null) return false;
 
-                //Check if the Loan Application Status is 3 or "Denegado"
-                if (oLoanApplication.ApplicationStatusId == 3) return false;
+                // Check if the ApplicationStatusId is only 2 (Aprobado), if the Loan Application is not Approved we can´t add funds to the customer account.
+                if (oLoanApplication.ApplicationStatusId != 2) return false;
 
                 await _accountRepository.AddFundsAsync(oLoanApplication.Account.Id, oLoanApplication.Amount);
                 await _accountRepository.SaveChangesAsync();
