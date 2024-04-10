@@ -82,6 +82,7 @@ builder.Services.AddScoped<AnalyzeLoanApplicationService>();
 builder.Services.AddScoped<CommonService>();
 builder.Services.AddScoped<BankAccountService>();
 builder.Services.AddScoped<ITypeAccountService, TypeAccountService>();
+builder.Services.AddScoped<BankAccountService>();
 
 //Add App Insights
 builder.Services.AddApplicationInsightsTelemetry();

@@ -5,7 +5,7 @@
 }
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
-    ViewData["Title"] = "Seguimiento Estado de Préstamos";
+    ViewData["Title"] = "Recuperacoión de Préstamos";
 }
 
 <div class="container">
@@ -13,48 +13,19 @@
 
         <div class="header-card">
             <div class="row">
-                <p class="tittle">Seguimiento Estado de Préstamos</p>
+                <p class="tittle">Recuperación de Préstamos</p>
             </div>
 
             <br />
 
-            <form method="get" asp-controller="BankAccounts" asp-action="AccountOppening">
-                <div class="row mt-4">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 pt-3 pt-sm-3 pt-md-0 pt-lg-0 pt-xl-0">
-                        <div class="row">
-                            <div class="col-3 d-flex justify-content-center align-items-center control-label text-end">
-                                Criterio de Búsqueda:
-                            </div>
-
-                            <div class="col-9">
-                                <select class="form-control select-border-50 m-0"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 pt-3 pt-sm-3 pt-md-0 pt-lg-0 pt-xl-0">
-                        <div class="row">
-                            <div class="col-3 d-flex justify-content-center align-items-center control-label text-end">
-                                Valor de Búsqueda:
-                            </div>
-
-                            <div class="col-9">
-                                <input type="text" name="id" class="form-control input-radius-50 mt-0" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 pt-3 pt-sm-3 pt-md-3 pt-lg-0 pt-xl-0">
-                        <input type="submit" value="Consultar" class="btn btn-green w-100" />
-                    </div>
-                </div>
-            </form>
         </div>
 
         <div class="card-main table-responsive pt-3">
 
-            <h5>Lista de Préstamos Pendientes de Evaluación:</h5>
+            <h5>Lista de Préstamos en Cobro Judicial:</h5>
             <div class="">
-                
-                <table id="tablaevaluacion" class="mt-4">
+
+                <table id="tablerecoveryloan" class="mt-4">
 
                     <thead>
                         <tr>
@@ -63,6 +34,8 @@
                             <th>Tipo Préstamo</th>
                             <th>Estado del Préstamo</th>
                             <th>Estado del Cliente</th>
+                            <th>Renegociación</th>
+                            <th>Notificación</th>
                         </tr>
                     </thead>
 
@@ -74,6 +47,16 @@
                             <td>prueba</td>
                             <td>prueba</td>
                             <td>prueba</td>
+                            <td>
+                                <button class="btn-green-border-8 pt-1 pb-1" id="btnCreateRenegotiation">
+                                    Arreglo de Pago
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn-green-border-8 pt-1 pb-1">
+                                    Notificar
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -82,6 +65,27 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalCreateRenegotiation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crear Arreglo de Pago</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-controller="Customer" asp-action="Create">
+                <div class="modal-body">
+                    <div id="contentCreateRenegotiation">
+                        <!-- Parcial view -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-green-border-8" action="">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     @{
@@ -90,7 +94,7 @@
 }
 
 <script type="text/javascript">
-    $('#tablaevaluacion').DataTable({
+    $('#tablerecoveryloan').DataTable({
         "responsive": true,
         "aServerSide": true,
         "autoWidth": false,

@@ -83,3 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#modalCreateRoles').modal('show');
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnCreateRenegotiation');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentCreateRenegotiation').load('/RecoveryLoan/createRenegotiation');
+        $('#modalCreateRenegotiation').modal('show');
+    });
+});
