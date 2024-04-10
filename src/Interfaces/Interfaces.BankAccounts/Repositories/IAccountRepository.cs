@@ -8,6 +8,7 @@ namespace Interfaces.BankAccounts.Repositories {
         public Task<ICollection<Account>> GetAllAsync();
         public Task CreateAsync(Account oAccount);
         public Task<bool> RemoveAsync(string accountNumber);
+        public Task<bool> AddFundsAsync(string accountNumber, decimal loanAmount);
         public Task SaveChangesAsync();
     }
 }
