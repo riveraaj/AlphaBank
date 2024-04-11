@@ -1,4 +1,5 @@
-﻿using Data.AlphaBank.Enums;
+﻿using Data.AlphaBank;
+using Data.AlphaBank.Enums;
 using Interfaces.BankAccounts.Services;
 using Interfaces.Common.Services;
 using Interfaces.ContinueLoans.Services;
@@ -67,6 +68,11 @@ namespace Repository.ContinueLoans {
                             //Notification is sent to the customer.
                             await _mailService.SendEmailAsync(email, "Recordatorio De Pago | AlphaBank", formattedMessage);
 
+                            await _notificationService.Create(new Notification {
+                                DateShipment = DateOnly.FromDateTime(DateTime.Today),
+                                LoanId = collectionHistory.LoanId,
+                                TypeNotificationId = (byte)TypeNotificationEnum.RecordatorioDePago
+                            });
                         }
                         //It is validated that the loan payment is the last payment by installments.
                         else if (collectionHistory.Loan.LoanStatementId == 1 && collectionHistory.Loan.RemainingQuotas == 0){
@@ -84,6 +90,12 @@ namespace Repository.ContinueLoans {
                                                                      .Replace("[ID del Préstamo]", collectionHistory.LoanId.ToString());
 
                             await _mailService.SendEmailAsync(email, "Finalización de Pago | AlphaBank", formattedMessage);
+
+                            await _notificationService.Create(new Notification { 
+                                DateShipment = DateOnly.FromDateTime(DateTime.Today),
+                                LoanId = collectionHistory.LoanId,
+                                TypeNotificationId = (byte) TypeNotificationEnum.NotificacionDeFinalizacionDePago
+                            });
 
                         }
                         //Validate that the loan payment is overdue more than five days after the cutoff date.
@@ -104,6 +116,12 @@ namespace Repository.ContinueLoans {
                                                                      .Replace("[Fecha de Vencimiento]", collectionHistory.Deadline.ToString("d"));
 
                             await _mailService.SendEmailAsync(email, "Atraso en el Pago | AlphaBank", formattedMessage);
+
+                            await _notificationService.Create(new Notification {
+                                DateShipment = DateOnly.FromDateTime(DateTime.Today),
+                                LoanId = collectionHistory.LoanId,
+                                TypeNotificationId = (byte) TypeNotificationEnum.AvisoDeAtrasoEnElPago
+                            });
                         }
                         //It is validated that the loan payment is overdue after 15 days from the cutoff
                         //to proceed to judicial collection.
@@ -123,6 +141,12 @@ namespace Repository.ContinueLoans {
                                                                      .Replace("[Fecha de Vencimiento]", collectionHistory.Deadline.ToString("d"));
 
                             await _mailService.SendEmailAsync(email, "Proceso de Cobro Judicial | AlphaBank", formattedMessage);
+
+                            await _notificationService.Create(new Notification {
+                                DateShipment = DateOnly.FromDateTime(DateTime.Today),
+                                LoanId = collectionHistory.LoanId,
+                                TypeNotificationId = (byte)TypeNotificationEnum.AvisoDeProcesoDeCobroJudicial
+                            });
                         }
                     }
                     _logger.LogInformation("----- Collection History: The task was successfully completed.");
