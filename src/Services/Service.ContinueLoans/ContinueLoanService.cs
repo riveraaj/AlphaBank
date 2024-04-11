@@ -5,7 +5,7 @@ using Interfaces.Common.Services;
 using Interfaces.ContinueLoans.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Repository.ContinueLoans {
+namespace Service.ContinueLoans {
     public class ContinueLoanService(ICollectionHistoryService collectionHistoryService,
                                      ICustomerService customerService,
                                      ILoanService loanService,
@@ -75,7 +75,8 @@ namespace Repository.ContinueLoans {
                             });
                         }
                         //It is validated that the loan payment is the last payment by installments.
-                        else if (collectionHistory.Loan.LoanStatementId == 1 && collectionHistory.Loan.RemainingQuotas == 0){
+                        else if (collectionHistory.Loan.LoanStatementId != (byte)LoanStatementEnum.Finalizado 
+                                    && collectionHistory.Loan.RemainingQuotas == 0){
 
                             await _loanService.UpdateStatement(collectionHistory.LoanId,
                                 (byte)LoanStatementEnum.Finalizado);
@@ -96,11 +97,10 @@ namespace Repository.ContinueLoans {
                                 LoanId = collectionHistory.LoanId,
                                 TypeNotificationId = (byte) TypeNotificationEnum.NotificacionDeFinalizacionDePago
                             });
-
                         }
                         //Validate that the loan payment is overdue more than five days after the cutoff date.
                         else if (collectionHistory.Deadline.AddMonths(1).AddDays(5) <= DateOnly.FromDateTime(DateTime.Today)
-                                    && collectionHistory.Loan.LoanStatementId == 1) {
+                                    && collectionHistory.Loan.LoanStatementId == (byte) LoanStatementEnum.EnEsperaDePago) {
 
                             await _loanService.UpdateStatement(collectionHistory.LoanId,
                                 (byte)LoanStatementEnum.RetrasoDePago);
@@ -126,7 +126,7 @@ namespace Repository.ContinueLoans {
                         //It is validated that the loan payment is overdue after 15 days from the cutoff
                         //to proceed to judicial collection.
                         else if (collectionHistory.Deadline.AddMonths(1).AddDays(15) < DateOnly.FromDateTime(DateTime.Today)
-                                    && collectionHistory.Loan.LoanStatementId == 2) {
+                                    && collectionHistory.Loan.LoanStatementId == (byte)LoanStatementEnum.RetrasoDePago) {
 
                             await _loanService.UpdateStatement(collectionHistory.LoanId,
                                 (byte)LoanStatementEnum.EnProcesoCobroJudicial);
