@@ -22,5 +22,9 @@ namespace WebClient.Controllers
         {
             return PartialView("CreateRenegotiation");
         }
+        public ActionResult createNotificationRecovery()
+        {
+            return PartialView("CreateNotificationRecovery");
+        }
     }
 }

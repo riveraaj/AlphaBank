@@ -91,3 +91,17 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#modalCreateRenegotiation').modal('show');
     });
 });
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnCreateNotificationRecovery');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentCreateNotificationRecovery').load('/RecoveryLoan/createNotificationRecovery');
+        $('#modalCreateNotificationRecovery').modal('show');
+    });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnCreateNotificationJudicialCollection');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentCreateNotificationJudicialCollection').load('/JudicialCollectionClients/CreateNotificationJudicialCollection');
+        $('#modalCreateNotificationJudicialCollection').modal('show');
+    });
+});

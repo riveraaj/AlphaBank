@@ -1,11 +1,11 @@
-﻿@*
+﻿@*@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
-    ViewData["Title"] = "Recuperación de Préstamos";
+    ViewData["Title"] = "Clientes en Cobro Judicial";
 }
 
 <div class="container">
@@ -13,7 +13,7 @@
 
         <div class="header-card">
             <div class="row">
-                <p class="tittle">Recuperación de Préstamos</p>
+                <p class="tittle">Clientes en Cobro Judicial</p>
             </div>
 
             <br />
@@ -25,7 +25,7 @@
             <h5>Lista de Préstamos en Cobro Judicial:</h5>
             <div class="">
 
-                <table id="tablerecoveryloan" class="mt-4">
+                <table id="tablejudicialcollectionclients" class="mt-4">
 
                     <thead>
                         <tr>
@@ -34,7 +34,8 @@
                             <th>Tipo Préstamo</th>
                             <th>Estado del Préstamo</th>
                             <th>Estado del Cliente</th>
-                            <th>Renegociación</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
                             <th>Notificación</th>
                         </tr>
                     </thead>
@@ -47,13 +48,10 @@
                             <td>prueba</td>
                             <td>prueba</td>
                             <td>prueba</td>
+                            <td>prueba</td>
+                            <td>prueba</td>
                             <td>
-                                <button class="btn-green-border-8 pt-1 pb-1" id="btnCreateRenegotiation">
-                                    Arreglo de Pago
-                                </button>
-                            </td>
-                            <td>
-                                <button class="btn-green-border-8 pt-1 pb-1" id="btnCreateNotificationRecovery">
+                                <button class="btn-green-border-8 pt-1 pb-1" id="btnCreateNotificationJudicialCollection">
                                     Notificar
                                 </button>
                             </td>
@@ -65,43 +63,22 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalCreateRenegotiation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalCreateNotificationJudicialCollection" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Crear Arreglo de Pago</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Enviar Notificación</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" asp-controller="Customer" asp-action="Create">
                 <div class="modal-body">
-                    <div id="contentCreateRenegotiation">
+                    <div id="contentCreateNotificationJudicialCollection">
                         <!-- Parcial view -->
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-green-border-8" action="">Guardar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="modalCreateNotificationRecovery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Enviar Notificar</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method="post" asp-controller="Customer" asp-action="Create">
-                <div class="modal-body">
-                    <div id="contentCreateNotificationRecovery">
-                        <!-- Parcial view -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-green-border-8" action="">Guardar</button>
+                    <button type="submit" class="btn btn-green-border-8" action="">Enviar</button>
                 </div>
             </form>
         </div>
@@ -115,7 +92,7 @@
 }
 
 <script type="text/javascript">
-    $('#tablerecoveryloan').DataTable({
+    $('#tablejudicialcollectionclients').DataTable({
         "responsive": true,
         "aServerSide": true,
         "autoWidth": false,
