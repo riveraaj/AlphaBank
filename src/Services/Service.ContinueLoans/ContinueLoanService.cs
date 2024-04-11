@@ -42,6 +42,7 @@ namespace Repository.ContinueLoans {
 
                         //Obtaining the customer's mail
                         var email = collectionHistory.Loan.LoanApplication.Account.Customer.EmailAddress;
+                        var customer = collectionHistory.Loan.LoanApplication.Account.Customer.Person;
 
                         //Validating that a payment is pending payment as long as the cutoff date is not passed
                         if (collectionHistory.Deadline.AddMonths(1) >= DateOnly.FromDateTime(DateTime.Today)) {
@@ -55,11 +56,16 @@ namespace Repository.ContinueLoans {
                                 (byte)CustomerStatusEnum.Regular);
 
                             //The message to be sent by mail is obtained
-                            string message = await _notificationService.GetMessageById(
+                            string messageTemplate = await _notificationService.GetMessageById(
                                                                         (int)TypeNotificationEnum.RecordatorioDePago) ?? " ";
 
+                            string formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")
+                                                                     .Replace("[ID del Préstamo]", collectionHistory.LoanId.ToString())
+                                                                     .Replace("[Monto del Pago]", $"{collectionHistory.Loan.LoanApplication.TypeCurrency.Description} {collectionHistory.Amount}")
+                                                                     .Replace("[Fecha de Vencimiento]", collectionHistory.Deadline.ToString("d"));
+
                             //Notification is sent to the customer.
-                            await _mailService.SendEmailAsync(email, "Recordatorio De Pago | AlphaBank", message);
+                            await _mailService.SendEmailAsync(email, "Recordatorio De Pago | AlphaBank", formattedMessage);
 
                         }
                         //It is validated that the loan payment is the last payment by installments.
@@ -71,10 +77,13 @@ namespace Repository.ContinueLoans {
                             await _customerService.Update(collectionHistory.Loan.LoanApplication.Account.CustomerId,
                                 (byte)CustomerStatusEnum.VIP);
 
-                            string message = await _notificationService.GetMessageById
+                            string messageTemplate = await _notificationService.GetMessageById
                                                    ((int)TypeNotificationEnum.NotificacionDeFinalizacionDePago) ?? " ";
 
-                            await _mailService.SendEmailAsync(email, "Finalización de Pago | AlphaBank", message);
+                            string formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")
+                                                                     .Replace("[ID del Préstamo]", collectionHistory.LoanId.ToString());
+
+                            await _mailService.SendEmailAsync(email, "Finalización de Pago | AlphaBank", formattedMessage);
 
                         }
                         //Validate that the loan payment is overdue more than five days after the cutoff date.
@@ -87,11 +96,14 @@ namespace Repository.ContinueLoans {
                             await _customerService.Update(collectionHistory.Loan.LoanApplication.Account.CustomerId,
                                 (byte)CustomerStatusEnum.EnRiesgo);
 
-                            string message = await _notificationService.GetMessageById
+                            string messageTemplate = await _notificationService.GetMessageById
                                                    ((int)TypeNotificationEnum.AvisoDeAtrasoEnElPago) ?? " ";
 
-                            await _mailService.SendEmailAsync(email, "Atraso en el Pago | AlphaBank", message);
+                            string formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")
+                                                                     .Replace("[ID del Préstamo]", collectionHistory.LoanId.ToString())                                                                    
+                                                                     .Replace("[Fecha de Vencimiento]", collectionHistory.Deadline.ToString("d"));
 
+                            await _mailService.SendEmailAsync(email, "Atraso en el Pago | AlphaBank", formattedMessage);
                         }
                         //It is validated that the loan payment is overdue after 15 days from the cutoff
                         //to proceed to judicial collection.
@@ -104,10 +116,13 @@ namespace Repository.ContinueLoans {
                             await _customerService.Update(collectionHistory.Loan.LoanApplication.Account.CustomerId,
                                 (byte)CustomerStatusEnum.Moroso);
 
-                            string message = await _notificationService.GetMessageById
+                            string messageTemplate = await _notificationService.GetMessageById
                                                    ((int)TypeNotificationEnum.AvisoDeProcesoDeCobroJudicial) ?? " ";
 
-                            await _mailService.SendEmailAsync(email, "Proceso de Cobro Judicial | AlphaBank", message);
+                            string formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")                                                                    
+                                                                     .Replace("[Fecha de Vencimiento]", collectionHistory.Deadline.ToString("d"));
+
+                            await _mailService.SendEmailAsync(email, "Proceso de Cobro Judicial | AlphaBank", formattedMessage);
                         }
                     }
                     _logger.LogInformation("----- Collection History: The task was successfully completed.");
