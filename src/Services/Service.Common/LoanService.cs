@@ -11,6 +11,16 @@ namespace Service.Common {
         private readonly ILoanRepository _loanRepository = loanRepository;
         private readonly ILogger<AccountService> _logger = logger;
 
+        public async Task<List<Loan>> GetAll() {
+            try{
+                //Get loans.
+                return (List<Loan>) await _loanRepository.GetAllAsync();
+            } catch{
+                // If there's an exception during the process, return an empty list.
+                return [];
+            }
+        }
+
         public async Task<bool> Create (LoanApplication oLoanApplication) {
             try {
                 var existingLoans = await _loanRepository.GetByLoanApplicationId(oLoanApplication.Id);
@@ -70,7 +80,7 @@ namespace Service.Common {
                 //Get loan by id.
                 return await _loanRepository.GetById(id);
             } catch {
-                // If there's an exception during the process, return an empty list.
+                // If there's an exception during the process, return null.
                 return null;
             }
         }
