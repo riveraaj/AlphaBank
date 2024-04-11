@@ -4,6 +4,7 @@
         AvisoDeAtrasoEnElPago = 2,
         AvisoDeProcesoDeCobroJudicial = 3,
         NotificacionDeFinalizacionDePago = 4,
-        AvisoDeCobroJudicial = 5
+        AvisoDeCobroJudicial = 5,
+        DepartamentoDeCobro = 6
     }
 }
