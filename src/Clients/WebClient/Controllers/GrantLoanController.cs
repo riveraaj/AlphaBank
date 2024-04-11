@@ -10,6 +10,12 @@ namespace WebClient.Controllers {
             = loanApplicationService;
 
         public async Task<IActionResult> EvaluationLoanApplications()
-            => View(await _loanApplicationService.GetAllForGrantLoan()); 
+            => View(await _loanApplicationService.GetAllForGrantLoan());
+        public ActionResult viewApplication()
+        {
+            return PartialView("ViewApplication");
+        }
+
     }
+    
 }

@@ -12,38 +12,6 @@
             <div class="row">
                 <p class="tittle">Evaluación de Solicitudes de Préstamos</p>
             </div>
-
-            <br />
-
-            <form method="get" asp-controller="" asp-action="">
-                <div class="row mt-4">
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 pt-3 pt-sm-3 pt-md-0 pt-lg-0 pt-xl-0">
-                        <div class="row">
-                            <div class="col-3 d-flex justify-content-center align-items-center control-label text-end">
-                                Criterio de Búsqueda:
-                            </div>
-
-                            <div class="col-9">
-                                <select class="form-control select-border-50 m-0"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 pt-3 pt-sm-3 pt-md-0 pt-lg-0 pt-xl-0">
-                        <div class="row">
-                            <div class="col-3 d-flex justify-content-center align-items-center control-label text-end">
-                                Valor de Búsqueda:
-                            </div>
-
-                            <div class="col-9">
-                                <input type="text" name="id" class="form-control input-radius-50 mt-0" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 pt-3 pt-sm-3 pt-md-3 pt-lg-0 pt-xl-0">
-                        <input type="submit" value="Consultar" class="btn btn-green w-100" />
-                    </div>
-                </div>
-            </form>
         </div>
 
         <div class="card-main table-responsive pt-3">
@@ -67,7 +35,11 @@
                         <tbody>
                             @foreach(var item in Model) {
                             <tr>
-                                <td></td>
+                                <td>
+                                    <button class="btn-green-border-8 pt-1 pb-1" id="btnViewApplication">
+                                        Evaluar
+                                    </button>
+                                </td>
                                 <td>@item.Id</td>
                                 <td>@item.TypeLoan</td>
                                 <td>@item.DateApplication</td>
@@ -83,6 +55,27 @@
     </div>
 </div>
 
+<div class="modal fade " id="modalViewApplication" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Información de la Solicitud</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-controller="Customer" asp-action="Create">
+                <div class="modal-body">
+                    <div id="contentViewApplication">
+                        <!-- Parcial view -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Denegar</button>
+                    <button type="submit" class="btn btn-green-border-8" action="">Generar Contrato</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     @{

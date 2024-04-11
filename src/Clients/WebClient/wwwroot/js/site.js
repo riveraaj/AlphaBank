@@ -105,3 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#modalCreateNotificationJudicialCollection').modal('show');
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnViewApplication');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentViewApplication').load('/GrantLoan/ViewApplication');
+        $('#modalViewApplication').modal('show');
+    });
+});
