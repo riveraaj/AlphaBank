@@ -11,7 +11,7 @@ namespace Service.ContinueLoans {
                                      ILoanService loanService,
                                      IMailService mailService,
                                      INotificationService notificationService,
-                                     ILogger<ContinueLoanService> logger) {
+                                     ILogger<ContinueLoanService> logger): IContinueLoanService {
 
         private readonly ICollectionHistoryService _collectionHistoryService = collectionHistoryService;
         private readonly ICustomerService _customerService = customerService;
