@@ -1,90 +1,58 @@
-﻿@model List<Dtos.AlphaBank.BankAccounts.ShowCustomerDTO>
-
+﻿
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
-    ViewData["Title"] = "Clientes";
+    ViewData["Title"] = "Usuarios";
 }
 
 <div class="card-white-transparent shadow-container mt-5">
     <div class="header-card">
-        <p class="tittle">Clientes</p>
+        <p class="tittle">Usuarios</p>
         <div class="form-group d-flex justify-content-center pt-3">
-            <button class="btn btn-green" id="btnCreateCustomer">Agregar Cliente</button>
+            <button class="btn btn-green" id="btnCreateUsers">Agregar</button>
         </div>
     </div>
     <div class="card-main table-responsive text-nowrap pt-3">
-        <table id="tablaclientes" class="mt-4">
+        <table id="tablausers" class="mt-4">
             <thead>
                 <tr>
                     <th>Acciones</th>
-                    <th>Identificación</th>
-                    <th>Nombre Completo</th>
-                    <th>Edad</th>
-                    <th>Nacionalidad</th>
-                    <th>Teléfono</th>
-                    <th>Dirección</th>
-                    <th>Ocupación</th>
+                    <th>Id</th>
                     <th>Email</th>
+                    <th>Role</th>
+                    <th>Empleado Id</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var customer in Model)
-                {
                     <tr>
                         <td>
-                            <button class="btn-action" id="btnUpdateCustomer">
+                            <button class="btn-action">
                                 <i class="fa fa-solid fa-edit"></i>
                             </button>
                             <button class="btn-action">
                                 <i class="fa fa-solid fa-trash"></i>
                             </button>
                         </td>
-                        <td>@(customer.PersonId)</td>
-                        <td>@customer.FullName</td>
-                        <td>@customer.Age</td>
-                        <td>@customer.Nationality</td>
-                        <td>@customer.PhoneNumber</td>
-                        <td>@customer.Address</td>
-                        <td>@customer.Occupation</td>
-                        <td>@customer.Email</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
-                }
             </tbody>
         </table>
     </div>
 </div>
 
-<div class="modal fade" id="modalCreateCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalCreateUsers" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Agregar Cliente</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Usuario</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="post" asp-controller="Customer" asp-action="Create">
                 <div class="modal-body">
-                    <div id="contentCreateCustomer">
-                        <!-- Parcial view -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-green-border-8" action="">Guardar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="modalUpdateCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modificar Cliente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method="post" asp-controller="Customer" asp-action="Update">
-                <div class="modal-body">
-                    <div id="contentUpdateCustomer">
+                    <div id="contentCreateUsers">
                         <!-- Parcial view -->
                     </div>
                 </div>
@@ -98,7 +66,7 @@
 </div>
 
 <script type="text/javascript">
-    $('#tablaclientes').DataTable({
+    $('#tablausers').DataTable({
         "responsive": true,
         "aServerSide": true,
         "autoWidth": false,
@@ -141,7 +109,8 @@
     }
 }
 
-@if (ViewData["ShowCreateCustomerModal"] != null && (bool) ViewData["ShowCreateCustomerModal"] !) {
+@if (ViewData["ShowCreateCustomerModal"] != null && (bool)ViewData["ShowCreateCustomerModal"]!)
+{
 
     <script>
         window.addEventListener('load', function () {

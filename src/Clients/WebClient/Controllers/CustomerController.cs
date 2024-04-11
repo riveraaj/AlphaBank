@@ -3,7 +3,9 @@ using Interfaces.BankAccounts.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebClient.Services;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace WebClient.Controllers {
 
@@ -20,26 +22,32 @@ namespace WebClient.Controllers {
 
             return View(await _customerService.GetAll());
         }
-
         public async Task<ActionResult> ShowCustomer() {
 
-            //We obtain all the lists of data to be used in the select forms formatted in
-            //SelectList to enter them in a ViewData
-            var typeIdentificationList = await _commonService.GetTypeIdentificationSelectListItems();
-            var nationalityList = await _commonService.GetNationalitySelectListItems();
-            var maritalStatusList = await _commonService.GetMaritalStatusSelectListItems();
-            var occupationList = await _commonService.GetOccupationSelectListItems();
-            var typePhoneList = await _commonService.GetTypePhoneSelectListItems();
+                //We obtain all the lists of data to be used in the select forms formatted in
+                //SelectList to enter them in a ViewData
+                var typeIdentificationList = await _commonService.GetTypeIdentificationSelectListItems();
+                var nationalityList = await _commonService.GetNationalitySelectListItems();
+                var maritalStatusList = await _commonService.GetMaritalStatusSelectListItems();
+                var occupationList = await _commonService.GetOccupationSelectListItems();
+                var typePhoneList = await _commonService.GetTypePhoneSelectListItems();
 
-            //ViewData is created for each SelectList and formatted as follows
-            ViewData["TypeIdentification"] = new SelectList(typeIdentificationList, "Value", "Text");
-            ViewData["Nationality"] = new SelectList(nationalityList, "Value", "Text");
-            ViewData["MaritalStatus"] = new SelectList(maritalStatusList, "Value", "Text");
-            ViewData["Occupation"] = new SelectList(occupationList, "Value", "Text");
-            ViewData["TypePhone"] = new SelectList(typePhoneList, "Value", "Text");
-
-            return PartialView("CreateCustomer");
+                //ViewData is created for each SelectList and formatted as follows
+                ViewData["TypeIdentification"] = new SelectList(typeIdentificationList, "Value", "Text");
+                ViewData["Nationality"] = new SelectList(nationalityList, "Value", "Text");
+                ViewData["MaritalStatus"] = new SelectList(maritalStatusList, "Value", "Text");
+                ViewData["Occupation"] = new SelectList(occupationList, "Value", "Text");
+                ViewData["TypePhone"] = new SelectList(typePhoneList, "Value", "Text");
+                return PartialView("CreateCustomer");
+                // Modificar
+               
+                
         }
+        public async Task<ActionResult> ShowCustomerUpdate()
+        {
+            return PartialView("UpdateCustomer");
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

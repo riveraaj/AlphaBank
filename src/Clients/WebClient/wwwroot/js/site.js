@@ -37,6 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateCustomer = document.getElementById('btnUpdateCustomer');
+    btnCreateCustomer.addEventListener('click', () => {
+        $('#contentUpdateCustomer').load('/Customer/ShowCustomerUpdate');
+        $('#modalUpdateCustomer').modal('show');
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
     var btnCreateDeadlines = document.getElementById('btnCreateDeadlines');
     btnCreateDeadlines.addEventListener('click', () => {
         $('#contentCreateCustomer').load('/Deadlines/showDeadlines');
@@ -111,5 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCreateRoles.addEventListener('click', () => {
         $('#contentViewApplication').load('/GrantLoan/ViewApplication');
         $('#modalViewApplication').modal('show');
+    });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnCreateUsers');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentCreateUsers').load('/Users/createUsers');
+        $('#modalCreateUsers').modal('show');
     });
 });

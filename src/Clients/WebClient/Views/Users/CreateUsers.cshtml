@@ -1,0 +1,90 @@
+﻿<div class="row">
+    <div class="col-md-12">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label  class="control-label">Identificación:</label>
+            <input  class="form-control" />
+            <span  class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Nombre</label>
+            <input class="form-control" />
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Primer Apellido</label>
+            <input class="form-control" />
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Segundo Apellido:</label>
+            <input class="form-control" />
+            <span  class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Fecha de Nacimiento</label>
+            <input  class="form-control" type="date" />
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Numero de Teléfono:</label>
+            <input class="form-control" type="tel" />
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Tipo de Teléfono</label>
+            <select  class="form-control"></select>
+            <span  class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Dirección:</label>
+            <input class="form-control" />
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label  class="control-label">Tipo identificación:</label>
+            <select asp-items="ViewBag.TypeIdentification" class="form-control"></select>
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label  class="control-label">Nacionalidad:</label>
+            <select asp-items="ViewBag.Nationality" class="form-control"></select>
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Estado Civil:</label>
+            <select asp-items="ViewBag.MaritalStatus" class="form-control"></select>
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Correo Electrónico:</label>
+            <input class="form-control" />
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Salario Promedio Mensual:</label>
+            <input class="form-control" />
+            <span  class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Ocupación:</label>
+            <select asp-items="ViewBag.Occupation" class="form-control"></select>
+            <span class="text-danger"></span>
+        </div>
+    </div>
+</div>
