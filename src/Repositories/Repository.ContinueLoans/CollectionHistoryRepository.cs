@@ -17,6 +17,10 @@ namespace Repository.ContinueLoans {
                                                     .ThenInclude(x => x.LoanApplication)
                                                         .ThenInclude(x => x.Account)
                                                             .ThenInclude(x => x.Customer)
+                                                                .ThenInclude(x => x.Person)
+                                                  .Include(x => x.Loan)
+                                                    .ThenInclude(x => x.LoanApplication)
+                                                        .ThenInclude(x => x.TypeCurrency)                    
                                                   .LastOrDefaultAsync(x => x.LoanId == id);
 
         public async Task CreateAsync(CollectionHistory oCollectionHistory)
