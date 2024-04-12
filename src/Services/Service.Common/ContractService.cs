@@ -49,6 +49,47 @@ namespace Service.Common {
             }
         }
 
+        public async Task<bool> RenegotiationTypeCreate(Loan oLoan, string newInterestPercentage, string newLoanTerm, decimal newLoanAmount)
+        {
+            try
+            {
+                Contract contract = new()
+                {
+                    DateStart = DateOnly.FromDateTime(DateTime.UtcNow)
+                };
+
+                contract.DateCompletion = contract.DateStart.AddMonths(int.Parse(newLoanTerm.Split(' ')[0]));
+
+                contract.DateUpdate = contract.DateStart;
+
+                contract.TypeContractId = 2;
+
+                contract.LoanApplicationId = oLoan.LoanApplication.Id;
+
+                // Create the Contract PDF and get the file path.
+                contract.PathFile = RenegotiationContractCreationHelper.CreatePdf(oLoan, newInterestPercentage, newLoanTerm, newLoanAmount);
+                // Check if the Contract PDF was created
+                if (string.IsNullOrEmpty(contract.PathFile)) return false;
+
+                _logger.LogInformation("----- Create Contract: Start the creation of an contract registry");
+
+                await _contractRepository.CreateAsync(contract);
+                await _contractRepository.SaveChangesAsync();
+
+                _logger.LogInformation("----- Create Contract: Creation completed and saved successfully.");
+
+                //Return true to indicate successful creation.
+                return true;
+            }
+            catch
+            {
+                _logger.LogError("----- Create Contract: An error occurred while creating and saving to the database.");
+
+                //If there's an exception during the process, return false.
+                return false;
+            }
+        }
+
         public async Task<List<ShowContractDTO>> GetByLoanApplicationID(int id) {
             try {
                 //Retrieve Contracts by LoanApplicationId asynchronously from the ContractRepository.
