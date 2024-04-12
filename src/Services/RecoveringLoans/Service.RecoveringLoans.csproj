@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.RecoveringLoansService\Interfaces.RecoveringLoansService.csproj" />
     <ProjectReference Include="..\Service.ContinueLoans\Service.ContinueLoans.csproj" />
   </ItemGroup>
 

@@ -2,15 +2,22 @@
 using Data.AlphaBank;
 using Interfaces.Common.Services;
 using Microsoft.Extensions.Logging;
+using Dtos.AlphaBank.Common;
+using Interfaces.BankAccounts.Services;
+using Interfaces.RecoveringLoansService.Services;
 
 namespace Service.RecoveringLoans {
     public class RecoveringLoansService(IMailService mailService,
                                         ILoanService loanService,
                                         INotificationService notificationService,
-                                        ILogger<RecoveringLoansService> logger) {
+                                        IContractService contractService,
+                                        ICustomerService customerService,
+                                        ILogger<RecoveringLoansService> logger) : IRecoveringLoansService {
 
         private readonly IMailService _mailService = mailService;
         private readonly ILoanService _loanService = loanService;
+        private readonly ICustomerService _customerService = customerService;
+        private readonly IContractService _contractService = contractService;
         private readonly INotificationService _notificationService = notificationService;
         private readonly ILogger<RecoveringLoansService> _logger = logger;
 
@@ -23,6 +30,13 @@ namespace Service.RecoveringLoans {
                 var customer = loan?.LoanApplication.Account.Customer;
 
                 if (loan != null && customer != null) {
+
+                    await _loanService.UpdateStatement(loanId,
+                                (byte)LoanStatementEnum.EnCobroJudicial);
+
+                    await _customerService.Update(customer.Id,
+                                (byte)CustomerStatusEnum.Suspendido);
+
                     string formattedMessage = await FormatCustomerMessageAsync(loan, customer);
                     await _mailService.SendEmailAsync(customer.EmailAddress, "Judicial Collection | AlphaBank", formattedMessage);
 
@@ -53,8 +67,25 @@ namespace Service.RecoveringLoans {
             }
         }
 
-        public async Task<bool> GenerateNewContract(){
+        public async Task<bool> GenerateNewContract(CreateRenegotiationContractDTO oCreateRenegotiationContractDTO){
             try {
+
+                var loan = await _loanService.GetById(oCreateRenegotiationContractDTO.LoanId);
+
+                await _loanService.UpdateStatement(loan!.Id,
+                (byte)LoanStatementEnum.EnEsperaDePago);
+
+                await _customerService.Update(loan.LoanApplication.Account.CustomerId,
+                            (byte)CustomerStatusEnum.Regular);
+
+                var result = await _contractService.RenegotiationTypeCreate
+                                                    (loan!,
+                                                     oCreateRenegotiationContractDTO.NewInterestPercentage.ToString()!,
+                                                     oCreateRenegotiationContractDTO.NewLoanTerm.ToString()!,
+                                                     (decimal) oCreateRenegotiationContractDTO.NewLoanAmount!);
+
+                if(!result) return false;
+
                 return true;
             } catch {
                 return false;
