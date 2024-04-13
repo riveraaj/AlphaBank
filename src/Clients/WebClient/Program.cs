@@ -5,6 +5,7 @@ using Interfaces.BankAccounts.Repositories;
 using Interfaces.BankAccounts.Services;
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
+using Interfaces.GrantingLoans.Services;
 using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -16,6 +17,7 @@ using Repository.Security;
 using Service.AnalyzeLoanOpportunities;
 using Service.BankAccounts;
 using Service.Common;
+using Service.GrantingLoans;
 using Service.Security;
 using WebClient.Services;
 
@@ -59,7 +61,8 @@ builder.Services.AddScoped<INationalityRepository, NationalityRepository>();
 builder.Services.AddScoped<IMaritalStatusRepository, MaritalStatusRepository>();
 builder.Services.AddScoped<IInterestRepository, InterestRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-
+builder.Services.AddScoped<IContractRepository, ContractRepository>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 
 //Services Scoped
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
@@ -83,6 +86,9 @@ builder.Services.AddScoped<CommonService>();
 builder.Services.AddScoped<BankAccountService>();
 builder.Services.AddScoped<ITypeAccountService, TypeAccountService>();
 builder.Services.AddScoped<BankAccountService>();
+builder.Services.AddScoped<IContractService, ContractService>();
+builder.Services.AddScoped<ILoanService, LoanService>();
+builder.Services.AddScoped<IGrantingLoansService, GrantingLoansService>();
 
 //Add App Insights
 builder.Services.AddApplicationInsightsTelemetry();
