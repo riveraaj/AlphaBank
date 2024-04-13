@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#modalCreateRenegotiation').modal('show');
     });
 });
+
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateRoles = document.getElementById('btnCreateNotificationRecovery');
     btnCreateRoles.addEventListener('click', () => {
@@ -106,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#modalCreateNotificationRecovery').modal('show');
     });
 });
+
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateRoles = document.getElementById('btnCreateNotificationJudicialCollection');
     btnCreateRoles.addEventListener('click', () => {
@@ -116,11 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateRoles = document.getElementById('btnViewApplication');
-    btnCreateRoles.addEventListener('click', () => {
-        $('#contentViewApplication').load('/GrantLoan/ViewApplication');
+    btnCreateRoles.addEventListener('click', function () {
+        var loanId = $(this).data('id');
+        $('#contentViewApplication').load('/GrantLoan/ViewApplication?id=' + loanId);
         $('#modalViewApplication').modal('show');
     });
 });
+
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateRoles = document.getElementById('btnCreateUsers');
     btnCreateRoles.addEventListener('click', () => {
