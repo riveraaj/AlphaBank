@@ -1,20 +1,27 @@
-﻿using Interfaces.AnalyzeLoanOpportunities.Repositories;
+﻿using Data.AlphaBank;
+using Data.AlphaBank.Enums;
+using Interfaces.AnalyzeLoanOpportunities.Repositories;
 using Interfaces.BankAccounts.Repositories;
 using Interfaces.Common.Services;
 using Interfaces.GrantingLoans.Services;
 using Microsoft.Extensions.Logging;
+using Service.Common.Helpers;
 
 namespace Service.GrantingLoans {
     public class GrantingLoansService (ILoanApplicationRepository loanApplicationRepository,
                                        IAccountRepository accountRepository,
                                        IContractService contractService,
                                        ILoanService loanService,
+                                       IMailService mailService,
+                                       INotificationService notificationService,
                                        ILogger<GrantingLoansService> logger) : IGrantingLoansService {
 
         private readonly ILoanApplicationRepository _loanApplicationRepository = loanApplicationRepository;
         private readonly IAccountRepository _accountRepository = accountRepository;
         private readonly IContractService _contractService = contractService;
         private readonly ILoanService _loanService = loanService;
+        private readonly IMailService _mailService = mailService;
+        private readonly INotificationService _notificationService = notificationService;
         private readonly ILogger<GrantingLoansService> _logger = logger;
 
         public async Task<bool> GrantingLoan(int idLoanApplication, bool grantingLoan) {
@@ -30,12 +37,26 @@ namespace Service.GrantingLoans {
                 // Check if the ApplicationStatusId is only 1 (Pendiente), if the Loan Application is not Pending the Loan can´t be granted
                 if (oLoanApplication.ApplicationStatusId != 1) return false;
 
+                //Obtaining the customer's mail
+                var email = oLoanApplication.Account.Customer.EmailAddress;
+                var customer = oLoanApplication.Account.Customer.Person;
+
+                string messageTemplate;
+                string formattedMessage;
                 // In case the grantingLoan boolean value is False, the Loan will be Denied and only the status will be updated
                 if (!grantingLoan) {
                     _logger.LogInformation("----- Loan Granting: Update the ApplicationStatus of the LoanApplication.");
                     //Update the LoanApplication Status to 3 or "Denegado"
                     await _loanApplicationRepository.UpdateApplicationStatus(oLoanApplication.Id, 3);
                     await _loanApplicationRepository.SaveChangesAsync();
+
+                    messageTemplate = await _notificationService.GetMessageById
+                                                  ((int)TypeNotificationEnum.NotificaciónDeSolicitudDePrestamoRechazada) ?? " ";
+
+                    formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")
+                                                             .Replace("[ID del Préstamo]", oLoanApplication.Id.ToString());
+
+                    await _mailService.SendEmailAsync(email, "Solicitud de Prestamo Rechazada | AlphaBank", formattedMessage);
 
                     _logger.LogInformation("----- Loan Granting: Loan Granting process completed successfully.");
                     return true;
@@ -57,6 +78,26 @@ namespace Service.GrantingLoans {
                 //Update the LoanApplication Status to 2 or "Approbado"
                 await _loanApplicationRepository.UpdateApplicationStatus(oLoanApplication.Id, 2);
                 await _loanApplicationRepository.SaveChangesAsync();
+
+                var loanCreated = await _loanService.GetByLoanApplicationId(oLoanApplication.Id);
+                if (loanCreated == null) return false;
+
+                messageTemplate = await _notificationService.GetMessageById
+                                                  ((int)TypeNotificationEnum.NotificaciónDeSolicitudDePrestamoAprobada) ?? " ";
+
+                formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")
+                                                         .Replace("[ID del Préstamo]", oLoanApplication.Id.ToString())
+                                                         .Replace("[Monto del Préstamo]", MoneyFormatHelper.MoneyFormat(oLoanApplication.Amount.ToString(), oLoanApplication.TypeCurrency.Description))
+                                                         .Replace("[Fecha de Aprobación]", DateTime.Now.ToString("dd/MM/yyyy"));
+
+                await _mailService.SendEmailAsync(email, "Solicitud de Prestamo Aprobada | AlphaBank", formattedMessage);
+
+                await _notificationService.Create(new Notification
+                {
+                    DateShipment = DateOnly.FromDateTime(DateTime.Today),
+                    LoanId = loanCreated.Id,
+                    TypeNotificationId = (byte)TypeNotificationEnum.NotificaciónDeSolicitudDePrestamoAprobada
+                });
 
                 _logger.LogInformation("----- Loan Granting: Loan Granting process completed successfully.");
 

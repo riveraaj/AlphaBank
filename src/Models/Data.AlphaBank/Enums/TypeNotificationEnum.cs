@@ -5,6 +5,8 @@
         AvisoDeProcesoDeCobroJudicial = 3,
         NotificacionDeFinalizacionDePago = 4,
         AvisoDeCobroJudicial = 5,
-        DepartamentoDeCobro = 6
+        DepartamentoDeCobro = 6,
+        NotificaciónDeSolicitudDePrestamoAprobada = 7,
+        NotificaciónDeSolicitudDePrestamoRechazada = 8
     }
 }

@@ -9,5 +9,6 @@ namespace Interfaces.Common.Services {
         public Task UpdateStatement(int id, byte loanStatementId);
         public Task UpdateQuotas(int id);
         public Task<Loan?> GetById(int id);
+        public Task<Loan?> GetByLoanApplicationId(int loanApplicationId);
     }
 }

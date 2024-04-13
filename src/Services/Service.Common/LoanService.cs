@@ -108,5 +108,19 @@ namespace Service.Common {
                 return null;
             }
         }
+
+        public async Task<Loan?> GetByLoanApplicationId(int loanApplicationId)
+        {
+            try
+            {
+                //Get loan by id.
+                return await _loanRepository.GetByLoanApplicationId(loanApplicationId);
+            }
+            catch
+            {
+                // If there's an exception during the process, return null.
+                return null;
+            }
+        }
     }
 }
