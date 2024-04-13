@@ -1,101 +1,114 @@
-﻿<div class="card-main pt-3">
-    <h5>Información personal:</h5>
-    <div class="row">
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <label lass="control-label">Nombre Completo:</label>
-            <input type="text" class="form-control" disabled />
-        </div>
+﻿@model GrantLoanViewModel;
 
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-            <label class="control-label">Estado Civil:</label>
-            <input type="text" class="form-control" disabled />
-        </div>
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Información de la Solicitud</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div>
+        <div class="card-main pt-3">
+            <h5>Información personal:</h5>
+            <div class="row">
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label lass="control-label">Nombre Completo:</label>
+                    <input type="text" class="form-control" value="@(Model?.Customer.FullName ?? "")" disabled />
+                </div>
 
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
-            <label class="control-label">Edad:</label>
-            <input type="text" class="form-control" disabled />
-        </div>
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <label class="control-label">Estado Civil:</label>
+                    <input type="text" class="form-control" value="@(Model?.Customer.MaritalStatus ?? "")" disabled />
+                </div>
 
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <label class="control-label">Nacionalidad:</label>
-            <input type="text" class="form-control" disabled />
-        </div>
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1">
+                    <label class="control-label">Edad:</label>
+                    <input type="text" class="form-control" value="@(Model?.Customer.Age.ToString() ?? "")" disabled />
+                </div>
 
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <label class="control-label">Ocupación:</label>
-            <input type="text" class="form-control" disabled />
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Nacionalidad:</label>
+                    <input type="text" class="form-control" value="@(Model?.Customer.Nationality ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Ocupación:</label>
+                    <input type="text" class="form-control" value="@(Model?.Customer.Occupation ?? "")" disabled />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                    <label class="control-label">Teléfono:</label>
+                    <input type="text" class="form-control" value="@(Model?.Customer.PhoneNumber.ToString() ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Correo Electrónico:</label>
+                    <input type="text" class="form-control" value="@(Model?.Customer.Email ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
+                    <label class="control-label">Dirección de Residencia:</label>
+                    <input type="text" class="form-control" value="@(Model?.Customer.Address ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <label class="control-label">Salario Promedio Mensual:</label>
+                    <input type="text" class="form-control" value="@(Model != null ? "₡" + Model.Customer.AverageMonthlySalary.ToString() : "")" disabled />
+                </div>
+            </div>
+            <hr />
+            <h5>Información del préstamo:</h5>
+            <div class="row">
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Tipo de préstamo:</label>
+                    <input type="text" class="form-control" value="@(Model?.LoanApplication.TypeLoan ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Plazo:</label>
+                    <input type="text" class="form-control" value="@(Model?.LoanApplication.Deadline ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Moneda:</label>
+                    <input type="text" class="form-control" value="@(Model?.LoanApplication.TypeCurrency ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Monto a solicitar:</label>
+                    <input type="text" class="form-control" value="@(Model?.LoanApplication.Amount ?? "")" disabled />
+                </div>
+
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                    <label class="control-label">Interés:</label>
+                    <input type="text" class="form-control" value="@(Model?.LoanApplication.Interest ?? "")" disabled />
+                </div>
+            </div>
+            <hr />
+            <h5>Archivos Adjuntos:</h5>
+            <div class="row">
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <label class="control-label">Link Orden Patronal:</label>
+                    <input type="text" class="form-control" value="@(Model?.LoanApplication.EmployerOrder ?? "")" disabled />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                    <label class="control-label">Link Constancia Salarial:</label>
+                    <input type="text" class="form-control" value="@(Model?.LoanApplication.SalaryStatement ?? "")" disabled />
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
-            <label class="control-label">Teléfono:</label>
-            <input type="text" class="form-control" disabled />
-        </div>
-
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <label class="control-label">Correo Electrónico:</label>
-            <input type="text" class="form-control" disabled />
-        </div>
-
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7">
-            <label class="control-label">Dirección de Residencia:</label>
-            <input type="text" class="form-control" disabled />
-        </div>
-
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <label class="control-label">Salario Promedio Mensual:</label>
-            <input type="text" class="form-control" disabled />
-        </div>
-    </div>
-    <hr />
-    <h5>Información del préstamo:</h5>
-    <div class="row">
-
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <label class="control-label">Tipo de préstamo:</label>
-            <select class="form-control" disabled></select>
-            <span  class="text-danger"></span>
-        </div>
-
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <label class="control-label">Plazo:</label>
-            <select class="form-control" disabled></select>
-            <span class="text-danger"></span>
-        </div>
-
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <label  class="control-label">Moneda:</label>
-            <select class="form-control" disabled></select>
-            <span  class="text-danger"></span>
-        </div>
-
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <label  class="control-label">Monto a solicitar:</label>
-            <input type="text" class="form-control" disabled />
-            <span class="text-danger"></span>
-        </div>
-
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
-            <label class="control-label">Interés:</label>
-            <select class="form-control" disabled></select>
-            <span  class="text-danger"></span>
-        </div>
-    </div>
-    <hr />
-    <h5>Archivos Adjuntos:</h5>
-    <div class="row">
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <label class="control-label">Link Orden Patronal:</label>
-            <input type="text" class="form-control" disabled />
-            <span class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group pt-3 col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
-            <label class="control-label">Link Constancia Salarial:</label>
-            <input type="text" class="form-control" disabled />
-            <span class="text-danger"></span>
-        </div>
-    </div>
-    
+</div>
+<div class="modal-footer">
+    <form method="post" asp-action="DenyLoanApplication" asp-controller="GrantLoan">
+        <input type="hidden" value="@Model?.LoanApplication.Id" name="id"/>
+        <button type="submit" class="btn btn-close-border-8" data-bs-dismiss="modal">Denegar</button>
+    </form>
+    <form method="post" asp-action="AcceptLoanApplication" asp-controller="GrantLoan">
+        <input type="hidden" value="@Model?.LoanApplication.Id" name="id" />
+        <button type="submit" class="btn btn-green-border-8" action="">Generar Contrato</button>
+    </form>
 </div>
