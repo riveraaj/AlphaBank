@@ -24,7 +24,11 @@ namespace Mapper.AnalyzeLoanOpportunities {
                 Id = oLoanApplication.Id,
                 PersonId = oLoanApplication.Account.Customer.PersonId,
                 TypeLoan = oLoanApplication.TypeLoan.Description,
-                TypeCurrency = oLoanApplication.TypeCurrency.Description
+                TypeCurrency = oLoanApplication.TypeCurrency.Description,
+                Deadline = oLoanApplication.Deadline.Description,
+                EmployerOrder = oLoanApplication.PathPatronalOrder,
+                Interest = oLoanApplication.Interest.Description,
+                SalaryStatement = oLoanApplication.PathProofSalary
             };
     }
 }

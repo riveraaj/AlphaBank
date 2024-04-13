@@ -1,4 +1,5 @@
-﻿using Dtos.AlphaBank.AnalyzeLoanOpportunities;
+﻿using Data.AlphaBank;
+using Dtos.AlphaBank.AnalyzeLoanOpportunities;
 using Interfaces.AnalyzeLoanOpportunities.Repositories;
 using Interfaces.AnalyzeLoanOpportunities.Services;
 using Interfaces.BankAccounts.Repositories;
@@ -37,6 +38,19 @@ namespace Service.AnalyzeLoanOpportunities {
             } catch {
                 //If there's an exception during the process, return null.
                 return [];
+            }
+        }
+
+        public async Task<ShowLoanApplicationDTO?> GetById(int id) {
+            try {
+                var loan = await _loanApplicationRepository.GetById(id);
+
+                if(loan == null) return null;
+
+                return LoanApplicationMapper.MapShowLoanApplicationDTO(loan);
+            }
+            catch {
+                return null;
             }
         }
 

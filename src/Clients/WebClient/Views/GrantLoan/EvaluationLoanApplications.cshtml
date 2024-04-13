@@ -1,4 +1,4 @@
-﻿@model List<Dtos.AlphaBank.AnalyzeLoanOpportunities.ShowLoanApplicationDTO>;
+﻿@model GrantLoanViewModel;
 
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
@@ -16,27 +16,27 @@
 
         <div class="card-main table-responsive pt-3">
 
-                <h5>Lista de Préstamos Pendientes de Evaluación:</h5>
-                <div class="">
-                    <table id="tablaevaluacion" class="mt-4">
+            <h5>Lista de Préstamos Pendientes de Evaluación:</h5>
+            <div class="">
+                <table id="tablaevaluacion" class="mt-4">
 
-                        <thead>
-                            <tr>
-                                <th>Acción</th>
-                                <th>Número de Solicitud</th>
-                                <th>Tipo Préstamo</th>
-                                <th>Fecha de Solicitud</th>
-                                <th>Identificación del solicitante</th>
-                                <th>Moneda</th>
-                                <th>Monto</th>
-                            </tr>
-                        </thead>
+                    <thead>
+                        <tr>
+                            <th>Acción</th>
+                            <th>Número de Solicitud</th>
+                            <th>Tipo Préstamo</th>
+                            <th>Fecha de Solicitud</th>
+                            <th>Identificación del solicitante</th>
+                            <th>Moneda</th>
+                            <th>Monto</th>
+                        </tr>
+                    </thead>
 
-                        <tbody>
-                            @foreach(var item in Model) {
+                    <tbody>
+                        @foreach (var item in Model.LoanApplicationList) {
                             <tr>
                                 <td>
-                                    <button class="btn-green-border-8 pt-1 pb-1" id="btnViewApplication">
+                                    <button class="btn-green-border-8 pt-1 pb-1" id="btnViewApplication" data-id="@item.Id">
                                         Evaluar
                                     </button>
                                 </td>
@@ -47,32 +47,18 @@
                                 <td>@item.TypeCurrency</td>
                                 <td>@item.Amount</td>
                             </tr>
-                            }                      
-                        </tbody>
-                    </table>
-                </div>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="modal fade " id="modalViewApplication" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Información de la Solicitud</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method="post" asp-controller="Customer" asp-action="Create">
-                <div class="modal-body">
-                    <div id="contentViewApplication">
-                        <!-- Parcial view -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Denegar</button>
-                    <button type="submit" class="btn btn-green-border-8" action="">Generar Contrato</button>
-                </div>
-            </form>
+        <div class="modal-content" id="contentViewApplication">
+            <!-- Parcial view --> 
         </div>
     </div>
 </div>
