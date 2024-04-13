@@ -68,6 +68,15 @@ namespace Repository.Common
                                             .ThenInclude(c => c.Customer)
                                                 .ThenInclude(p => p.Person)
                                                     .ThenInclude(ti => ti.TypeIdentification)
+                                    .Include(la => la.LoanApplication)
+                                        .ThenInclude(tc => tc.Account)
+                                            .ThenInclude(c => c.Customer)
+                                                .ThenInclude(p => p.CustomerStatus)
+                                    .Include(la => la.LoanApplication)
+                                         .ThenInclude(tc => tc.Account)
+                                             .ThenInclude(c => c.Customer)
+                                                 .ThenInclude(p => p.Person)
+                                                     .ThenInclude(ti => ti.Phones)
                                     .ToListAsync();
 
         public async Task CreateAsync(Loan oLoan)
