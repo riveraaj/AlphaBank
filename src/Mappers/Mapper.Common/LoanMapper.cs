@@ -1,10 +1,9 @@
 ﻿using Data.AlphaBank;
 using Dtos.AlphaBank.Common;
+using Dtos.AlphaBank.ContinueLoans;
 
-namespace Mapper.Common
-{
-    public static class LoanMapper
-    {
+namespace Mapper.Common {
+    public static class LoanMapper {
 
         public static ShowLoanDTO MapShowLoanDTO(Loan oLoan)
             => new()
@@ -15,5 +14,12 @@ namespace Mapper.Common
                 LoanStatementDescription = oLoan.LoanStatement.Description
             };
 
+        public static ShowLoanStatementDTO MapShowLoanStatementDTO(Loan oLoan)
+            => new() {
+                CustomerStatus = oLoan.LoanApplication.Account.Customer.CustomerStatus.Description,
+                LoanStatement = oLoan.LoanStatement.Description,
+                PersonId = oLoan.LoanApplication.Account.Customer.PersonId.ToString(),
+                PhoneNumber = oLoan.LoanApplication.Account.Customer.Person.Phones.FirstOrDefault()!.Number.ToString()
+            };
     }
 }
