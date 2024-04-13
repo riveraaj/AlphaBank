@@ -1,6 +1,9 @@
 ﻿using Data.AlphaBank;
+using Data.AlphaBank.Enums;
+using Dtos.AlphaBank.ContinueLoans;
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
+using Mapper.Common;
 using Microsoft.Extensions.Logging;
 using Service.BankAccounts;
 
@@ -16,6 +19,27 @@ namespace Service.Common {
                 //Get loans.
                 return (List<Loan>) await _loanRepository.GetAllAsync();
             } catch{
+                // If there's an exception during the process, return an empty list.
+                return [];
+            }
+        }
+
+        public async Task<List<ShowLoanStatementDTO>> GetAllForContinueLoan(){
+            try{
+                //Get loans.
+                var loanList = await _loanRepository.GetAllAsync();
+                var filteredList = loanList.Where(x => x.LoanStatementId 
+                                            == (byte)LoanStatementEnum.EnProcesoCobroJudicial);
+
+                var newLoanListDTO = new List<ShowLoanStatementDTO>();
+
+                foreach (var loan in filteredList){
+                    newLoanListDTO.Add(LoanMapper.MapShowLoanStatementDTO(loan));
+                }
+
+                return newLoanListDTO;
+            }
+            catch{
                 // If there's an exception during the process, return an empty list.
                 return [];
             }
