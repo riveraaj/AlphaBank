@@ -3,9 +3,7 @@ using Interfaces.BankAccounts.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebClient.Services;
-using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace WebClient.Controllers {
 
@@ -43,9 +41,13 @@ namespace WebClient.Controllers {
                
                 
         }
-        public async Task<ActionResult> ShowCustomerUpdate()
-        {
-            return PartialView("UpdateCustomer");
+        public async Task<ActionResult> ShowCustomerUpdate(int? id){
+
+            if (!id.HasValue) return PartialView("UpdateCustomer");
+           
+            var customer = await _customerService.GetByIdForAccount(id.Value);
+
+            return PartialView("UpdateCustomer", customer);
         }
 
 
@@ -56,20 +58,21 @@ namespace WebClient.Controllers {
             string script;
 
             if (!ModelState.IsValid) {
-                //ViewData["ShowCreateCustomerModal"] = true;
-                //return View("CustomerList", customerList);
-                return PartialView("CreateCustomer");
+                script = "<script>AlertError('Hubo un error','No se ha podido crear el cliente, inténtelo más tarde.');</script>";
+
+                TempData["AlertError"] = script;
+                return RedirectToAction("CustomerList");
             }
 
             var result = await _customerService.Create(oCreateCustomerDTO);
 
             if (!result) {
-                script = "<script>AlertError('Hubo un error','No se ha podido abrir la cuenta, inténtelo más tarde.');</script>";
+                script = "<script>AlertError('Hubo un error','No se ha podido crear el cliente, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
                 return RedirectToAction("CustomerList");
             }
-            script = "<script>AlertSuccess('Cuenta creada exitosamente','');</script>";
+            script = "<script>AlertSuccess('Cliente creada exitosamente','');</script>";
 
             TempData["AlertSuccess"] = script;
             return RedirectToAction("CustomerList");
