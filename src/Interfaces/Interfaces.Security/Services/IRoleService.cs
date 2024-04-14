@@ -5,5 +5,7 @@ namespace Interfaces.Security.Services {
     public interface IRoleService {
         public Task<bool> Create(CreateRoleDTO oCreateRoleDTO);
         public Task<List<Role>> GetAll();
+        public Task<bool> Update(UpdateRoleDTO oUpdateRoleDTO);
+        public Task<bool> Remove(int id);
     }
 }
