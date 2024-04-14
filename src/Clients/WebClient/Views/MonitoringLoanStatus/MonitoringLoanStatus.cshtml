@@ -1,11 +1,8 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<Dtos.AlphaBank.ContinueLoans.ShowLoanStatementDTO>
+
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
-    ViewData["Title"] = "Seguimiento Estado de Préstamos";
+    ViewData["Title"] = "Seguimiento de Préstamos";
 }
 
 <div class="container">
@@ -13,50 +10,46 @@
 
         <div class="header-card">
             <div class="row">
-                <p class="tittle">Seguimiento Estado de Préstamos</p>
+                <p class="tittle">Seguimiento de Préstamos</p>
             </div>
 
         </div>
 
         <div class="card-main table-responsive pt-3">
 
-            <h5>Lista de Préstamos Pendientes de Evaluación:</h5>
+            <h5>Lista de Préstamos en Cobro Judicial:</h5>
             <div class="">
                 
                 <table id="tablaevaluacion" class="mt-4">
 
-                    <thead>
+                    <thead>   
                         <tr>
-
-                            <th>Identificación del solicitante</th>
-                            <th>Tipo Préstamo</th>
+                            <th>Cliente</th>
+                            <th>Nombre Completo</th>
+                            <th>Teléfono</th>
+                            <th>Préstamo</th>
                             <th>Estado del Préstamo</th>
                             <th>Estado del Cliente</th>
                         </tr>
                     </thead>
 
                     <tbody>
-
-                        <tr>
-
-                            <td>prueba</td>
-                            <td>prueba</td>
-                            <td>prueba</td>
-                            <td>prueba</td>
-                        </tr>
+                        @foreach(var item in Model) {
+                            <tr>
+                                <td>@item.PersonId</td>
+                                <td>@item.FullName</td>
+                                <td>@item.PhoneNumber</td>
+                                <td>@item.LoanId</td>
+                                <td>@item.LoanStatement</td>
+                                <td>@item.CustomerStatus</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
 
 <script type="text/javascript">
     $('#tablaevaluacion').DataTable({
