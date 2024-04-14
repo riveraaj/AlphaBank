@@ -14,6 +14,23 @@ namespace Repository.Security {
         public async Task<ICollection<Role>> GetAllAsync()
             => await _context.Roles.ToListAsync();
 
+        public async Task UpdateAsync(Role oRole)
+        {
+            var role = await _context.Roles.FirstOrDefaultAsync(x => x.Id == oRole.Id);
+
+            if (role == null) return;
+
+            role.Description = oRole.Description;
+        }
+
+        public async Task RemoveAsync(int id)
+        {
+            //Search for the record in the table 
+            var role = await _context.Roles.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (role != null) _context.Roles.Remove(role);
+        }
+
         public async Task SaveChangesAsync()
             => await _context.SaveChangesAsync();     
     }
