@@ -50,13 +50,16 @@ namespace Service.GrantingLoans {
                     await _loanApplicationRepository.UpdateApplicationStatus(oLoanApplication.Id, 3);
                     await _loanApplicationRepository.SaveChangesAsync();
 
+
                     messageTemplate = await _notificationService.GetMessageById
                                                   ((int)TypeNotificationEnum.NotificaciónDeSolicitudDePrestamoRechazada) ?? " ";
+
+                    messageTemplate = messageTemplate.Replace("\\n", "<br>");
 
                     formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")
                                                              .Replace("[ID del Préstamo]", oLoanApplication.Id.ToString());
 
-                    await _mailService.SendEmailAsync(email, "Solicitud de Prestamo Rechazada | AlphaBank", formattedMessage);
+                    await _mailService.SendEmailAsync(email, "Solicitud de Préstamo Rechazada | AlphaBank", formattedMessage);
 
                     _logger.LogInformation("----- Loan Granting: Loan Granting process completed successfully.");
                     return true;
@@ -85,12 +88,14 @@ namespace Service.GrantingLoans {
                 messageTemplate = await _notificationService.GetMessageById
                                                   ((int)TypeNotificationEnum.NotificaciónDeSolicitudDePrestamoAprobada) ?? " ";
 
-                formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")
+                messageTemplate = messageTemplate.Replace("\\n", "<br>");
+
+                formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}\n")
                                                          .Replace("[ID del Préstamo]", oLoanApplication.Id.ToString())
                                                          .Replace("[Monto del Préstamo]", MoneyFormatHelper.MoneyFormat(oLoanApplication.Amount.ToString(), oLoanApplication.TypeCurrency.Description))
                                                          .Replace("[Fecha de Aprobación]", DateTime.Now.ToString("dd/MM/yyyy"));
 
-                await _mailService.SendEmailAsync(email, "Solicitud de Prestamo Aprobada | AlphaBank", formattedMessage);
+                await _mailService.SendEmailAsync(email, "Solicitud de Préstamo Aprobada | AlphaBank", formattedMessage);
 
                 await _notificationService.Create(new Notification
                 {
