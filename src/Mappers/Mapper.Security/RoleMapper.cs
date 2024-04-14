@@ -8,5 +8,12 @@ namespace Mapper.Security {
             => new() {
                 Description = oCreateRoleDTO.Description
             };
+
+        public static Role MapUpdateRole(UpdateRoleDTO oUpdateRoleDTO)
+            => new()
+            {
+                Id = oUpdateRoleDTO.Id,
+                Description = oUpdateRoleDTO.Description
+            };
     }
 }
