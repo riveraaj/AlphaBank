@@ -59,6 +59,8 @@ namespace Service.ContinueLoans {
                             //The message to be sent by mail is obtained
                             string messageTemplate = await _notificationService.GetMessageById(
                                                                         (int)TypeNotificationEnum.RecordatorioDePago) ?? " ";
+                            
+                            messageTemplate = messageTemplate.Replace("\\n", "<br>");
 
                             string formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")
                                                                      .Replace("[ID del Préstamo]", collectionHistory.LoanId.ToString())
@@ -87,6 +89,8 @@ namespace Service.ContinueLoans {
                             string messageTemplate = await _notificationService.GetMessageById
                                                    ((int)TypeNotificationEnum.NotificacionDeFinalizacionDePago) ?? " ";
 
+                            messageTemplate = messageTemplate.Replace("\\n", "<br>");
+
                             string formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")
                                                                      .Replace("[ID del Préstamo]", collectionHistory.LoanId.ToString());
 
@@ -110,6 +114,8 @@ namespace Service.ContinueLoans {
 
                             string messageTemplate = await _notificationService.GetMessageById
                                                    ((int)TypeNotificationEnum.AvisoDeAtrasoEnElPago) ?? " ";
+
+                            messageTemplate = messageTemplate.Replace("\\n", "<br>");
 
                             string formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")
                                                                      .Replace("[ID del Préstamo]", collectionHistory.LoanId.ToString())                                                                    
@@ -136,6 +142,8 @@ namespace Service.ContinueLoans {
 
                             string messageTemplate = await _notificationService.GetMessageById
                                                    ((int)TypeNotificationEnum.AvisoDeProcesoDeCobroJudicial) ?? " ";
+
+                            messageTemplate = messageTemplate.Replace("\\n", "<br>");
 
                             string formattedMessage = messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Name} {customer.FirstName}")                                                                    
                                                                      .Replace("[Fecha de Vencimiento]", collectionHistory.Deadline.ToString("d"));
