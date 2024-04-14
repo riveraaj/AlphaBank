@@ -18,6 +18,10 @@ namespace Mapper.Common {
             => new() {
                 CustomerStatus = oLoan.LoanApplication.Account.Customer.CustomerStatus.Description,
                 LoanStatement = oLoan.LoanStatement.Description,
+                LoanId = oLoan.Id.ToString(),
+                FullName = $"{oLoan.LoanApplication.Account.Customer.Person.Name} " +
+                $"{oLoan.LoanApplication.Account.Customer.Person.FirstName} " +
+                $"{oLoan.LoanApplication.Account.Customer.Person.SecondName}",
                 PersonId = oLoan.LoanApplication.Account.Customer.PersonId.ToString(),
                 PhoneNumber = oLoan.LoanApplication.Account.Customer.Person.Phones.FirstOrDefault()!.Number.ToString()
             };
