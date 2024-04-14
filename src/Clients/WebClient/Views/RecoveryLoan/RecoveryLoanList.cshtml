@@ -1,8 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<Dtos.AlphaBank.ContinueLoans.ShowLoanRecoveringDTO>
+
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
     ViewData["Title"] = "Recuperación de Préstamos";
@@ -29,35 +26,41 @@
 
                     <thead>
                         <tr>
-
                             <th>Identificación del Cliente</th>
-                            <th>Tipo Préstamo</th>
+                            <th>Préstamo</th>
                             <th>Estado del Préstamo</th>
-                            <th>Estado del Cliente</th>
+                            <th>Moneda</th>
+                            <th>Deuda</th>
                             <th>Renegociación</th>
                             <th>Notificación</th>
                         </tr>
                     </thead>
 
                     <tbody>
-
-                        <tr>
-
-                            <td>prueba</td>
-                            <td>prueba</td>
-                            <td>prueba</td>
-                            <td>prueba</td>
-                            <td>
-                                <button class="btn-green-border-8 pt-1 pb-1" id="btnCreateRenegotiation">
-                                    Arreglo de Pago
-                                </button>
-                            </td>
-                            <td>
-                                <button class="btn-green-border-8 pt-1 pb-1" id="btnCreateNotificationRecovery">
-                                    Notificar
-                                </button>
-                            </td>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.PersonId</td>
+                                <td>@item.LoanId</td>
+                                <td>@item.LoanStatement</td>
+                                <td>@item.TypeCurrency</td>
+                                <td>@item.LoanAmount</td>
+                                <td>
+                                    <button class="btn-green-border-8 pt-1 pb-1" id="btnCreateRenegotiation" data-id="@item.LoanId">
+                                        Arreglo de Pago
+                                    </button>
+                                </td>
+                                <td>
+                                    <form method="post" asp-action="Notification" asp-controller="RecoveryLoan">
+                                        <input type="hidden" name="loanId" value=@item.LoanId />
+                                        <input type="hidden" name="amount" value=@item.LoanAmount />
+                                        <button type="submit" class="btn-green-border-8 pt-1 pb-1">
+                                            Notificar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -72,36 +75,16 @@
                 <h5 class="modal-title" id="exampleModalLabel">Crear Arreglo de Pago</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" asp-controller="Customer" asp-action="Create">
+            <form method="post" asp-controller="RecoveryLoan" asp-action="Create">
                 <div class="modal-body">
+
                     <div id="contentCreateRenegotiation">
                         <!-- Parcial view -->
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-green-border-8" action="">Guardar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="modalCreateNotificationRecovery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Enviar Notificar</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method="post" asp-controller="Customer" asp-action="Create">
-                <div class="modal-body">
-                    <div id="contentCreateNotificationRecovery">
-                        <!-- Parcial view -->
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-green-border-8" action="">Guardar</button>
+                    <button type="submit" class="btn btn-green-border-8" action="">Renegociar</button>
                 </div>
             </form>
         </div>

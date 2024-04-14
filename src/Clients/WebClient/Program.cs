@@ -6,7 +6,10 @@ using Interfaces.BankAccounts.Repositories;
 using Interfaces.BankAccounts.Services;
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
+using Interfaces.ContinueLoans.Repositories;
+using Interfaces.ContinueLoans.Services;
 using Interfaces.GrantingLoans.Services;
+using Interfaces.RecoveringLoansService.Services;
 using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -14,11 +17,14 @@ using Microsoft.EntityFrameworkCore;
 using Repository.AnalyzeLoanOpportunities;
 using Repository.BankAccounts;
 using Repository.Common;
+using Repository.ContinueLoans;
 using Repository.Security;
 using Service.AnalyzeLoanOpportunities;
 using Service.BankAccounts;
 using Service.Common;
+using Service.ContinueLoans;
 using Service.GrantingLoans;
+using Service.RecoveringLoans;
 using Service.Security;
 using WebClient.Services;
 
@@ -65,6 +71,7 @@ builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IContractRepository, ContractRepository>();
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+builder.Services.AddScoped<ICollectionHistoryRepository, CollectionHistoryRepository>();
 
 //Email Service
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
@@ -93,9 +100,12 @@ builder.Services.AddScoped<BankAccountService>();
 builder.Services.AddScoped<ITypeAccountService, TypeAccountService>();
 builder.Services.AddScoped<BankAccountService>();
 builder.Services.AddScoped<IContractService, ContractService>();
+builder.Services.AddScoped<CalculateAmountLoanHelper>();
 builder.Services.AddScoped<ILoanService, LoanService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IGrantingLoansService, GrantingLoansService>();
+builder.Services.AddScoped<ICollectionHistoryService, CollectionHistoryService>();
+builder.Services.AddScoped<IRecoveringLoansService, RecoveringLoansService>();
 
 //Add App Insights
 builder.Services.AddApplicationInsightsTelemetry();

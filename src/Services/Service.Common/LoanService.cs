@@ -6,12 +6,17 @@ using Interfaces.Common.Services;
 using Mapper.Common;
 using Microsoft.Extensions.Logging;
 using Service.BankAccounts;
+using Service.ContinueLoans;
 
-namespace Service.Common {
+namespace Service.Common
+{
     public class LoanService (ILoanRepository loanRepository,
+                              CalculateAmountLoanHelper calculateAmountLoanHelper,
                                ILogger<AccountService> logger) : ILoanService {
 
         private readonly ILoanRepository _loanRepository = loanRepository;
+        private readonly CalculateAmountLoanHelper _calculateAmountLoanHelper
+            = calculateAmountLoanHelper;
         private readonly ILogger<AccountService> _logger = logger;
 
         public async Task<List<Loan>> GetAll() {
@@ -33,13 +38,33 @@ namespace Service.Common {
 
                 var newLoanListDTO = new List<ShowLoanStatementDTO>();
 
-                foreach (var loan in filteredList){
+                foreach (var loan in filteredList)
                     newLoanListDTO.Add(LoanMapper.MapShowLoanStatementDTO(loan));
-                }
-
+                
                 return newLoanListDTO;
             }
             catch{
+                // If there's an exception during the process, return an empty list.
+                return [];
+            }
+        }
+
+        public async Task<List<ShowLoanRecoveringDTO>> GetAllForPaymentLoan() {
+            try {
+                //Get loans.
+                var loanList = await _loanRepository.GetAllAsync();
+                var filteredList = loanList.Where(x => x.LoanStatementId
+                                            == (byte)LoanStatementEnum.EnCobroJudicial);
+
+                var newLoanListDTO = new List<ShowLoanRecoveringDTO>();        
+
+                foreach (var loan in filteredList){
+                    var loanAmount = await _calculateAmountLoanHelper.CalculateLoanAmount(loan.Id);
+                    newLoanListDTO.Add(LoanMapper.MapShowLoanRecoveringDTO(loan, loanAmount));
+                }
+              
+                return newLoanListDTO;
+            } catch {
                 // If there's an exception during the process, return an empty list.
                 return [];
             }

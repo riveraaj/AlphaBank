@@ -5,6 +5,7 @@ namespace Interfaces.Common.Services {
     public interface ILoanService {
         public Task<List<Loan>> GetAll();
         public Task<List<ShowLoanStatementDTO>> GetAllForContinueLoan();
+        public Task<List<ShowLoanRecoveringDTO>> GetAllForPaymentLoan();
         public Task<bool> Create(LoanApplication oLoanApplication);
         public Task UpdateStatement(int id, byte loanStatementId);
         public Task UpdateQuotas(int id);

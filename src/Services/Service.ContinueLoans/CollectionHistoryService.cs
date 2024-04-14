@@ -53,8 +53,9 @@ namespace Service.ContinueLoans {
                     collectionHistory.Deadline = lastCollectionHistory.Deadline.AddMonths(1);
                 }
 
-                collectionHistory.QuotaNumber = loan.RemainingQuotas;
-                collectionHistory.Amount = (contract!.LoanApplication.Amount / loan.RemainingQuotas);
+                collectionHistory.QuotaNumber = loan.RemainingQuotas;        
+
+                collectionHistory.Amount = contract!.LoanApplication.Amount / int.Parse(contract!.LoanApplication.Deadline.Description.Split(' ')[0]);
                 collectionHistory.DepositMount = (decimal) oCreateCollectionHistoryDTO.DepositAmount!;
                 collectionHistory.LoanId = loan.Id;
                 int daysOverdue = CalculateDaysOverdue(collectionHistory.DateDeposit, collectionHistory.Deadline);

@@ -38,10 +38,10 @@ namespace Service.RecoveringLoans {
                                 (byte)CustomerStatusEnum.Suspendido);
 
                     string formattedMessage = await FormatCustomerMessageAsync(loan, customer);
-                    await _mailService.SendEmailAsync(customer.EmailAddress, "Judicial Collection | AlphaBank", formattedMessage);
+                    await _mailService.SendEmailAsync(customer.EmailAddress, "Proceso Judicial | AlphaBank", formattedMessage);
 
                     string formattedCollectionDepartmentMessage = await FormatCollectionDepartmentMessageAsync(loan, amount);
-                    await _mailService.SendEmailAsync(collectionDepartmentEmail, "Judicial Collection | AlphaBank", formattedCollectionDepartmentMessage);
+                    await _mailService.SendEmailAsync(collectionDepartmentEmail, "Proceso Judicial | AlphaBank", formattedCollectionDepartmentMessage);
 
                     await _notificationService.Create(new Notification {
                         DateShipment = DateOnly.FromDateTime(DateTime.Today),
@@ -94,6 +94,7 @@ namespace Service.RecoveringLoans {
 
         private async Task<string> FormatCustomerMessageAsync(Loan loan, Customer customer) {
             string messageTemplate = await _notificationService.GetMessageById((int)TypeNotificationEnum.AvisoDeCobroJudicial) ?? " ";
+             messageTemplate = messageTemplate.Replace("\\n", "<br>");
             return messageTemplate.Replace("[Nombre del Cliente]", $"{customer.Person.Name} {customer.Person.FirstName}")
                                   .Replace("[ID del Préstamo]", loan.Id.ToString());
         }

@@ -94,17 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateRoles = document.getElementById('btnCreateRenegotiation');
-    btnCreateRoles.addEventListener('click', () => {
-        $('#contentCreateRenegotiation').load('/RecoveryLoan/createRenegotiation');
+    btnCreateRoles.addEventListener('click', function () {
+        var loanId = $(this).data('id');
+        $('#contentCreateRenegotiation').load('/RecoveryLoan/createRenegotiation?id=' + loanId);
         $('#modalCreateRenegotiation').modal('show');
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateRoles = document.getElementById('btnCreateNotificationRecovery');
-    btnCreateRoles.addEventListener('click', () => {
-        $('#contentCreateNotificationRecovery').load('/RecoveryLoan/createNotificationRecovery');
-        $('#modalCreateNotificationRecovery').modal('show');
     });
 });
 

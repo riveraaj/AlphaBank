@@ -23,6 +23,9 @@ namespace Repository.ContinueLoans {
                                                         .ThenInclude(x => x.TypeCurrency)                    
                                                   .LastOrDefaultAsync(x => x.LoanId == id);
 
+        public async Task<List<CollectionHistory>> GetByLoanId(int id)
+            => await _context.CollectionHistories.Where(x => x.LoanId == id).ToListAsync();
+
         public async Task CreateAsync(CollectionHistory oCollectionHistory)
             => await _context.CollectionHistories.AddAsync(oCollectionHistory);
 
