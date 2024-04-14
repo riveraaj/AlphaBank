@@ -1,3 +1,4 @@
+using Data.Common;
 using Database.AlphaBank;
 using Interfaces.AnalyzeLoanOpportunities.Repositories;
 using Interfaces.AnalyzeLoanOpportunities.Services;
@@ -63,6 +64,11 @@ builder.Services.AddScoped<IInterestRepository, InterestRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IContractRepository, ContractRepository>();
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+
+//Email Service
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+builder.Services.AddTransient<IMailService, MailService>();
 
 //Services Scoped
 builder.Services.AddScoped<IUserAuthenticatorService, UserAuthenticatorService>();
@@ -88,6 +94,7 @@ builder.Services.AddScoped<ITypeAccountService, TypeAccountService>();
 builder.Services.AddScoped<BankAccountService>();
 builder.Services.AddScoped<IContractService, ContractService>();
 builder.Services.AddScoped<ILoanService, LoanService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IGrantingLoansService, GrantingLoansService>();
 
 //Add App Insights
