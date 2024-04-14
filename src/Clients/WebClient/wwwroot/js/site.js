@@ -38,8 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateCustomer = document.getElementById('btnUpdateCustomer');
-    btnCreateCustomer.addEventListener('click', () => {
-        $('#contentUpdateCustomer').load('/Customer/ShowCustomerUpdate');
+    btnCreateCustomer.addEventListener('click', function () {
+        var id = $(this).data('id');
+        $('#contentUpdateCustomer').load('/Customer/ShowCustomerUpdate?id=' + id);
         $('#modalUpdateCustomer').modal('show');
     });
 });
