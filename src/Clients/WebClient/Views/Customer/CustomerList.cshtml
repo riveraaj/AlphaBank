@@ -32,12 +32,15 @@
                 {
                     <tr>
                         <td>
-                            <button class="btn-action" id="btnUpdateCustomer">
+                            <button class="btn-action" id="btnUpdateCustomer" data-id=@customer.CustomerId>
                                 <i class="fa fa-solid fa-edit"></i>
                             </button>
-                            <button class="btn-action">
-                                <i class="fa fa-solid fa-trash"></i>
-                            </button>
+                            <form method="post">
+                                <input type="hidden" name="id" value=@customer.CustomerId />
+                                <button type="submit" class="btn-action">
+                                    <i class="fa fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                         <td>@(customer.PersonId)</td>
                         <td>@customer.FullName</td>
@@ -75,6 +78,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="modalUpdateCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -96,6 +100,12 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 <script type="text/javascript">
     $('#tablaclientes').DataTable({
@@ -134,18 +144,3 @@
         }
     });
 </script>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
-
-@if (ViewData["ShowCreateCustomerModal"] != null && (bool) ViewData["ShowCreateCustomerModal"] !) {
-
-    <script>
-        window.addEventListener('load', function () {
-            document.getElementById('btnCreateCustomer').click();
-        });
-    </script>
-}
