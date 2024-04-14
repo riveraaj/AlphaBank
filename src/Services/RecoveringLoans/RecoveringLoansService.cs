@@ -1,4 +1,4 @@
-﻿using Data.AlphaBank.Enums;
+﻿ using Data.AlphaBank.Enums;
 using Data.AlphaBank;
 using Interfaces.Common.Services;
 using Microsoft.Extensions.Logging;
@@ -100,6 +100,9 @@ namespace Service.RecoveringLoans {
 
         private async Task<string> FormatCollectionDepartmentMessageAsync(Loan loan, decimal amount) {
             string CollectionDepartmentMessageTemplate = await _notificationService.GetMessageById((int)TypeNotificationEnum.DepartamentoDeCobro) ?? " ";
+
+            CollectionDepartmentMessageTemplate = CollectionDepartmentMessageTemplate.Replace("\\n", "<br>");
+
             return CollectionDepartmentMessageTemplate
                    .Replace("[Monto Pendiente]", $"{loan.LoanApplication.TypeCurrency.Description} {amount}")
                    .Replace("[ID del Préstamo]", loan.Id.ToString())
