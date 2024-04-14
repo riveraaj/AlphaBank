@@ -2,8 +2,11 @@
 
 namespace Interfaces.Security.Repositories {
     public interface IRoleRepository {
-        public Task<ICollection<Role>> GetAllAsync();
+
         public Task CreateAsync(Role oRole);
+        public Task<ICollection<Role>> GetAllAsync();
+        public Task UpdateAsync(Role oRole);
+        public Task RemoveAsync(int id);
         public Task SaveChangesAsync();
     }
 }
