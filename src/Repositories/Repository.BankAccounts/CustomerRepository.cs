@@ -1,6 +1,7 @@
 ﻿using Data.AlphaBank;
 using Database.AlphaBank;
 using Interfaces.BankAccounts.Repositories;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
@@ -34,29 +35,39 @@ namespace Repository.BankAccounts {
             => await _context.Customers.AddAsync(oCustomer);
 
         public async Task UpdateAsync(Customer oCustomer) {
-            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == oCustomer.Id);
+            try {
+                var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == oCustomer.Id) 
+                    ?? throw new InvalidOperationException("Customer not found.");
 
-            if (customer == null) return;
-            customer.EmailAddress = oCustomer.EmailAddress;
-            customer.AverageMonthlySalary = oCustomer.AverageMonthlySalary;
-            customer.OccupationId = oCustomer.OccupationId;
-            customer.CustomerStatusId = oCustomer.CustomerStatusId;
+                customer.EmailAddress = oCustomer.EmailAddress;
+                customer.AverageMonthlySalary = oCustomer.AverageMonthlySalary;
+                customer.OccupationId = oCustomer.OccupationId;
+                customer.CustomerStatusId = oCustomer.CustomerStatusId;
+            } catch (SqlException e) {
+                throw new Exception("Database Error", e);
+            }          
         }
 
-        public async Task UpdateStatusAsync(int id, byte customerStatusId)
-        {
-            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
-            customer!.CustomerStatusId = customerStatusId;
+        public async Task UpdateStatusAsync(int id, byte customerStatusId) {
+            try {
+                var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id)
+                    ?? throw new InvalidOperationException("Customer not found.");
+
+                customer!.CustomerStatusId = customerStatusId;
+            } catch (Exception e) {
+                throw new Exception("Database Error", e);
+            }
         }
 
-        public async Task RemoveAsync(int id)
-        {
-            //Search for the record in the table 
-            var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (customer == null) return;
-
-            customer.Status = false;
+        public async Task RemoveAsync(int id) {
+            try {
+                //Search for the record in the table 
+                var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Id == id)
+                    ?? throw new InvalidOperationException("No se encontró el cliente en la base de datos.");
+                customer!.Status = false;
+            } catch (Exception e){
+                throw new Exception("Database Error", e);
+            }
         }
 
         public async Task SaveChangesAsync()
