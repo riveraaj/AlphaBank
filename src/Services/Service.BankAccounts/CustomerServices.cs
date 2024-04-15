@@ -34,6 +34,18 @@ namespace Service.BankAccounts {
             }
         }
 
+        public async Task<UpdateCustomerDTO?> GetByIdForUpdate(int id) {
+            try {
+                var customer = await _customerRepository.GetByPersonIdAsync(id);
+
+                if (customer != null) return CustomerMapper.MapCustomerForUpdateCustomerDTO(customer);
+
+                return null;
+            } catch  {
+                return null;
+            }
+        }
+
         public async Task<bool> Create(CreateCustomerDTO oCreateCustomerDTO) {
             try {
                 //Get personId
@@ -125,8 +137,7 @@ namespace Service.BankAccounts {
                 // Return true to indicate successful update.
                 return true;
             }
-            catch
-            {
+            catch {
                 _logger.LogError("----- Update Customer: An error occurred while updating and saving to the database.");
                 //If there's an exception during the process, return false.
                 return false;
