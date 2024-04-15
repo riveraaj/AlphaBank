@@ -134,7 +134,7 @@ namespace Service.BankAccounts {
             }
         }
 
-        public async Task Update(int id, byte customerStatusId)
+        public async Task UpdateStatus(int id, byte customerStatusId)
         {
             try
             {
