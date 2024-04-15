@@ -28,18 +28,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var customer in Model)
-                {
+                @foreach (var customer in Model) {
                     <tr>
                         <td>
-                            <button class="btn-action" id="btnUpdateCustomer" data-id=@customer.CustomerId>
+                            <button class="btn-action" id="btnUpdateCustomer" data-id=@customer.PersonId>
                                 <i class="fa fa-solid fa-edit"></i>
                             </button>
-                            <form method="post">
-                                <input type="hidden" name="id" value=@customer.CustomerId />
+                            <form asp-controller="Customer" method="post" asp-action="Delete" class="form-inline d-inline">
+                                <input type="hidden" name="id" value="@customer.CustomerId" />
                                 <button type="submit" class="btn-action">
                                     <i class="fa fa-solid fa-trash"></i>
-                                </button>
+                                </button>                                
                             </form>
                         </td>
                         <td>@(customer.PersonId)</td>
@@ -71,7 +70,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
-                <input type="submit" class="btn btn-green-border-8" form="createCustomer" />
+                <input type="submit" class="btn btn-green-border-8" form="createCustomer" value="Crear" />
             </div>
 
         </div>
@@ -85,17 +84,15 @@
                 <h5 class="modal-title" id="exampleModalLabel">Modificar Cliente</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" asp-controller="Customer" asp-action="Update">
-                <div class="modal-body">
-                    <div id="contentUpdateCustomer">
-                        <!-- Parcial view -->
-                    </div>
+            <div class="modal-body">
+                <div id="contentUpdateCustomer">
+                    <!-- Parcial view -->
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-green-border-8" action="">Guardar</button>
-                </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
+                <input type="submit" class="btn btn-green-border-8" form="updateCustomer" value="Actualizar" />
+            </div>
         </div>
     </div>
 </div>
