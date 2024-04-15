@@ -94,6 +94,7 @@ input[type = "password"],
 input[type = "number"],
 input[type = "search"],
 input[type = "tel"],
+input[type = "email"],
 input[type = "date"] {
     margin-top: 10px;
     background-color: transparent;
