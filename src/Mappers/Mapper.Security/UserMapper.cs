@@ -11,5 +11,14 @@ namespace Mapper.Security {
                 RoleId = (byte) oCreateUserDTO.RoleId!,
                 EmployeeId = (int) oCreateUserDTO.EmployeeId!
             };
+
+        public static User MapUpdateUser(UpdateUserDTO oUpdateUserDTO)
+            => new()
+            {
+                Id = oUpdateUserDTO.Id,
+                EmailAddress = oUpdateUserDTO.Email,
+                Password = oUpdateUserDTO.Password,
+                RoleId = (byte) oUpdateUserDTO.RoleId!
+            };
     }
 }
