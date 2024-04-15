@@ -1,4 +1,5 @@
-﻿using Dtos.AlphaBank.Security;
+﻿using Data.AlphaBank;
+using Dtos.AlphaBank.Security;
 using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
 using Mapper.Security;
@@ -53,6 +54,59 @@ namespace Service.Security {
             } catch {
                 _logger.LogError("----- Create User: An error occurred while creating and saving to the database.");
 
+                //If there's an exception during the process, return false.
+                return false;
+            }
+        }
+
+        public async Task<bool> Update(UpdateUserDTO oUpdateUserDTO)
+        {
+            // Map UpdateUserDTO to a user object using some mapper (UserMapper)
+            var user = UserMapper.MapUpdateUser(oUpdateUserDTO);
+
+            try
+            {
+
+                _logger.LogInformation("----- Update User: Start updating and saving the user in the database");
+
+                // Attempt to update a user through the UserRepository and save changes asynchronously.
+                await _userRepository.UpdateAsync(user);
+
+                await _userRepository.SaveChangesAsync();
+
+                _logger.LogInformation("----- Update User: Successfully completes the process");
+
+                // Return true to indicate successful update.
+                return true;
+            }
+            catch
+            {
+                _logger.LogError("----- Update User: An error occurred while updating and saving to the database.");
+                //If there's an exception during the process, return false.
+                return false;
+
+            }
+        }
+
+        public async Task<bool> Remove(int id)
+        {
+            try
+            {
+                _logger.LogInformation("----- Remove User: Start removing a user and saving the changes in the database");
+
+                // Attempt to remove a user through the UserRepository and save changes asynchronously.
+                await _userRepository.RemoveAsync(id);
+
+                await _userRepository.SaveChangesAsync();
+
+                _logger.LogInformation("----- Remove User: Successfully completes the process");
+
+                // Return true to indicate successful update.
+                return true;
+            }
+            catch 
+            { 
+                _logger.LogError("----- Remove User: An error occurred while removing a user and saving the changes in the database.");
                 //If there's an exception during the process, return false.
                 return false;
             }
