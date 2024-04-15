@@ -22,8 +22,8 @@ namespace Repository.Security {
         public async Task CreateAsync(User oUser)
             => await _context.Users.AddAsync(oUser);
 
-        public async Task UpdateAsync(int id, User oUser) {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task UpdateAsync(User oUser) {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == oUser.Id);
 
             if (user == null) return;
 
