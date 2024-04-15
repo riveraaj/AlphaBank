@@ -53,7 +53,7 @@ namespace Service.ContinueLoans {
                                 (byte)LoanStatementEnum.EnEsperaDePago);
 
                             //A customer's status is updated to regular
-                            await _customerService.Update(collectionHistory.Loan.LoanApplication.Account.CustomerId,
+                            await _customerService.UpdateStatus(collectionHistory.Loan.LoanApplication.Account.CustomerId,
                                 (byte)CustomerStatusEnum.Regular);
 
                             //The message to be sent by mail is obtained
@@ -83,7 +83,7 @@ namespace Service.ContinueLoans {
                             await _loanService.UpdateStatement(collectionHistory.LoanId,
                                 (byte)LoanStatementEnum.Finalizado);
 
-                            await _customerService.Update(collectionHistory.Loan.LoanApplication.Account.CustomerId,
+                            await _customerService.UpdateStatus(collectionHistory.Loan.LoanApplication.Account.CustomerId,
                                 (byte)CustomerStatusEnum.VIP);
 
                             string messageTemplate = await _notificationService.GetMessageById
@@ -109,7 +109,7 @@ namespace Service.ContinueLoans {
                             await _loanService.UpdateStatement(collectionHistory.LoanId,
                                 (byte)LoanStatementEnum.RetrasoDePago);
 
-                            await _customerService.Update(collectionHistory.Loan.LoanApplication.Account.CustomerId,
+                            await _customerService.UpdateStatus(collectionHistory.Loan.LoanApplication.Account.CustomerId,
                                 (byte)CustomerStatusEnum.EnRiesgo);
 
                             string messageTemplate = await _notificationService.GetMessageById
@@ -137,7 +137,7 @@ namespace Service.ContinueLoans {
                             await _loanService.UpdateStatement(collectionHistory.LoanId,
                                 (byte)LoanStatementEnum.EnProcesoCobroJudicial);
 
-                            await _customerService.Update(collectionHistory.Loan.LoanApplication.Account.CustomerId,
+                            await _customerService.UpdateStatus(collectionHistory.Loan.LoanApplication.Account.CustomerId,
                                 (byte)CustomerStatusEnum.Moroso);
 
                             string messageTemplate = await _notificationService.GetMessageById

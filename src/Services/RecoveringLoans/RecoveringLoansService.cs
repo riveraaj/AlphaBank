@@ -34,7 +34,7 @@ namespace Service.RecoveringLoans {
                     await _loanService.UpdateStatement(loanId,
                                 (byte)LoanStatementEnum.EnCobroJudicial);
 
-                    await _customerService.Update(customer.Id,
+                    await _customerService.UpdateStatus(customer.Id,
                                 (byte)CustomerStatusEnum.Suspendido);
 
                     string formattedMessage = await FormatCustomerMessageAsync(loan, customer);
@@ -75,7 +75,7 @@ namespace Service.RecoveringLoans {
                 await _loanService.UpdateStatement(loan!.Id,
                 (byte)LoanStatementEnum.EnEsperaDePago);
 
-                await _customerService.Update(loan.LoanApplication.Account.CustomerId,
+                await _customerService.UpdateStatus(loan.LoanApplication.Account.CustomerId,
                             (byte)CustomerStatusEnum.Regular);
 
                 var result = await _contractService.RenegotiationTypeCreate
