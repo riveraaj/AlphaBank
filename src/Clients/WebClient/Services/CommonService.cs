@@ -1,4 +1,5 @@
-﻿using Interfaces.BankAccounts.Services;
+﻿using Data.AlphaBank.Enums;
+using Interfaces.BankAccounts.Services;
 using Interfaces.Common.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -26,6 +27,13 @@ namespace WebClient.Services {
                 Text = x.Description
             });
         }
+
+        public IEnumerable<SelectListItem> GetStatusSelectListItems()
+            => Enum.GetValues(typeof(CustomerStatusEnum)).Cast<CustomerStatusEnum>()
+                                                 .Select(x => new SelectListItem() {
+                                                    Text = x.ToString(),
+                                                    Value = ((int)x).ToString()
+                                                 }).ToList();
 
         public async Task<IEnumerable<SelectListItem>> GetOccupationSelectListItems() {
 
