@@ -5,6 +5,7 @@ namespace Interfaces.BankAccounts.Services {
     public interface ICustomerService {
         public Task<bool> Create(CreateCustomerDTO oCreateCustomerDTO);
         public Task<List<ShowCustomerDTO>> GetAll();
+        public Task<UpdateCustomerDTO?> GetByIdForUpdate(int id);
         public Task<ShowCustomerLoanDTO?> GetByIdForLoan(int id);
         public Task<ShowCustomerDTO?> GetByIdForAccount(int id);
         public Task<bool> Update(UpdateCustomerDTO oUpdateCustomerDTO);
