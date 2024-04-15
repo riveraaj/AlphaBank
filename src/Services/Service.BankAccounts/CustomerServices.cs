@@ -80,20 +80,6 @@ namespace Service.BankAccounts {
             }
         }
 
-        public async Task Update(int id, byte customerStatusId) {
-            try {
-                _logger.LogInformation("----- Create Customer: Start the creation of an employee registry");
-                
-                await _customerRepository.UpdateAsync(id, customerStatusId);
-                await _customerRepository.SaveChangesAsync();
-
-                _logger.LogInformation("----- Create Customer: Creation completed and saved successfully.");
-            }
-            catch (Exception e) {
-                _logger.LogError($"----- Update Customer: An error occurred while updating and saving to the database. More about error: {e.Message}");
-            }
-        }
-
         public async Task<ShowCustomerLoanDTO?> GetByIdForLoan(int id) {
             try {
                 var customer = await _customerRepository.GetByPersonIdAsync(id);
@@ -116,6 +102,77 @@ namespace Service.BankAccounts {
                 return null;
             } catch {
                 return null;
+            }
+        }
+
+        public async Task<bool> Update(UpdateCustomerDTO oUpdateCustomerDTO)
+        {
+            // Map UpdateCustomerDTO to a customer object using some mapper (CustomerMapper)
+            var customer = CustomerMapper.MapUpdateCustomer(oUpdateCustomerDTO);
+
+            try
+            {
+
+                _logger.LogInformation("----- Update Customer: Start updating and saving the customer in the database");
+
+                // Attempt to update a customer through the CustomerRepository and save changes asynchronously.
+                await _customerRepository.UpdateAsync(customer);
+
+                await _customerRepository.SaveChangesAsync();
+
+                _logger.LogInformation("----- Update Customer: Successfully completes the process");
+
+                // Return true to indicate successful update.
+                return true;
+            }
+            catch
+            {
+                _logger.LogError("----- Update Customer: An error occurred while updating and saving to the database.");
+                //If there's an exception during the process, return false.
+                return false;
+
+            }
+        }
+
+        public async Task Update(int id, byte customerStatusId)
+        {
+            try
+            {
+                _logger.LogInformation("----- Update Customer Status: Start updating and saving the customer in the database");
+
+                await _customerRepository.UpdateStatusAsync(id, customerStatusId);
+                await _customerRepository.SaveChangesAsync();
+
+                _logger.LogInformation("----- Update Customer Status: Successfully completes the process");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"----- Update Customer Status: An error occurred while updating and saving to the database. More about error: {e.Message}");
+            }
+        }
+
+        public async Task<bool> Remove(int id)
+        {
+            try
+            {
+                _logger.LogInformation("----- Remove Customer: Start removing a customer and saving the changes in the database");
+
+                // Attempt to remove a customer through the CustomerRepository and save changes asynchronously.
+                await _customerRepository.RemoveAsync(id);
+
+                await _customerRepository.SaveChangesAsync();
+
+                _logger.LogInformation("----- Remove Customer: Successfully completes the process");
+
+                // Return true to indicate successful update.
+                return true;
+            }
+            catch
+            {
+                _logger.LogError("----- Remove Customer: An error occurred while removing a customer and saving the changes in the database.");
+                //If there's an exception during the process, return false.
+                return false;
+
             }
         }
     }

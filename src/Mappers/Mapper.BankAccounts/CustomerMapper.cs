@@ -41,5 +41,14 @@ namespace Mapper.BankAccounts {
              Occupation = oCustomer.Occupation.Description,
              PhoneNumber = oCustomer.Person.Phones.FirstOrDefault()!.Number
          };
+
+        public static Customer MapUpdateCustomer(UpdateCustomerDTO oUpdateCustomerDTO)
+            => new()
+            {
+                EmailAddress = oUpdateCustomerDTO.EmailAddress,
+                AverageMonthlySalary = (decimal)oUpdateCustomerDTO.AverageMonthlySalary!,
+                OccupationId = (byte)oUpdateCustomerDTO.OccupationId!,
+                CustomerStatusId = (byte)oUpdateCustomerDTO.CustomerStatusId!
+            };
     }
 }
