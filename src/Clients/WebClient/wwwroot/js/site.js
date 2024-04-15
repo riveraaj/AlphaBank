@@ -31,7 +31,7 @@ function fileUpload(inputId, ulId) {
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateCustomer = document.getElementById('btnCreateCustomer');
     btnCreateCustomer.addEventListener('click', () => {
-        $('#contentCreateCustomer').load('/Customer/showCustomer');
+        $('#contentCreateCustomer').load('/Customer/ShowCustomer');
         $('#modalCreateCustomer').modal('show');
     });
 });
