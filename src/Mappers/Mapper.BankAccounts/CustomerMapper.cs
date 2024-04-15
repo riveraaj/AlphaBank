@@ -43,12 +43,21 @@ namespace Mapper.BankAccounts {
          };
 
         public static Customer MapUpdateCustomer(UpdateCustomerDTO oUpdateCustomerDTO)
-            => new()
-            {
+            => new() {
+                Id = oUpdateCustomerDTO.Id,
                 EmailAddress = oUpdateCustomerDTO.EmailAddress,
                 AverageMonthlySalary = (decimal)oUpdateCustomerDTO.AverageMonthlySalary!,
                 OccupationId = (byte)oUpdateCustomerDTO.OccupationId!,
                 CustomerStatusId = (byte)oUpdateCustomerDTO.CustomerStatusId!
+            };
+
+        public static UpdateCustomerDTO MapCustomerForUpdateCustomerDTO(Customer oCustomer)
+            => new() {
+                Id = oCustomer.Id,
+                EmailAddress = oCustomer.EmailAddress,
+                AverageMonthlySalary = oCustomer.AverageMonthlySalary,
+                OccupationId = oCustomer.OccupationId!,
+                CustomerStatusId = oCustomer.CustomerStatusId
             };
     }
 }
