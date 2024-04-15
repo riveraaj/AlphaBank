@@ -6,7 +6,7 @@ namespace Interfaces.Security.Repositories {
         public Task<User> GetByIdAsync(int id);
         public Task<User?> GetByPersonIdAsync(int id);
         public Task CreateAsync(User oUser);
-        public Task UpdateAsync(int id, User oUser);
+        public Task UpdateAsync(User oUser);
         public Task RemoveAsync(int id);
         public Task SaveChangesAsync();
     }
