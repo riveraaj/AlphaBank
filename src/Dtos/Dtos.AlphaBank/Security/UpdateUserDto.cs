@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dtos.AlphaBank.Security
-{
-    public class UpdateUserDTO
-    {
+namespace Dtos.AlphaBank.Security {
+    public class UpdateUserDTO {
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo correo es obligatorio.")]
