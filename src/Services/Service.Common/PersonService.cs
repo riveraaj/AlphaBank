@@ -54,5 +54,29 @@ namespace Service.Common {
                 return false;
             }
         }
+
+        public async Task<bool> CreatePhone(Phone oPhone) {
+            try  {
+                _logger.LogInformation("----- Create Phone: Start the transaction to create a person and phone registry");
+                
+                await _unitOfWork.BeginTransaction();
+
+                await _phoneRepository.CreateAsync(oPhone);
+
+                //Commit the transaction and save changes.
+                await _unitOfWork.CommitTransaction();
+
+                _logger.LogInformation("----- Create Phone: Successfully completes saving to the transaction database.");
+
+                // Return true to indicate successful creation.
+                return true;
+            }
+            catch (Exception){
+                _logger.LogError("--- Create Phone: An error occurred while creating and saving to the database.");
+
+                //If there's an exception during the process, rollback the transaction and return false.
+                return false;
+            }
+        }
     }
 }

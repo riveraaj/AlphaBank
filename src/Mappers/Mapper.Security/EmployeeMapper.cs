@@ -4,6 +4,22 @@ using Dtos.AlphaBank.Security;
 
 namespace Mapper.Security {
     public static class EmployeeMapper {
+
+        public static Employee MapUpdateEmployee(UpdateEmployeeDTO oUpdateEmployeeDTO)
+            => new() {
+                Id = oUpdateEmployeeDTO.EmployeeId,
+                SalaryCategoryId = (byte) oUpdateEmployeeDTO.SalaryCategoryId!,
+            };
+
+        public static UpdateEmployeeDTO MapUpdateEmployeeDTOForShow(Employee oEmployee)
+            => new() { 
+                EmployeeId = oEmployee.Id,
+                PersonId = oEmployee.PersonId,
+                PhoneNumber = oEmployee.Person.Phones.LastOrDefault()!.Number,
+                TypePhoneId = oEmployee.Person.Phones.LastOrDefault()!.TypePhoneId,
+                SalaryCategoryId = oEmployee.SalaryCategoryId
+            };
+
         public static Employee MapEmployee(CreateEmployeeDTO oCreateEmployeeDTO)
             => new() {
                 PersonId = (int) oCreateEmployeeDTO.Person!.PersonId!,
@@ -13,7 +29,9 @@ namespace Mapper.Security {
 
         public static ShowEmployeeDTO MapShowEmployeeDTO(Employee oEmployee) {
             var showEmployeeDto = new ShowEmployeeDTO {
+                Id = oEmployee.Id.ToString(),
                 Status = oEmployee.Status,
+                PersonId = oEmployee.PersonId.ToString(),
                 Person = new ShowPersonDTO {
                     Name = oEmployee.Person.Name,
                     FirstName = oEmployee.Person.FirstName,
@@ -22,10 +40,10 @@ namespace Mapper.Security {
                 User = new ShowUserDTO()
             };
 
-            if (oEmployee.Person.Phones.Any())
-                showEmployeeDto.Person.PhoneNumber = oEmployee.Person.Phones.First().Number;
+            if (oEmployee.Person.Phones.Count != 0)
+                showEmployeeDto.Person.PhoneNumber = oEmployee.Person.Phones.Last().Number;
             
-            if (oEmployee.Users.Any())  {
+            if (oEmployee.Users.Count != 0)  {
                 var firstUser = oEmployee.Users.First();
                 showEmployeeDto.User.EmailAddress = firstUser.EmailAddress;
 

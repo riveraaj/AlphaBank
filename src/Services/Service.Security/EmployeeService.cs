@@ -3,19 +3,30 @@ using Dtos.AlphaBank.Security;
 using Interfaces.Common.Services;
 using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
+using Mapper.Common;
 using Mapper.Security;
 using Microsoft.Extensions.Logging;
 
 namespace Service.Security {
     public class EmployeeService(IEmployeeRepository employeeRepository,
-                                    IUserService userService,
                                     IPersonService personService,
                                     ILogger<EmployeeService> logger) : IEmployeeService {
 
         private readonly IEmployeeRepository _employeeRepository = employeeRepository;
         private readonly IPersonService _personService = personService;
-        private readonly IUserService _userService = userService;
         private readonly ILogger<EmployeeService> _logger = logger;
+
+        public async Task<UpdateEmployeeDTO?> GetByIdForUpdate(int id) {
+            try {
+                var employee = await _employeeRepository.GetByIdAsync(id);
+
+                if (employee != null) return EmployeeMapper.MapUpdateEmployeeDTOForShow(employee);
+
+                return null;
+            } catch {
+                return null;
+            }
+        }
 
         public async Task<List<Employee>> GetAllForUser() {
             try {
@@ -91,6 +102,56 @@ namespace Service.Security {
                 //If there's an exception during the process, return false.
                 return false;
             }    
+        }
+
+        public async Task<bool> Update(UpdateEmployeeDTO oUpdateEmployeeDTO) {
+            try {
+                var employee = EmployeeMapper.MapUpdateEmployee(oUpdateEmployeeDTO);
+                var phone = PhoneMapper.MapPhoneForEmployee(oUpdateEmployeeDTO);
+
+                if (employee == null || phone == null) return false;
+
+                var result = await _personService.CreatePhone(phone);
+
+                if(!result) return false;
+
+                _logger.LogInformation("----- Update Employee: Start the creation of an employee registry");
+
+                await _employeeRepository.UpdateAsync(employee);
+                await _employeeRepository.SaveChangesAsync();
+
+                _logger.LogInformation("----- Update Employee: Creation completed and saved successfully.");
+
+                //Return true to indicate successful creation.
+                return true;
+            }
+            catch (Exception){
+                _logger.LogError("----- Update Employee: An error occurred while creating and saving to the database.");
+
+                //If there's an exception during the process, return false.
+                return false;
+            }
+        }
+
+        public async Task<bool> Remove(int id) {
+            try {
+
+                _logger.LogInformation("----- Delete Employee: Start the creation of an employee registry");
+
+                await _employeeRepository.RemoveAsync(id);
+                await _employeeRepository.SaveChangesAsync();
+
+                _logger.LogInformation("----- Delete Employee: Creation completed and saved successfully.");
+
+                //Return true to indicate successful creation.
+                return true;
+            }
+            catch (Exception) {
+                _logger.LogError("----- Delete Employee: An error occurred while creating and saving to the database.");
+
+                //If there's an exception during the process, return false.
+                return false;
+            }
         }
     }
 }

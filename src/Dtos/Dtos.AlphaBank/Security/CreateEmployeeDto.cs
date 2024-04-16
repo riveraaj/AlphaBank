@@ -16,8 +16,5 @@ namespace Dtos.AlphaBank.Security {
 
         [Required]
         public required CreatePhoneDTO Phone { get; set; }
-
-        [Required]
-        public required CreateUserDTO User { get; set; }
     }
 }
