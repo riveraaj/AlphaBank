@@ -126,3 +126,12 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#modalCreateUsers').modal('show');
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateCustomer = document.getElementById('btnUpdateUser');
+    btnCreateCustomer.addEventListener('click', function () {
+        var id = $(this).data('id');
+        $('#contentUpdateUser').load('/Users/UpdateUser?id=' + id);
+        $('#modalUpdateUser').modal('show');
+    });
+});
