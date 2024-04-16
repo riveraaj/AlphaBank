@@ -1,0 +1,35 @@
+﻿@model Dtos.AlphaBank.Security.UpdateEmployeeDTO
+
+<form method="post" asp-controller="Employee" asp-action="Update" id="updateEmployee">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input asp-for="EmployeeId" class="form-control" type="hidden" value="@Model.EmployeeId"/>
+            <input asp-for="PersonId" class="form-control" type="hidden" value="@Model.PersonId" />
+
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label">Numero de Teléfono:</label>
+                <input asp-for="PhoneNumber" class="form-control" type="tel" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TypePhoneId" class="control-label">Tipo de Teléfono</label>
+                <select asp-for="TypePhoneId" asp-items="ViewBag.TypePhone" class="form-control"></select>
+                <span asp-validation-for="TypePhoneId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SalaryCategoryId" class="control-label">Ocupación:</label>
+                <select asp-for="SalaryCategoryId" asp-items="ViewBag.Salary" class="form-control"></select>
+                <span asp-validation-for="SalaryCategoryId" class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

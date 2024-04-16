@@ -1,0 +1,145 @@
+﻿@model List<Dtos.AlphaBank.Security.ShowEmployeeDTO>
+
+@{
+    Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
+    ViewData["Title"] = "Lista de Empleados";
+}
+
+<div class="card-white-transparent shadow-container mt-5">
+    <div class="header-card">
+        <p class="tittle">Empleados</p>
+        <div class="form-group d-flex justify-content-center pt-3">
+            <button class="btn btn-green" id="btnCreateEmployee">Agregar</button>
+        </div>
+    </div>
+    <div class="card-main table-responsive text-nowrap pt-3">
+        <table id="tablausuarios" class="mt-4">
+            <thead>
+                <tr>
+                    <th>Acción</th>
+                    <th>Estado</th>
+                    <th>Identificación</th>
+                    <th>Nombre Completo</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                    <tr>
+                        <td>
+                            <button class="btn-action" id="btnUpdateEmployee" data-id=@employee.Id>
+                                <i class="fa fa-solid fa-edit"></i>
+                            </button>
+                            <form asp-controller="Employee" method="post" asp-action="Delete" class="form-inline d-inline">
+                                <input type="hidden" name="id" value="@employee.Id" />
+                                <button type="submit" class="btn-action">
+                                    <i class="fa fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                        <td>@(employee.Status ? "Activo" : "Inactivo")</td>
+                        <td>@employee.PersonId</td>
+                        <td>@employee.Person.Name @employee.Person.FirstName @employee.Person.SecondName</td>           
+                        <td>@employee.Person.PhoneNumber</td>
+                    
+                    @if(employee.User.EmailAddress != null) {
+                        <td>@employee.User.EmailAddress</td>
+                        <td>@employee.User.Role</td>
+                    } else{
+                            <td>--------</td>
+                            <td>--------</td>
+                    }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="modalCreateEmployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Empleado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="contentCreateEmployee">
+                    <!-- Parcial view -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
+                <input type="submit" class="btn btn-green-border-8" form="createEmployee" value="Crear" />
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalUpdateEmployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modificar Empleado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="contentUpdateEmployee">
+                    <!-- Parcial view -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
+                <input type="submit" class="btn btn-green-border-8" form="updateEmployee" value="Actualizar" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script type="text/javascript">
+    $('#tablausuarios').DataTable({
+        "responsive": true,
+        "aServerSide": true,
+        "autoWidth": false,
+        "deferRender": true,
+        "retrieve": true,
+        "processing": true,
+        "paging": true,
+        "dom": 'Bfrtip',
+        "buttons": ["csv", "excel", "pdf"],
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+</script>

@@ -1,0 +1,91 @@
+﻿@model Dtos.AlphaBank.Security.CreateEmployeeDTO;
+
+<form method="post" asp-controller="Employee" asp-action="Create" id="createEmployee">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Person.PersonId" class="control-label">Identificación:</label>
+                <input asp-for="Person.PersonId" class="form-control" type="number" />
+                <span asp-validation-for="Person.PersonId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Person.Name" class="control-label">Nombre</label>
+                <input asp-for="Person.Name" class="form-control" type="text" />
+                <span asp-validation-for="Person.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Person.FirstName" class="control-label">Primer Apellido</label>
+                <input asp-for="Person.FirstName" class="form-control" type="text" />
+                <span asp-validation-for="Person.FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Person.SecondName" class="control-label">Segundo Apellido:</label>
+                <input asp-for="Person.SecondName" class="form-control" type="text" />
+                <span asp-validation-for="Person.SecondName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Person.DateBirth" class="control-label">Fecha de Nacimiento</label>
+                <input asp-for="Person.DateBirth" class="form-control" type="date" />
+                <span asp-validation-for="Person.DateBirth" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Phone.PhoneNumber" class="control-label">Numero de Teléfono:</label>
+                <input asp-for="Phone.PhoneNumber" class="form-control" type="tel" />
+                <span asp-validation-for="Phone.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Phone.TypePhoneId" class="control-label">Tipo de Teléfono</label>
+                <select asp-for="Phone.TypePhoneId" asp-items="ViewBag.TypePhone" class="form-control"></select>
+                <span asp-validation-for="Phone.TypePhoneId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Person.Address" class="control-label">Dirección:</label>
+                <input asp-for="Person.Address" class="form-control" type="text" />
+                <span asp-validation-for="Person.Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Person.TypeIdentificationId" class="control-label">Tipo identificación:</label>
+                <select asp-for="Person.TypeIdentificationId" asp-items="ViewBag.TypeIdentification" class="form-control"></select>
+                <span asp-validation-for="Person.TypeIdentificationId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Person.NationalityId" class="control-label">Nacionalidad:</label>
+                <select asp-for="Person.NationalityId" asp-items="ViewBag.Nationality" class="form-control"></select>
+                <span asp-validation-for="Person.NationalityId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Person.MaritalStatusId" class="control-label">Estado Civil:</label>
+                <select asp-for="Person.MaritalStatusId" asp-items="ViewBag.MaritalStatus" class="form-control"></select>
+                <span asp-validation-for="Person.MaritalStatusId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DateEntry" class="control-label">Fecha de Entrada:</label>
+                <input asp-for="DateEntry" class="form-control" type="date" />
+                <span asp-validation-for="DateEntry" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SalaryCategoryId" class="control-label">Categoría de Salario:</label>
+                <select asp-for="SalaryCategoryId" asp-items="ViewBag.Salary" class="form-control"></select>
+                <span asp-validation-for="SalaryCategoryId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
