@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Dtos.AlphaBank.AnalyzeLoanOpportunities.ShowCatalogsDTO>
+
+@{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
     ViewData["Title"] = "Lista de Tipos de Préstamos";
 }
@@ -7,38 +9,37 @@
     <div class="header-card">
         <p class="tittle">Tipos de Préstamos</p>
         <div class="form-group d-flex justify-content-center pt-3">
-            <Button class="btn btn-green" id="btnCreateTypeLoan">Agregar</Button>
+            <button class="btn btn-green" id="btnCreateTypeLoan">Agregar</button>
         </div>
     </div>
     <div class="card-main table-responsive text-nowrap pt-3">
-        <table id="tableTypeLoan" class="mt-4">
+        <table id="tableRoles" class="mt-4">
             <thead>
                 <tr>
                     <th>Acciones</th>
-                    <th>Id</th>
+                    <th>Identificación</th>
                     <th>Descripción</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var customer in Model)
-                {
+                @foreach (var typeLoan in Model) {
                     <tr>
                         <td>
-                            <button class="btn-action">
+                            <button class="btn-action" id="btnUpdateTypeLoan" data-id=@typeLoan.Id>
                                 <i class="fa fa-solid fa-edit"></i>
                             </button>
-                            <button class="btn-action">
-                                <i class="fa fa-solid fa-trash"></i>
-                            </button>
+                            <form asp-controller="TypeLoan" method="post" asp-action="Delete" class="form-inline d-inline">
+                                <input type="hidden" name="id" value="@typeLoan.Id" />
+                                <button type="submit" class="btn-action">
+                                    <i class="fa fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
-                        <td>Prueba</td>
-                        <td>Prueba</td>
-
-
+                        <td>@typeLoan.Id</td>
+                        <td>@typeLoan.Description</td>
                     </tr>
                 }
             </tbody>
-
         </table>
     </div>
 </div>
@@ -47,7 +48,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Agregar Plazos</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Tipo de Préstamos</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -57,16 +58,34 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
-                <form method="post">
-                    <button type="submit" class="btn btn-green-border-8" action="">Guardar</button>
-                </form>
+                <input type="submit" class="btn btn-green-border-8" form="createTypeLoan" value="Crear" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalUpdateTypeLoan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modificar Tipo de Préstamos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="contentUpdateTypeLoan">
+                    <!-- Parcial view -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
+                <input type="submit" class="btn btn-green-border-8" form="updateTypeLoan" value="Actualizar" />
             </div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    $('#tableTypeLoan').DataTable({
+    $('#tableRoles').DataTable({
         "responsive": true,
         "aServerSide": true,
         "autoWidth": false,
@@ -102,4 +121,3 @@
         }
     });
 </script>
-
