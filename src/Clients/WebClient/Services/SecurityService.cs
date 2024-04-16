@@ -1,12 +1,25 @@
 ﻿using Interfaces.Security.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Globalization;
 
 namespace WebClient.Services {
     public class SecurityService(IEmployeeService employeeService,
-                                 IRoleService roleService) {
+                                 IRoleService roleService,
+                                 ISalaryCategoryService salaryCategoryService) {
 
         private readonly IEmployeeService _employeeService = employeeService;
         private readonly IRoleService _roleService = roleService;
+        private readonly ISalaryCategoryService _salaryCategoryService = salaryCategoryService;
+
+        public async Task<IEnumerable<SelectListItem>> GetSalarySelectListItems() {
+
+            var salaryList = await _salaryCategoryService.GetAll();
+
+            return salaryList.Select(x => new SelectListItem {
+                Value = x.Id.ToString(),
+                Text = "₡ " + x.Description.ToString("#,0", CultureInfo.InvariantCulture)
+            });
+        }
 
         public async Task<IEnumerable<SelectListItem>> GetEmployeeSelectListItems() {
 
