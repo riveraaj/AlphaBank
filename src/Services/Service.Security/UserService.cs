@@ -1,5 +1,4 @@
-﻿using Data.AlphaBank;
-using Dtos.AlphaBank.Security;
+﻿using Dtos.AlphaBank.Security;
 using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
 using Mapper.Security;
@@ -7,29 +6,39 @@ using Microsoft.Extensions.Logging;
 using Service.Security.Helpers;
 
 namespace Service.Security {
-    public class UserService(IUserRepository userRepository, ILogger<UserService> logger) : IUserService {
+    public class UserService(IUserRepository userRepository,
+                             ILogger<UserService> logger) : IUserService {
 
         private readonly IUserRepository _userRepository = userRepository;
         private readonly ILogger<UserService> _logger = logger;
 
-        public async Task<bool> UserSetup(CreateEmployeeDTO oCreateEmployeeDTO, IEmployeeRepository oEmployeeRepository) {
-
-            //The id of the last registered employee is obtained to assign the user to the employee
-            var employee = await oEmployeeRepository.GetLastEmployeeAsync();
-            var employeeId = employee!.Id;
-
-            //The searched id is assigned to the model to perform the registration.
-            oCreateEmployeeDTO.User.EmployeeId = employeeId;
-
-            //The user service is called to create the user.
-            var result = await Create(oCreateEmployeeDTO.User);
-
-            if (!result) {
-                //If there's an exception during the process return false.
-                return false;
+        public async Task<UpdateUserDTO?> GetById(int id) {
+            try {
+                //Get user by id.
+                var user = await _userRepository.GetByIdAsync(id);
+                user.Password = EncryptorHelper.Encrypt(user.Password);
+                return UserMapper.MapUpdateUser(user);
+            } catch {
+                // If there's an exception during the process, return null.
+                return null;
             }
-            // Return true to indicate successful creation.
-            return true;
+        }
+
+        public async Task<List<ShowUserDTO>> GetAll(){
+            try {
+                //Retrieve Contracts by LoanApplicationId asynchronously from the ContractRepository.
+                var userList = await _userRepository.GetAllAsync();
+
+                var showUserDTOList = new List<ShowUserDTO>();
+
+                foreach (var user in userList)
+                    showUserDTOList.Add(UserMapper.MapShowUserDTO(user));
+
+                return showUserDTOList;
+            }
+            catch {
+                return [];
+            }
         }
 
         public async Task<bool> Create(CreateUserDTO oCreateUserDTO) {
@@ -63,6 +72,9 @@ namespace Service.Security {
         {
             // Map UpdateUserDTO to a user object using some mapper (UserMapper)
             var user = UserMapper.MapUpdateUser(oUpdateUserDTO);
+
+            //Encrypt the user's password using some encryption method (EncryptorHelper).
+            user.Password = EncryptorHelper.Encrypt(user.Password);
 
             try
             {
