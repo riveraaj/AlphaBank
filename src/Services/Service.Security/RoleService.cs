@@ -1,18 +1,40 @@
 ﻿using Data.AlphaBank;
+using Dtos.AlphaBank.AnalyzeLoanOpportunities;
 using Dtos.AlphaBank.Security;
 using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
 using Mapper.Security;
 using Microsoft.Extensions.Logging;
-using System.Data;
 
-namespace Service.Security
-{
-    public class RoleService(IRoleRepository roleRepository, ILogger<RoleService> logger) : IRoleService
-    {
+namespace Service.Security {
+    public class RoleService(IRoleRepository roleRepository, ILogger<RoleService> logger) : IRoleService {
 
         private readonly IRoleRepository _roleRepository = roleRepository;
         private readonly ILogger<RoleService> _logger = logger;
+
+        public async Task<UpdateRoleDTO?> GetById(int id) {
+            try {
+                var typeCurrency = await _roleRepository.GetById(id);
+                return RoleMapper.MapUpdateRole(typeCurrency!);
+            } catch {
+                return null;
+            }
+        }
+
+        public async Task<List<ShowCatalogsDTO>> GetAllForShow() {
+            try {
+                //Attempt to retrieve all deadline asynchronously from the DeadlineRepository.
+                var deadlineList = await _roleRepository.GetAllAsync();
+                var showDeadlineList = new List<ShowCatalogsDTO>();
+                foreach (var deadline in deadlineList)
+                    showDeadlineList.Add(RoleMapper.MapShowRoleDTO(deadline));
+
+                return showDeadlineList;
+            } catch {
+                //If there's an exception during the process, return null.
+                return [];
+            }
+        }
 
         public async Task<bool> Create(CreateRoleDTO oCreateRoleDTO)
         {

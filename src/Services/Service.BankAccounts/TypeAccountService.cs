@@ -1,4 +1,5 @@
 ﻿using Data.AlphaBank;
+using Dtos.AlphaBank.AnalyzeLoanOpportunities;
 using Dtos.AlphaBank.BankAccounts;
 using Interfaces.BankAccounts.Repositories;
 using Interfaces.BankAccounts.Services;
@@ -12,6 +13,31 @@ namespace Service.BankAccounts {
         private readonly ITypeAccountRepository _typeAccountRepository
             = typeAccountRepository;
         private readonly ILogger<TypeAccountService> _logger = logger;
+
+
+        public async Task<UpdateTypeAccountDTO?> GetById(int id) {
+            try {
+                var typeAccount = await _typeAccountRepository.GetById(id);
+                return TypeAccountMapper.MapUpdateTypeAccount(typeAccount!);
+            } catch {
+                return null;
+            }
+        }
+
+        public async Task<List<ShowCatalogsDTO>> GetAllForShow() {
+            try  {
+                //Attempt to retrieve all deadline asynchronously from the DeadlineRepository.
+                var deadlineList = await _typeAccountRepository.GetAllAsync();
+                var showDeadlineList = new List<ShowCatalogsDTO>();
+                foreach (var deadline in deadlineList)
+                    showDeadlineList.Add(TypeAccountMapper.MapShowTypeAccountDTO(deadline));
+
+                return showDeadlineList;
+            } catch {
+                //If there's an exception during the process, return null.
+                return [];
+            }
+        }
 
         public async Task<bool> Create(CreateTypeAccountDTO oCreateTypeAccountDTO)
         {

@@ -11,13 +11,35 @@ namespace Service.AnalyzeLoanOpportunities {
         private readonly IInterestRepository _interestRepository = interestRepository;
         private readonly ILogger<InterestService> _logger = logger;
 
-        public async Task<bool> Create(CreateInterestDTO oCreateInterestDTO)
-        {
+        public async Task<UpdateInterestDTO?> GetById(int id) {
+            try {
+                var interest = await _interestRepository.GetById(id);
+                return InterestMapper.MapUpdateInterest(interest!);
+            } catch {
+                return null;
+            }
+        }
+
+        public async Task<List<ShowCatalogsDTO>> GetAllForShow() {
+            try {
+                //Attempt to retrieve all deadline asynchronously from the DeadlineRepository.
+                var deadlineList = await _interestRepository.GetAllAsync();
+                var showDeadlineList = new List<ShowCatalogsDTO>();
+                foreach (var deadline in deadlineList)
+                    showDeadlineList.Add(InterestMapper.MapShowInterestDTO(deadline));
+
+                return showDeadlineList;
+            } catch {
+                //If there's an exception during the process, return null.
+                return [];
+            }
+        }
+
+        public async Task<bool> Create(CreateInterestDTO oCreateInterestDTO) {
             // Map CreateInterestDTO to a interest object using some mapper (InterestMapper)
             var interest = InterestMapper.MapInterest(oCreateInterestDTO);
 
-            try
-            {
+            try {
 
                 _logger.LogInformation("----- Create Interest: Start creating and saving the interest in the database");
 
@@ -30,9 +52,7 @@ namespace Service.AnalyzeLoanOpportunities {
 
                 // Return true to indicate successful creation.
                 return true;
-            }
-            catch
-            {
+            } catch {
                 _logger.LogError("----- Create Interest: An error occurred while creating and saving to the database.");
                 //If there's an exception during the process, return false.
                 return false;
@@ -49,13 +69,11 @@ namespace Service.AnalyzeLoanOpportunities {
             }
         }
 
-        public async Task<bool> Update(UpdateInterestDTO oUpdateInterestDTO)
-        {
+        public async Task<bool> Update(UpdateInterestDTO oUpdateInterestDTO) {
             // Map UpdateInterestDTO to a interest object using some mapper (InterestMapper)
             var interest = InterestMapper.MapUpdateInterest(oUpdateInterestDTO);
 
-            try
-            {
+            try {
 
                 _logger.LogInformation("----- Update Interest: Start updating and saving the interest in the database");
 
@@ -68,20 +86,15 @@ namespace Service.AnalyzeLoanOpportunities {
 
                 // Return true to indicate successful update.
                 return true;
-            }
-            catch
-            {
+            } catch {
                 _logger.LogError("----- Update Interest: An error occurred while updating and saving to the database.");
                 //If there's an exception during the process, return false.
                 return false;
-
             }
         }
 
-        public async Task<bool> Remove(int id)
-        {
-            try
-            {
+        public async Task<bool> Remove(int id) {
+            try {
                 _logger.LogInformation("----- Remove Interest: Start removing a interest and saving the changes in the database");
 
                 // Attempt to remove a interest through the InterestRepository and save changes asynchronously.
@@ -93,13 +106,10 @@ namespace Service.AnalyzeLoanOpportunities {
 
                 // Return true to indicate successful update.
                 return true;
-            }
-            catch
-            {
+            } catch {
                 _logger.LogError("----- Remove Interest: An error occurred while removing a interest and saving the changes in the database.");
                 //If there's an exception during the process, return false.
                 return false;
-
             }
         }
     }

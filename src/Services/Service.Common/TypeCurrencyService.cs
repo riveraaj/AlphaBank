@@ -1,4 +1,5 @@
 ﻿using Data.AlphaBank;
+using Dtos.AlphaBank.AnalyzeLoanOpportunities;
 using Dtos.AlphaBank.Common;
 using Interfaces.Common.Repositories;
 using Interfaces.Common.Services;
@@ -13,8 +14,31 @@ namespace Service.Common {
             = typeCurrencyRepository;
         private readonly ILogger<TypeCurrencyService> _logger = logger;
 
-        public async Task<bool> Create(CreateTypeCurrencyDTO oCreateTypeCurrencyDTO)
-        {
+        public async Task<UpdateTypeCurrencyDTO?> GetById(int id) {
+            try {
+                var typeCurrency = await _typeCurrencyRepository.GetById(id);
+                return TypeCurrencyMapper.MapUpdateTypeCurrency(typeCurrency!);
+            } catch {
+                return null;
+            }
+        }
+
+        public async Task<List<ShowCatalogsDTO>> GetAllForShow() {
+            try {
+                //Attempt to retrieve all deadline asynchronously from the DeadlineRepository.
+                var deadlineList = await _typeCurrencyRepository.GetAllAsync();
+                var showDeadlineList = new List<ShowCatalogsDTO>();
+                foreach (var deadline in deadlineList)
+                    showDeadlineList.Add(TypeCurrencyMapper.MapShowTypeCurrencyDTO(deadline));
+
+                return showDeadlineList;
+            }  catch {
+                //If there's an exception during the process, return null.
+                return [];
+            }
+        }
+
+        public async Task<bool> Create(CreateTypeCurrencyDTO oCreateTypeCurrencyDTO) {
             // Map CreateTypeCurrencyDTO to a typeCurrency object using some mapper (TypeCurrencyMapper)
             var typeCurrency = TypeCurrencyMapper.MapTypeCurrency(oCreateTypeCurrencyDTO);
 

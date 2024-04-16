@@ -1,17 +1,40 @@
 ﻿using Data.AlphaBank;
 using Dtos.AlphaBank.AnalyzeLoanOpportunities;
+using Dtos.AlphaBank.Common;
 using Interfaces.AnalyzeLoanOpportunities.Repositories;
 using Interfaces.AnalyzeLoanOpportunities.Services;
 using Mapper.AnalyzeLoanOpportunities;
 using Microsoft.Extensions.Logging;
 
-namespace Service.AnalyzeLoanOpportunities
-{
-    public class TypeLoanService(ITypeLoanRepository typeLoanRepository, ILogger<TypeLoanService> logger) : ITypeLoanService
-    {
+namespace Service.AnalyzeLoanOpportunities {
+    public class TypeLoanService(ITypeLoanRepository typeLoanRepository, ILogger<TypeLoanService> logger) : ITypeLoanService {
 
         private readonly ITypeLoanRepository _typeLoanRepository = typeLoanRepository;
         private readonly ILogger<TypeLoanService> _logger = logger;
+
+        public async Task<UpdateTypeLoanDTO?> GetById(int id) {
+            try {
+                var typeLoan = await _typeLoanRepository.GetById(id);
+                return TypeLoanMapper.MapUpdateTypeLoan(typeLoan!);
+            } catch {
+                return null;
+            }
+        }
+
+        public async Task<List<ShowCatalogsDTO>> GetAllForShow()  {
+            try {
+                //Attempt to retrieve all deadline asynchronously from the DeadlineRepository.
+                var deadlineList = await _typeLoanRepository.GetAllAsync();
+                var showDeadlineList = new List<ShowCatalogsDTO>();
+                foreach (var deadline in deadlineList)
+                    showDeadlineList.Add(TypeLoanMapper.MapShowTypeLoanDTO(deadline));
+
+                return showDeadlineList;
+            } catch {
+                //If there's an exception during the process, return null.
+                return [];
+            }
+        }
 
         public async Task<bool> Create(CreateTypeLoanDTO oCreateTypeLoanDTO)
         {
