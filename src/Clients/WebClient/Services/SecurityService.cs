@@ -24,8 +24,9 @@ namespace WebClient.Services {
         public async Task<IEnumerable<SelectListItem>> GetEmployeeSelectListItems() {
 
             var employeeList = await _employeeService.GetAllForUser();
+            var filteredList = employeeList.Where(x => x.Status == true);
 
-            return employeeList.Select(x => new SelectListItem {
+            return filteredList.Select(x => new SelectListItem {
                 Value = x.Id.ToString(),
                 Text = $"{x.Person.Name} {x.Person.FirstName} {x.Person.SecondName}"
             });
