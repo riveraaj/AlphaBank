@@ -1,6 +1,7 @@
 ﻿using Data.AlphaBank;
 using Database.AlphaBank;
 using Interfaces.AnalyzeLoanOpportunities.Repositories;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository.AnalyzeLoanOpportunities {
@@ -9,27 +10,36 @@ namespace Repository.AnalyzeLoanOpportunities {
 
         private readonly AlphaBankDbContext _context = context;
 
+        public async Task<TypeLoan?> GetById(int id)
+            => await _context.TypeLoans.FirstOrDefaultAsync(x => x.Id == id);
+
         public async Task CreateAsync(TypeLoan oTypeLoan)
             => await _context.TypeLoans.AddAsync(oTypeLoan);
 
         public async Task<ICollection<TypeLoan>> GetAllAsync()
             => await _context.TypeLoans.ToListAsync();
 
-        public async Task UpdateAsync(TypeLoan oTypeLoan)
-        {
-            var typeLoan = await _context.TypeLoans.FirstOrDefaultAsync(x => x.Id == oTypeLoan.Id);
+        public async Task UpdateAsync(TypeLoan oTypeLoan) {
+            try {
+                var typeLoan = await _context.TypeLoans.FirstOrDefaultAsync(x => x.Id == oTypeLoan.Id)
+                    ?? throw new InvalidOperationException("Deadline not found."); ;
 
-            if (typeLoan == null) return;
-
-            typeLoan.Description = oTypeLoan.Description;
+                typeLoan.Description = oTypeLoan.Description;
+            } catch (Exception e) {
+                throw new Exception("Database error", e);
+            }
         }
 
-        public async Task RemoveAsync(int id)
-        {
-            //Search for the record in the table 
-            var typeLoan = await _context.TypeLoans.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task RemoveAsync(int id) {
+            try {
+                //Search for the record in the table 
+                var typeLoan = await _context.TypeLoans.FirstOrDefaultAsync(x => x.Id == id)
+                    ?? throw new InvalidOperationException("Deadline not found.");
 
-            if (typeLoan != null) _context.TypeLoans.Remove(typeLoan);
+                _context.TypeLoans.Remove(typeLoan);
+            } catch (SqlException e) {
+                throw new Exception("Database error", e);
+            }
         }
 
         public async Task SaveChangesAsync()

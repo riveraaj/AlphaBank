@@ -1,6 +1,7 @@
 ﻿using Data.AlphaBank;
 using Database.AlphaBank;
 using Interfaces.AnalyzeLoanOpportunities.Repositories;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository.AnalyzeLoanOpportunities {
@@ -9,27 +10,36 @@ namespace Repository.AnalyzeLoanOpportunities {
 
         private readonly AlphaBankDbContext _context = context;
 
+        public async Task<Interest?> GetById(int id)
+           => await _context.Interests.FirstOrDefaultAsync(x => x.Id == id);
+
         public async Task CreateAsync(Interest oInterest)
             => await _context.Interests.AddAsync(oInterest);
 
         public async Task<ICollection<Interest>> GetAllAsync()
             => await _context.Interests.ToListAsync();
 
-        public async Task UpdateAsync(Interest oInterest)
-        {
-            var interest = await _context.Interests.FirstOrDefaultAsync(x => x.Id == oInterest.Id);
+        public async Task UpdateAsync(Interest oInterest) {
+            try {
+                var interest = await _context.Interests.FirstOrDefaultAsync(x => x.Id == oInterest.Id)
+                    ?? throw new InvalidOperationException("Deadline not found."); ;
 
-            if (interest == null) return;
-
-            interest.Description = oInterest.Description;
+                interest.Description = oInterest.Description;
+            } catch (Exception e) {
+                throw new Exception("Database error", e);
+            }
         }
 
-        public async Task RemoveAsync(int id)
-        {
-            //Search for the record in the table 
-            var interest = await _context.Interests.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task RemoveAsync(int id) {
+            try {
+                //Search for the record in the table 
+                var interest = await _context.Interests.FirstOrDefaultAsync(x => x.Id == id)
+                    ?? throw new InvalidOperationException("Deadline not found.");
 
-            if (interest != null) _context.Interests.Remove(interest);
+                _context.Interests.Remove(interest!);
+            } catch (SqlException e) {
+                throw new Exception("Database error", e);
+            }
         }
 
         public async Task SaveChangesAsync()

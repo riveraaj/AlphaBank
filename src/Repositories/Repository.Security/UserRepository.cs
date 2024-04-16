@@ -29,7 +29,8 @@ namespace Repository.Security {
 
         public async Task UpdateAsync(User oUser) {
             try {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == oUser.Id) ?? throw new Exception();
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == oUser.Id) 
+                    ?? throw new InvalidOperationException("User not found.");
 
                 user.EmailAddress = oUser.EmailAddress;
                 user.Password = oUser.Password;
@@ -41,7 +42,9 @@ namespace Repository.Security {
 
         public async Task RemoveAsync(int id) {
             try {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id) ?? throw new Exception();
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id) 
+                    ?? throw new InvalidOperationException("User not found.");
+
                 _context.Users.Remove(user);
             } catch (SqlException e){
                 throw new Exception("Database error", e);

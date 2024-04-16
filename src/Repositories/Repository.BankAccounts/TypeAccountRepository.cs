@@ -9,6 +9,9 @@ namespace Repository.BankAccounts {
 
         private readonly AlphaBankDbContext _context = context;
 
+        public async Task<TypeAccount?> GetById(int id)
+            => await _context.TypeAccounts.FirstOrDefaultAsync(x => x.Id == id);
+
         public async Task CreateAsync(TypeAccount oTypeAccount)
             => await _context.TypeAccounts.AddAsync(oTypeAccount);
 
