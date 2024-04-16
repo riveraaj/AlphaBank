@@ -207,3 +207,22 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#modalUpdateRole').modal('show');
     });
 });
+
+//Create Employee Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnCreateEmployee');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentCreateEmployee').load('/Employee/CreateEmployee');
+        $('#modalCreateEmployee').modal('show');
+    });
+});
+
+//Update Employee Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateCustomer = document.getElementById('btnUpdateEmployee');
+    btnCreateCustomer.addEventListener('click', function () {
+        var id = $(this).data('id');
+        $('#contentUpdateEmployee').load('/Employee/UpdateEmployee?id=' + id);
+        $('#modalUpdateEmployee').modal('show');
+    });
+});
