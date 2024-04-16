@@ -28,6 +28,7 @@ function fileUpload(inputId, ulId) {
     }
 }
 
+//Create Customer Modal
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateCustomer = document.getElementById('btnCreateCustomer');
     btnCreateCustomer.addEventListener('click', () => {
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+//Update Customer Modal
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateCustomer = document.getElementById('btnUpdateCustomer');
     btnCreateCustomer.addEventListener('click', function () {
@@ -45,54 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateDeadlines = document.getElementById('btnCreateDeadlines');
-    btnCreateDeadlines.addEventListener('click', () => {
-        $('#contentCreateCustomer').load('/Deadlines/showDeadlines');
-        $('#modalCreateDeadlines').modal('show');
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateInterestRates = document.getElementById('btnCreateInterestRates');
-    btnCreateInterestRates.addEventListener('click', () => {
-        $('#contentCreateCustomer').load('/InterestRates/showIntesrestRates');
-        $('#modalCreateIntesrestRates').modal('show');
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateTypeCurrency = document.getElementById('btnCreateTypeCurrency');
-    btnCreateTypeCurrency.addEventListener('click', () => {
-        $('#contentCreateTypeCurrency').load('/TypeCurrency/showTypeCurrency');
-        $('#modalCreateTypeCurrency').modal('show');
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateTypeAccount = document.getElementById('btnCreateTypeAccount');
-    btnCreateTypeAccount.addEventListener('click', () => {
-        $('#contentCreateTypeAccount').load('/TypeAccount/showTypeAccount');
-        $('#modalCreateTypeAccount').modal('show');
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateTypeLoan = document.getElementById('btnCreateTypeLoan');
-    btnCreateTypeLoan.addEventListener('click', () => {
-        $('#contentCreateTypeLoan').load('/TypeLoan/showTypeLoan');
-        $('#modalCreateTypeLoan').modal('show');
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateRoles = document.getElementById('btnCreateRoles');
-    btnCreateRoles.addEventListener('click', () => {
-        $('#contentCreateRoles').load('/Roles/showRoles');
-        $('#modalCreateRoles').modal('show');
-    });
-});
-
+//Create Renegotiation Modal
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateRoles = document.getElementById('btnCreateRenegotiation');
     btnCreateRoles.addEventListener('click', function () {
@@ -110,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+//View Loan Application Modal
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateRoles = document.getElementById('btnViewApplication');
     btnCreateRoles.addEventListener('click', function () {
@@ -119,19 +75,135 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+//Create User Modal
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateRoles = document.getElementById('btnCreateUsers');
     btnCreateRoles.addEventListener('click', () => {
-        $('#contentCreateUsers').load('/Users/createUsers');
+        $('#contentCreateUsers').load('/Users/CreateUsers');
         $('#modalCreateUsers').modal('show');
     });
 });
 
+//Update User Modal
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateCustomer = document.getElementById('btnUpdateUser');
     btnCreateCustomer.addEventListener('click', function () {
         var id = $(this).data('id');
         $('#contentUpdateUser').load('/Users/UpdateUser?id=' + id);
         $('#modalUpdateUser').modal('show');
+    });
+});
+
+//Create Deadline Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnCreateDeadline');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentCreateDeadline').load('/Deadlines/CreateDeadline');
+        $('#modalCreateDeadline').modal('show');
+    });
+});
+
+//Update Deadline Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateCustomer = document.getElementById('btnUpdateDeadline');
+    btnCreateCustomer.addEventListener('click', function () {
+        var id = $(this).data('id');
+        $('#contentUpdateDeadline').load('/Deadlines/UpdateDeadline?id=' + id);
+        $('#modalUpdateDeadline').modal('show');
+    });
+});
+
+//Create Deadline Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnCreateInterest');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentCreateInterest').load('/InterestRates/CreateInterest');
+        $('#modalCreateInterest').modal('show');
+    });
+});
+
+//Update Deadline Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateCustomer = document.getElementById('btnUpdateInterest');
+    btnCreateCustomer.addEventListener('click', function () {
+        var id = $(this).data('id');
+        $('#contentUpdateInterest').load('/InterestRates/UpdateInterest?id=' + id);
+        $('#modalUpdateInterest').modal('show');
+    });
+});
+
+//Create TypeCurrency Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnCreateTypeCurrency');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentCreateTypeCurrency').load('/TypeCurrency/CreateTypeCurrency');
+        $('#modalCreateTypeCurrency').modal('show');
+    });
+});
+
+//Update TypeCurrency Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateCustomer = document.getElementById('btnUpdateTypeCurrency');
+    btnCreateCustomer.addEventListener('click', function () {
+        var id = $(this).data('id');
+        $('#contentUpdateTypeCurrency').load('/TypeCurrency/UpdateTypeCurrency?id=' + id);
+        $('#modalUpdateTypeCurrency').modal('show');
+    });
+});
+
+//Create TypeAccount Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnCreateTypeAccount');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentCreateTypeAccount').load('/TypeAccount/CreateTypeAccount');
+        $('#modalCreateTypeAccount').modal('show');
+    });
+});
+
+//Update TypeAccount Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateCustomer = document.getElementById('btnUpdateTypeAccount');
+    btnCreateCustomer.addEventListener('click', function () {
+        var id = $(this).data('id');
+        $('#contentUpdateTypeAccount').load('/TypeAccount/UpdateTypeAccount?id=' + id);
+        $('#modalUpdateTypeAccount').modal('show');
+    });
+});
+
+//Create TypeLoan Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnCreateTypeLoan');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentCreateTypeLoan').load('/TypeLoan/CreateTypeLoan');
+        $('#modalCreateTypeLoan').modal('show');
+    });
+});
+
+//Update TypeLoan Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateCustomer = document.getElementById('btnUpdateTypeLoan');
+    btnCreateCustomer.addEventListener('click', function () {
+        var id = $(this).data('id');
+        $('#contentUpdateTypeLoan').load('/TypeLoan/UpdateTypeLoan?id=' + id);
+        $('#modalUpdateTypeLoan').modal('show');
+    });
+});
+
+//Create Role Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateRoles = document.getElementById('btnCreateRole');
+    btnCreateRoles.addEventListener('click', () => {
+        $('#contentCreateRole').load('/Roles/CreateRole');
+        $('#modalCreateRole').modal('show');
+    });
+});
+
+//Update Role Modal
+document.addEventListener('DOMContentLoaded', () => {
+    var btnCreateCustomer = document.getElementById('btnUpdateRole');
+    btnCreateCustomer.addEventListener('click', function () {
+        var id = $(this).data('id');
+        $('#contentUpdateRole').load('/Roles/UpdateRole?id=' + id);
+        $('#modalUpdateRole').modal('show');
     });
 });
