@@ -1,10 +1,8 @@
-﻿using Data.AlphaBank.Enums;
-using Dtos.AlphaBank.BankAccounts;
+﻿using Dtos.AlphaBank.BankAccounts;
 using Interfaces.BankAccounts.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.Scripting;
 using WebClient.Services;
 
 namespace WebClient.Controllers {
