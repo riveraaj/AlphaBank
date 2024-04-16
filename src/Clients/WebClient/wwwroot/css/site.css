@@ -60,6 +60,7 @@ nav {
     padding-bottom: 30px;
 }
 
+
 .header-card {
     background-color: #DBE7C9;
     border-radius: 15px 15px 0px 0px;
@@ -307,4 +308,12 @@ label {
     font-size: 26px;
     color: white;
     border-radius: 8px;
+}
+
+.show-password {
+    position: relative;
+    left: 75%;
+    top: 2.6rem;
+    cursor: pointer;
+    z-index:10;
 }
