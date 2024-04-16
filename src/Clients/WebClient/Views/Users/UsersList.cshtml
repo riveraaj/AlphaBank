@@ -1,4 +1,5 @@
-﻿
+﻿@model List<Dtos.AlphaBank.Security.ShowUserDTO>
+
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
     ViewData["Title"] = "Usuarios";
@@ -16,28 +17,32 @@
             <thead>
                 <tr>
                     <th>Acciones</th>
-                    <th>Id</th>
+                    <th>Nombre Completo</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Empleado Id</th>
+                    <th>Teléfono</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach(var item in Model) {
                     <tr>
                         <td>
-                            <button class="btn-action">
+                            <button class="btn-action" id="btnUpdateUser" data-id=@item.Id>
                                 <i class="fa fa-solid fa-edit"></i>
                             </button>
-                            <button class="btn-action">
-                                <i class="fa fa-solid fa-trash"></i>
-                            </button>
+                            <form asp-controller="Users" method="post" asp-action="Delete" class="form-inline d-inline">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" class="btn-action">
+                                    <i class="fa fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>@item.Person.Name @item.Person.FirstName @item.Person.SecondName</td>
+                        <td>@item.EmailAddress</td>
+                        <td>@item.Role</td>
+                        <td>@item.Person.PhoneNumber</td>
                     </tr>
+                }
             </tbody>
         </table>
     </div>
@@ -50,7 +55,6 @@
                 <h5 class="modal-title" id="exampleModalLabel">Agregar Usuario</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" asp-controller="Customer" asp-action="Create">
                 <div class="modal-body">
                     <div id="contentCreateUsers">
                         <!-- Parcial view -->
@@ -58,9 +62,28 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-green-border-8" action="">Guardar</button>
+                    <input type="submit" class="btn btn-green-border-8" form="createCustomer" value="Crear" />
                 </div>
-            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalUpdateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modificar Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="contentUpdateUser">
+                    <!-- Parcial view -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-close-border-8" data-bs-dismiss="modal">Cerrar</button>
+                <input type="submit" class="btn btn-green-border-8" form="updateUser" value="Actualizar" />
+            </div>
         </div>
     </div>
 </div>
@@ -107,14 +130,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}
-
-@if (ViewData["ShowCreateCustomerModal"] != null && (bool)ViewData["ShowCreateCustomerModal"]!)
-{
-
-    <script>
-        window.addEventListener('load', function () {
-            document.getElementById('btnCreateCustomer').click();
-        });
-    </script>
 }

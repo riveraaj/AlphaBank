@@ -1,21 +1,23 @@
-﻿@model Dtos.AlphaBank.Security.CreateUserDTO
+﻿@model Dtos.AlphaBank.Security.UpdateUserDTO
 
-<form method="post" asp-controller="Users" asp-action="Create" id="createCustomer">
+<form method="post" asp-controller="Users" asp-action="Update" id="updateUser">
     <div class="row">
         <div class="col-md-12">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+            <input asp-for="Id" class="form-control" type="hidden" value="@Model.Id" />
+
             <div class="form-group">
                 <label asp-for="Email" class="control-label">Correo Electrónico</label>
-                <input asp-for="Email" class="form-control" type="email" />
+                <input asp-for="Email" class="form-control" type="email" value="@Model.Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-            <div class="form-group">  
+            <div class="form-group">
                 <label asp-for="Password" class="control-label">Contraseña</label>
                 <i class="fa-regular fa-eye-slash show-password"></i>
-                <input asp-for="Password" class="form-control" type="password" id="passwordInput"/>              
+                <input asp-for="Password" class="form-control" type="password" id="passwordInput" value="@Model.Password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
@@ -23,12 +25,6 @@
                 <label asp-for="RoleId" class="control-label">Rol:</label>
                 <select asp-for="RoleId" asp-items="ViewBag.Role" class="form-control"></select>
                 <span asp-validation-for="RoleId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="EmployeeId" class="control-label">Empleado:</label>
-                <select asp-for="EmployeeId" asp-items="ViewBag.Employee" class="form-control"></select>
-                <span asp-validation-for="EmployeeId" class="text-danger"></span>
             </div>
         </div>
     </div>
@@ -53,9 +49,3 @@
 
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
