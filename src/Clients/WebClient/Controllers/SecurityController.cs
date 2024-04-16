@@ -5,11 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using WebClient.Services;
 
 namespace WebClient.Controllers {
-    public class SecurityController(IUserAuthenticatorService userAuthenticatorService,
-                                    IEmployeeService employeeService) : Controller {
+    public class SecurityController(IUserAuthenticatorService userAuthenticatorService) : Controller {
 
         private readonly IUserAuthenticatorService _userAuthenticatorService = userAuthenticatorService;
-        private readonly IEmployeeService _employeeService = employeeService;
 
         public IActionResult Login() =>
             User.Identity!.IsAuthenticated ? Redirect("~/Home/Index") : View();
@@ -38,17 +36,6 @@ namespace WebClient.Controllers {
         public async Task<IActionResult> Logout() {
             await CookiesService.RemoveAuthenticationCookie(HttpContext);
             return RedirectToAction("Login");
-        }
-
-        [Authorize(Roles = "1")]
-        public async Task<IActionResult> EmployeeList()
-        {
-            
-            string script = "<script>AlertSucces('Carga exitosa','La información se cargó correctamente');</script>";
-
-            // Pasar el script a la vista utilizando ViewBag
-            ViewBag.AlertSuccess = script;
-            return View(await _employeeService.GetAll()); 
         }
     }
 }
