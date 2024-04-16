@@ -2,7 +2,7 @@
 
 namespace Interfaces.Common.Repositories {
     public interface ITypeCurrencyRepository {
-   
+        public Task<TypeCurrency?> GetById(int id);
         public Task CreateAsync(TypeCurrency oTypeCurrency);
         public Task<ICollection<TypeCurrency>> GetAllAsync();
         public Task UpdateAsync(TypeCurrency oTypeCurrency);

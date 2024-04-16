@@ -2,7 +2,7 @@
 
 namespace Interfaces.BankAccounts.Repositories {
     public interface ITypeAccountRepository {
-
+        public Task<TypeAccount?> GetById(int id);
         public Task CreateAsync(TypeAccount oTypeAccount);
         public Task<ICollection<TypeAccount>> GetAllAsync();
         public Task UpdateAsync(TypeAccount oTypeAccount);
