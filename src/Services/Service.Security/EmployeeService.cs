@@ -1,4 +1,5 @@
-﻿using Dtos.AlphaBank.Security;
+﻿using Data.AlphaBank;
+using Dtos.AlphaBank.Security;
 using Interfaces.Common.Services;
 using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
@@ -15,6 +16,21 @@ namespace Service.Security {
         private readonly IPersonService _personService = personService;
         private readonly IUserService _userService = userService;
         private readonly ILogger<EmployeeService> _logger = logger;
+
+        public async Task<List<Employee>> GetAllForUser() {
+            try {
+                //Retrieve all employees asynchronously from the EmployeeRepository.
+                var employeeList = await _employeeRepository.GetAllAsync();
+
+                var filteredList = employeeList.Where(x => x.Users.FirstOrDefault() == null).ToList();
+
+                // Return the list of employee objects.
+                return filteredList;
+            } catch {
+                // If there's an exception during the process, return an empty list.
+                return [];
+            }
+        }
 
         public async Task<List<ShowEmployeeDTO>> GetAll() {
             try {
@@ -64,21 +80,6 @@ namespace Service.Security {
 
                 await _employeeRepository.CreateAsync(employee);
                 await _employeeRepository.SaveChangesAsync();
-
-                //Perform User Setup to start the user creation afterwards
-                var userSetupResult = await _userService.UserSetup(oCreateEmployeeDTO, _employeeRepository);
-
-                if (!userSetupResult) {
-                    _logger.LogError("----- Create Employee: An error occurred during user setup.");
-
-                    //Delete the previously created employee record
-                    var lastEmployee = await _employeeRepository.GetLastEmployeeAsync();
-                    if (lastEmployee != null)
-                        await _employeeRepository.RemoveAsync(lastEmployee.Id);            
-
-                    //If there's an exception during the process, return false.
-                    return false;
-                }
 
                 _logger.LogInformation("----- Create Employee: Creation completed and saved successfully.");
 
