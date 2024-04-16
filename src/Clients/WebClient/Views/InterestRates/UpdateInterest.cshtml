@@ -1,0 +1,22 @@
+﻿@model Dtos.AlphaBank.AnalyzeLoanOpportunities.UpdateInterestDTO;
+
+<form method="post" asp-controller="InterestRates" asp-action="Update" id="updateInterest">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input asp-for="Id" class="form-control" type="hidden" value="@Model.Id" />
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Interés: </label>
+                <input asp-for="Description" class="form-control" type="text" value="@Model.Description" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
