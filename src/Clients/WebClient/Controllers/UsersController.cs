@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using WebClient.Services;
 
 namespace WebClient.Controllers {
-    [Authorize]
+
+    [Authorize(Roles = "1")]
     public class UsersController(IUserService userService,
                                  SecurityService securityService) : Controller  {
 

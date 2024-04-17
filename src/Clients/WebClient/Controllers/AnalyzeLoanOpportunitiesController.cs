@@ -9,7 +9,7 @@ using WebClient.Services;
 
 namespace WebClient.Controllers {
 
-    [Authorize]
+    [Authorize(Roles = "1, 3")]
     public class AnalyzeLoanOpportunitiesController(ILoanApplicationService loanApplicationService,
                                                     ICustomerService customerService,
                                                     AnalyzeLoanApplicationService analyzeLoanApplicationService,

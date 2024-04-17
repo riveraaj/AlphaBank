@@ -1,8 +1,10 @@
 ﻿using Dtos.AlphaBank.AnalyzeLoanOpportunities;
 using Interfaces.AnalyzeLoanOpportunities.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient.Controllers {
+    [Authorize(Roles = "1, 3")]
     public class DeadlinesController(IDeadlineService deadlineSevice) : Controller {
 
         private readonly IDeadlineService _deadlineService = deadlineSevice;

@@ -25,9 +25,9 @@
                 @foreach (var typeLoan in Model) {
                     <tr>
                         <td>
-                            <button class="btn-action" id="btnUpdateTypeLoan" data-id=@typeLoan.Id>
+                           @*  <button class="btn-action" id="btnUpdateTypeLoan" data-id=@typeLoan.Id>
                                 <i class="fa fa-solid fa-edit"></i>
-                            </button>
+                            </button> *@
                             <form asp-controller="TypeLoan" method="post" asp-action="Delete" class="form-inline d-inline">
                                 <input type="hidden" name="id" value="@typeLoan.Id" />
                                 <button type="submit" class="btn-action">

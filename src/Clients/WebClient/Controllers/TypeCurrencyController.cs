@@ -1,10 +1,12 @@
-﻿using Dtos.AlphaBank.Common;
+﻿using Data.AlphaBank.Enums;
+using Dtos.AlphaBank.Common;
 using Interfaces.Common.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient.Controllers {
-    [Authorize]
+
+    [Authorize(Roles = "1, 3")]
     public class TypeCurrencyController(ITypeCurrencyService typeCurrencyService) : Controller {
 
         private readonly ITypeCurrencyService _typeCurrencyService = typeCurrencyService;

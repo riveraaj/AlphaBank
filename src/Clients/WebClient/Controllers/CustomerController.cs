@@ -7,7 +7,7 @@ using WebClient.Services;
 
 namespace WebClient.Controllers {
 
-    [Authorize]
+    [Authorize(Roles = "1,5")]
     public class CustomerController(ICustomerService customerService,
                                     CommonService commonService) : Controller {
 

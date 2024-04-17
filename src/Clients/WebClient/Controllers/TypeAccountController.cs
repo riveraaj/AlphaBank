@@ -1,10 +1,12 @@
-﻿using Dtos.AlphaBank.BankAccounts;
+﻿using Data.AlphaBank.Enums;
+using Dtos.AlphaBank.BankAccounts;
 using Interfaces.BankAccounts.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient.Controllers {
-    [Authorize]
+
+    [Authorize(Roles = "1, 3")]
     public class TypeAccountController(ITypeAccountService typeAccountService) : Controller {
 
         private readonly ITypeAccountService _typeAccountService = typeAccountService;

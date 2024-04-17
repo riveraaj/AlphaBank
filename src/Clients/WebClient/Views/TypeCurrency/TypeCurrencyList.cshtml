@@ -26,9 +26,9 @@
                 {
                     <tr>
                         <td>
-                            <button class="btn-action" id="btnUpdateTypeCurrency" data-id=@typeCurrency.Id>
+                            @* <button class="btn-action" id="btnUpdateTypeCurrency" data-id=@typeCurrency.Id>
                                 <i class="fa fa-solid fa-edit"></i>
-                            </button>
+                            </button> *@
                             <form asp-controller="TypeCurrency" method="post" asp-action="Delete" class="form-inline d-inline">
                                 <input type="hidden" name="id" value="@typeCurrency.Id" />
                                 <button type="submit" class="btn-action">

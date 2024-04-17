@@ -26,9 +26,9 @@
                 {
                     <tr>
                         <td>
-                            <button class="btn-action" id="btnUpdateInterest" data-id=@interest.Id>
+                            @* <button class="btn-action" id="btnUpdateInterest" data-id=@interest.Id>
                                 <i class="fa fa-solid fa-edit"></i>
-                            </button>
+                            </button> *@
                             <form asp-controller="InterestRates" method="post" asp-action="Delete" class="form-inline d-inline">
                                 <input type="hidden" name="id" value="@interest.Id" />
                                 <button type="submit" class="btn-action">

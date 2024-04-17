@@ -26,9 +26,9 @@
                 {
                     <tr>
                         <td>
-                            <button class="btn-action" id="btnUpdateTypeAccount" data-id=@typeAccount.Id>
+                            @* <button class="btn-action" id="btnUpdateTypeAccount" data-id=@typeAccount.Id>
                                 <i class="fa fa-solid fa-edit"></i>
-                            </button>
+                            </button> *@
                             <form asp-controller="TypeAccount" method="post" asp-action="Delete" class="form-inline d-inline">
                                 <input type="hidden" name="id" value="@typeAccount.Id" />
                                 <button type="submit" class="btn-action">

@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient.Controllers {
-    [Authorize]
+
+    [Authorize(Roles = "1, 3")]
     public class TypeLoanController(ITypeLoanService typeLoanService) : Controller {
 
         private readonly ITypeLoanService _typeLoanService = typeLoanService;

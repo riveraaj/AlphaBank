@@ -1,10 +1,12 @@
-﻿using Dtos.AlphaBank.Security;
+﻿using Data.AlphaBank.Enums;
+using Dtos.AlphaBank.Security;
 using Interfaces.Security.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient.Controllers {
-    [Authorize]
+
+    [Authorize(Roles = "1")]
     public class RolesController(IRoleService roleService) : Controller {
 
         private readonly IRoleService _roleService = roleService;

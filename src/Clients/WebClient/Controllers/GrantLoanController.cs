@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebClient.Models;
 
 namespace WebClient.Controllers {
-    [Authorize]
+    [Authorize(Roles = "1, 3, 4")]
     public class GrantLoanController(ILoanApplicationService loanApplicationService,
                                      ICustomerService customerService,
                                      IGrantingLoansService grantingLoansService) : Controller {

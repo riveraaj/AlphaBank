@@ -1,12 +1,15 @@
 ﻿using Dtos.AlphaBank.Common;
 using Interfaces.Common.Services;
 using Interfaces.RecoveringLoansService.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.IdentityModel.Tokens;
 using WebClient.Services;
 
 namespace WebClient.Controllers {
+
+    [Authorize(Roles = "1, 3, 2")]
     public class RecoveryLoanController(ILoanService loanService,
                                         AnalyzeLoanApplicationService analyzeLoanApplicationService,
                                         IRecoveringLoansService recoveringLoansService) : Controller {
