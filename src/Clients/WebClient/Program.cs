@@ -14,7 +14,6 @@ using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Repository.AnalyzeLoanOpportunities;
 using Repository.BankAccounts;
 using Repository.Common;
@@ -45,6 +44,12 @@ builder.Services.AddControllersWithViews();
 //Add database services
 builder.Services.AddDbContext<AlphaBankDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//Add App Insights
+builder.Services.AddApplicationInsightsTelemetry();
+
+//Routine
+builder.Services.AddHostedService<ContinueLoansService>();
 
 //Repositories Scope
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -118,14 +123,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<ISalaryCategoryService, SalaryCategoryService>();
-builder.Services.AddScoped<IContinueLoanService, ContinueLoanService>();
 builder.Services.AddScoped<SecurityService>();
-
-//Routine
-builder.Services.AddHostedService<ContinueLoansService>();
-
-//Add App Insights
-builder.Services.AddApplicationInsightsTelemetry();
+builder.Services.AddScoped<IContinueLoanService, ContinueLoanService>();
 
 var app = builder.Build();
 

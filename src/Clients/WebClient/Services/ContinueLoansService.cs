@@ -13,7 +13,7 @@ namespace WebClient.Services {
                     await continueLoanService.PaymentBackgroundTask();
                 }
 
-                await Task.Delay(TimeSpan.FromMinutes(10), stoppingToken); // Wait 1 minutes before running again.
+                await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken); // Wait 1 minutes before running again.
             }
         }
     }

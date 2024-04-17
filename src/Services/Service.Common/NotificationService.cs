@@ -36,7 +36,7 @@ namespace Service.Common {
                 //Return message
                 return await _notificationRepository.GetMessageByIdAsync(id);
             }
-            catch {
+            catch(Exception e) {
                 return null;
             }
         }

@@ -10,7 +10,15 @@ namespace Repository.ContinueLoans {
         private readonly AlphaBankDbContext _context = context;
 
         public async Task<ICollection<CollectionHistory>> GetAllAsync()
-            => await _context.CollectionHistories.ToListAsync();
+            => await _context.CollectionHistories.Include(x => x.Loan)
+                                                    .ThenInclude(x => x.LoanApplication)
+                                                        .ThenInclude(x => x.Account)
+                                                            .ThenInclude(x => x.Customer)
+                                                                .ThenInclude(x => x.Person)
+                                                 .Include(x => x.Loan)
+                                                    .ThenInclude(x => x.LoanApplication)
+                                                        .ThenInclude(x => x.TypeCurrency)
+                                                 .ToListAsync();
 
         public async Task<CollectionHistory?> GetLastByLoanId(int id)
             => await _context.CollectionHistories.Include(x => x.Loan)  
@@ -20,8 +28,10 @@ namespace Repository.ContinueLoans {
                                                                 .ThenInclude(x => x.Person)
                                                   .Include(x => x.Loan)
                                                     .ThenInclude(x => x.LoanApplication)
-                                                        .ThenInclude(x => x.TypeCurrency)                    
-                                                  .LastOrDefaultAsync(x => x.LoanId == id);
+                                                        .ThenInclude(x => x.TypeCurrency) 
+                                                  .Where(x => x.LoanId == id)
+                                                  .OrderByDescending(x => x.DateDeposit)
+                                                  .FirstOrDefaultAsync(x => x.LoanId == id);
 
         public async Task<List<CollectionHistory>> GetByLoanId(int id)
             => await _context.CollectionHistories.Where(x => x.LoanId == id).ToListAsync();

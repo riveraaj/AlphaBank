@@ -1,8 +1,10 @@
 ﻿using Data.AlphaBank;
 using Data.AlphaBank.Enums;
+using Dtos.AlphaBank.ContinueLoans;
 using Interfaces.AnalyzeLoanOpportunities.Repositories;
 using Interfaces.BankAccounts.Repositories;
 using Interfaces.Common.Services;
+using Interfaces.ContinueLoans.Services;
 using Interfaces.GrantingLoans.Services;
 using Microsoft.Extensions.Logging;
 using Service.Common.Helpers;
@@ -14,6 +16,7 @@ namespace Service.GrantingLoans {
                                        ILoanService loanService,
                                        IMailService mailService,
                                        INotificationService notificationService,
+                                       ICollectionHistoryService collectionHistoryService,
                                        ILogger<GrantingLoansService> logger) : IGrantingLoansService {
 
         private readonly ILoanApplicationRepository _loanApplicationRepository = loanApplicationRepository;
@@ -22,6 +25,7 @@ namespace Service.GrantingLoans {
         private readonly ILoanService _loanService = loanService;
         private readonly IMailService _mailService = mailService;
         private readonly INotificationService _notificationService = notificationService;
+        private readonly ICollectionHistoryService _collectionHistoryService = collectionHistoryService;
         private readonly ILogger<GrantingLoansService> _logger = logger;
 
         public async Task<bool> GrantingLoan(int idLoanApplication, bool grantingLoan) {
@@ -84,6 +88,13 @@ namespace Service.GrantingLoans {
 
                 var loanCreated = await _loanService.GetByLoanApplicationId(oLoanApplication.Id);
                 if (loanCreated == null) return false;
+
+                var createCollection = await _collectionHistoryService.Create(new CreateCollectionHistoryDTO {
+                    DepositAmount = 0,
+                    LoanId = loanCreated.Id
+                });
+
+                if(!createCollection) return false;
 
                 messageTemplate = await _notificationService.GetMessageById
                                                   ((int)TypeNotificationEnum.NotificaciónDeSolicitudDePrestamoAprobada) ?? " ";

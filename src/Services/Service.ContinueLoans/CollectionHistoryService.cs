@@ -73,7 +73,7 @@ namespace Service.ContinueLoans {
                 _logger.LogInformation("----- Create  Collection History: Creation completed and saved successfully.");
                 return true;
             }
-            catch {
+            catch(Exception e) {
                 // Handle errors and log them appropriately
                 _logger.LogError("----- Create Collection History: An error occurred while creating and saving to the database.");
                 return false;
