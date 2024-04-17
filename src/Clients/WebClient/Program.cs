@@ -14,6 +14,7 @@ using Interfaces.Security.Repositories;
 using Interfaces.Security.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Repository.AnalyzeLoanOpportunities;
 using Repository.BankAccounts;
 using Repository.Common;
@@ -117,7 +118,11 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<ISalaryCategoryService, SalaryCategoryService>();
+builder.Services.AddScoped<IContinueLoanService, ContinueLoanService>();
 builder.Services.AddScoped<SecurityService>();
+
+//Routine
+builder.Services.AddHostedService<ContinueLoansService>();
 
 //Add App Insights
 builder.Services.AddApplicationInsightsTelemetry();
