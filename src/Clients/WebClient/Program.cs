@@ -41,8 +41,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//Routine
-builder.Services.AddHostedService<ContinueLoansService>();
+//Add database services
+builder.Services.AddDbContext<AlphaBankDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //Repositories Scope
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -119,13 +120,11 @@ builder.Services.AddScoped<ISalaryCategoryService, SalaryCategoryService>();
 builder.Services.AddScoped<SecurityService>();
 builder.Services.AddScoped<IContinueLoanService, ContinueLoanService>();
 
-//Add database services
-builder.Services.AddDbContext<AlphaBankDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 //Add App Insights
 builder.Services.AddApplicationInsightsTelemetry();
 
+//Routine
+//builder.Services.AddHostedService<ContinueLoansService>();
 
 var app = builder.Build();
 
