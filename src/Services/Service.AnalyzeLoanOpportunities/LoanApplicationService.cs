@@ -1,5 +1,6 @@
 ﻿using Data.AlphaBank;
 using Dtos.AlphaBank.AnalyzeLoanOpportunities;
+using Dtos.AlphaBank.BankAccounts;
 using Interfaces.AnalyzeLoanOpportunities.Repositories;
 using Interfaces.AnalyzeLoanOpportunities.Services;
 using Interfaces.BankAccounts.Repositories;
@@ -106,6 +107,49 @@ namespace Service.AnalyzeLoanOpportunities {
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => FileConverterHelper.ConvertWordToPdf(oFileUploadDTO, title),
                 _ => FileConverterHelper.CopyPdf(oFileUploadDTO, title),// Convert to PDF by default if the file extension is not supported
             };
+        }
+
+        //REPORTS
+        public async Task<List<ShowLoanApplicationReviewedDTO>> GetAllRejectedLoanApplication()
+        {
+            try
+            {
+                var loanApplicationList = await _loanApplicationRepository.GetAllAsync();
+
+                var filteredList = loanApplicationList.Where(x => x.ApplicationStatus.Description == "Rechazado");
+
+                var finalList = new List<ShowLoanApplicationReviewedDTO>();
+
+                foreach (var loanApplication in filteredList)
+                    finalList.Add(LoanApplicationMapper.MapShowLoanApplicationReviewedDTO(loanApplication));
+
+                return finalList;
+            }
+            catch
+            {
+                return [];
+            }
+        }
+
+        public async Task<List<ShowLoanApplicationReviewedDTO>> GetAllApprovedLoanApplication()
+        {
+            try
+            {
+                var loanApplicationList = await _loanApplicationRepository.GetAllAsync();
+
+                var filteredList = loanApplicationList.Where(x => x.ApplicationStatus.Description == "Aprobado");
+
+                var finalList = new List<ShowLoanApplicationReviewedDTO>();
+
+                foreach (var loanApplication in filteredList)
+                    finalList.Add(LoanApplicationMapper.MapShowLoanApplicationReviewedDTO(loanApplication));
+
+                return finalList;
+            }
+            catch
+            {
+                return [];
+            }
         }
     }
 }

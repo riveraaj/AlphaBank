@@ -6,5 +6,7 @@ namespace Interfaces.AnalyzeLoanOpportunities.Services {
         public Task<ShowLoanApplicationDTO?> GetById(int id);
         public Task<bool> Create(CreateLoanApplicationDTO oCreateLoanApplicationDTO);
         public byte[] ConvertToPdf(FileUploadDTO fileUploadDTO, string title);
+        public Task<List<ShowLoanApplicationReviewedDTO>> GetAllRejectedLoanApplication();
+        public  Task<List<ShowLoanApplicationReviewedDTO>> GetAllApprovedLoanApplication();
     }
 }

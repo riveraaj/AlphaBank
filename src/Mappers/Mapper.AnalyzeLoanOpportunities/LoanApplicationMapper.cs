@@ -30,5 +30,15 @@ namespace Mapper.AnalyzeLoanOpportunities {
                 Interest = oLoanApplication.Interest.Description,
                 SalaryStatement = oLoanApplication.PathProofSalary
             };
+
+        public static ShowLoanApplicationReviewedDTO MapShowLoanApplicationReviewedDTO(LoanApplication oLoanApplication)
+            => new()
+            {
+                Id = oLoanApplication.Id,
+                TypeLoanDescription = oLoanApplication.TypeLoan.Description,
+                DateApplication = oLoanApplication.DateApplication,
+                PersonId = oLoanApplication.Account.Customer.PersonId,
+                Amount = oLoanApplication.Amount.ToString("#,0", CultureInfo.InvariantCulture)
+            };
     }
 }
