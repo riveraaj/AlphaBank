@@ -32,7 +32,6 @@ namespace WebClient.Controllers
             var maritalStatusList = await _commonService.GetMaritalStatusSelectListItems();
             var occupationList = await _commonService.GetOccupationSelectListItems();
             var typePhoneList = await _commonService.GetTypePhoneSelectListItems();
-            var salary = await _commonService.GetSalarySelectListItems();
 
             //ViewData is created for each SelectList and formatted as follows
             ViewData["TypeIdentification"] = new SelectList(typeIdentificationList, "Value", "Text");
@@ -40,7 +39,6 @@ namespace WebClient.Controllers
             ViewData["MaritalStatus"] = new SelectList(maritalStatusList, "Value", "Text");
             ViewData["Occupation"] = new SelectList(occupationList, "Value", "Text");
             ViewData["TypePhone"] = new SelectList(typePhoneList, "Value", "Text");
-            ViewData["AverageMonthlySalary"] = new SelectList(salary, "Value", "Text");
             return PartialView("CreateCustomer");
         }
 
@@ -57,12 +55,10 @@ namespace WebClient.Controllers
             //SelectList to enter them in a ViewData
             var statusList = _commonService.GetStatusSelectListItems();
             var occupationList = await _commonService.GetOccupationSelectListItems();
-            var salaryList = await _commonService.GetSalarySelectListItems();
 
             //ViewData is created for each SelectList and formatted as follows
             ViewData["Status"] = new SelectList(statusList, "Value", "Text", occupationList.FirstOrDefault(x => x.Value.Equals(customer.CustomerStatusId)));
             ViewData["Occupation"] = new SelectList(occupationList, "Value", "Text", occupationList.FirstOrDefault(x => x.Value.Equals(customer.OccupationId)));
-            ViewData["AverageMonthlySalary"] = new SelectList(salaryList, "Value", "Text", salaryList.FirstOrDefault(x => x.Value.Equals(customer.AverageMonthlySalary)));
 
             return PartialView("UpdateCustomer", customer);
         }

@@ -50,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Reports\" />
     <Folder Include="wwwroot\font\Open_Sans\" />
   </ItemGroup>
 
