@@ -93,5 +93,56 @@ namespace Service.ContinueLoans {
             int daysInYear = 365; // You can adjust this if you need to consider leap years
             return debt * moratoryInterestRate * ((decimal)daysOverdue / daysInYear);
         }
+
+        //REPORTS
+        public async Task<List<ShowLoanDefaultersDTO>> GetAllForDefaultersReport()
+        {
+            try
+            {
+                //Attempt to retrieve all loanS asynchronously from the LoanRepository.
+                var loanList = await _loanService.GetAll();
+
+                var filteredList = loanList.Where(x => x.LoanApplication.Account.Customer.CustomerStatus.Description == "Moroso");
+
+                //Initialize a list to store ShowLoanDefaultersDTO objects.
+                var finalList = new List<ShowLoanDefaultersDTO>();
+
+                //Get todays date
+                DateTime today = DateTime.UtcNow;
+
+                //Map each loan to a ShowLoanDefaultersDTO and add it to the list.
+                foreach (var loan in filteredList)
+                {
+                    var lastCollectionHistory = await _collectionHistoryRepository.GetLastByLoanId(loan.Id);
+
+                    if (lastCollectionHistory == null)
+                        continue;
+
+                    string daysLateString = "";
+
+                    //Calculate the difference in days between the deadline and today
+                    DateTime lastDeadLine = new DateTime(lastCollectionHistory.Deadline.Year,
+                                                         lastCollectionHistory.Deadline.Month,
+                                                         lastCollectionHistory.Deadline.Day);
+                    int daysLate = (today - lastDeadLine).Days;
+                    //Make sure late days are never negative
+                    daysLate = Math.Max(daysLate, 0);
+
+                    //Format days late string
+                    daysLateString = daysLate == 1 ? "1 día" : $"{daysLate} días";
+
+                    finalList.Add(CollectionHistoryMapper.MapShowLoanDefaultersDTO(loan, daysLateString));
+                }
+
+                //Return the list of ShowLoanDefaultersDTO objects.
+                return finalList;
+            }
+            catch
+            {
+                //If there's an exception during the process, return null.
+                return [];
+            }
+        }
+
     }
 }
