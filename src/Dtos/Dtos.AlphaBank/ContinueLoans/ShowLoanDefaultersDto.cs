@@ -6,7 +6,7 @@
         public string TypeLoanDescription { get; set; } = null!;
         public DateOnly DateApplication { get; set; }
         public int PersonId { get; set; }
-        public decimal Amount { get; set; }
+        public string Amount { get; set; }
         public string DaysLate { get; set; } = null!;
     }
 }

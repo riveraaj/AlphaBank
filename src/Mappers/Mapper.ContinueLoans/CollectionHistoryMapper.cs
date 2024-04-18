@@ -1,5 +1,6 @@
 ﻿using Data.AlphaBank;
 using Dtos.AlphaBank.ContinueLoans;
+using System.Globalization;
 
 namespace Mapper.ContinueLoans {
     public static class CollectionHistoryMapper {
@@ -17,7 +18,7 @@ namespace Mapper.ContinueLoans {
                 TypeLoanDescription = oLoan.LoanApplication.TypeLoan.Description,
                 DateApplication = oLoan.LoanApplication.DateApplication,
                 PersonId = oLoan.LoanApplication.Account.Customer.PersonId,
-                Amount = oLoan.LoanApplication.Amount,
+                Amount = oLoan.LoanApplication.Amount.ToString("#,0", CultureInfo.InvariantCulture),
                 DaysLate = daysLate
             };
     }
