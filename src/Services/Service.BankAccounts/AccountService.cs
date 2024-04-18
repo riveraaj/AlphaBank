@@ -146,5 +146,26 @@ namespace Service.BankAccounts {
                 return [];
             }
         }
+
+        public async Task<List<ShowAccountClosedDTO>> GetAllClosedAccounts()
+        {
+            try
+            {
+                var accountList = await _accountRepository.GetAllAsync();
+
+                var filteredList = accountList.Where(x => x.Status == false);
+
+                var finalList = new List<ShowAccountClosedDTO>();
+
+                foreach (var account in filteredList)
+                    finalList.Add(AccountMapper.MapShowAccountClosedDTO(account));
+
+                return finalList;
+            }
+            catch
+            {
+                return [];
+            }
+        }
     }
 }

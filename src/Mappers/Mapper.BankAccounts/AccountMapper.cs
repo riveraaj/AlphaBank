@@ -39,5 +39,15 @@ namespace Mapper.BankAccounts {
                 Balance = oAccount.Balance.ToString("#,0", CultureInfo.InvariantCulture),
                 DateOpening = oAccount.DateOpening
             };
+
+        public static ShowAccountClosedDTO MapShowAccountClosedDTO(Account oAccount)
+            => new()
+            {
+                Id = oAccount.Id,
+                TypeAccountDescription = oAccount.TypeAccount.Description,
+                TypeCurrencyDescription = oAccount.TypeCurrency.Description,
+                PersonId = oAccount.Customer.PersonId,
+                DateOpening = oAccount.DateOpening
+            };
     }
 }
