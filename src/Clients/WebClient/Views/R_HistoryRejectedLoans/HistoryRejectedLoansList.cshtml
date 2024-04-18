@@ -1,8 +1,8 @@
-﻿@model List<Dtos.AlphaBank.ContinueLoans.ShowLoanStatementDTO>
+﻿
 
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
-    ViewData["Title"] = "Reporte Cuentas Creadas";
+    ViewData["Title"] = "Reporte Historial Préstamos Rechazados";
 }
 
 <div class="container">
@@ -10,26 +10,26 @@
 
         <div class="header-card">
             <div class="row">
-                <p class="tittle">Reporte Cuentas Creadas</p>
+                <p class="tittle">Reporte Historial Préstamos Rechazados</p>
             </div>
 
         </div>
 
         <div class="card-main table-responsive pt-3">
 
-            <h5>Lista de cuentas creadas:</h5>
+            <h5>Lista préstamos rechazados:</h5>
             <div class="">
 
-                <table id="tablaaccountscreated" class="mt-4">
+                <table id="tablahistoryrejectedloans" class="mt-4">
 
                     <thead>
                         <tr>
-                            <th>Número Cuenta</th>
-                            <th>Tipo de Cuenta</th>
-                            <th>Moneda</th>
-                            <th>Identificación Cliente</th>
-                            <th>Saldo</th>
-                            <th>Fecha Creación</th>
+                            <th>ID Solicitud</th>
+                            <th>Tipo de Préstamo</th>
+                            <th>Fecha de Solicitud</th>
+                            <th>Identificación Solicitante</th>
+                            <th>Monto</th>
+                            <th>Fecha Rechazado</th>
                         </tr>
                     </thead>
 
@@ -50,7 +50,7 @@
 </div>
 
 <script type="text/javascript">
-    $('#tablaaccountscreated').DataTable({
+    $('#tablahistoryrejectedloans').DataTable({
         "responsive": true,
         "aServerSide": true,
         "autoWidth": false,
