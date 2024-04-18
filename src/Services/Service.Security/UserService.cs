@@ -74,7 +74,7 @@ namespace Service.Security {
             var user = UserMapper.MapUpdateUser(oUpdateUserDTO);
 
             //Encrypt the user's password using some encryption method (EncryptorHelper).
-            user.Password = EncryptorHelper.Encrypt(user.Password);
+            //user.Password = EncryptorHelper.Encrypt(user.Password);
 
             try
             {

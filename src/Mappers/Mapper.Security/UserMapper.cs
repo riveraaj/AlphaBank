@@ -30,7 +30,7 @@ namespace Mapper.Security {
             {
                 Id = oUpdateUserDTO.Id,
                 EmailAddress = oUpdateUserDTO.Email,
-                Password = oUpdateUserDTO.Password,
+                //Password = oUpdateUserDTO.Password,
                 RoleId = (byte) oUpdateUserDTO.RoleId!
             };
 
@@ -38,7 +38,7 @@ namespace Mapper.Security {
            => new() {
                Id = oUser.Id,
                Email = oUser.EmailAddress,
-               Password = oUser.Password,
+               //Password = oUser.Password,
                RoleId = oUser.RoleId!
            };
     }

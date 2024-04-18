@@ -17,7 +17,7 @@ namespace Repository.Common {
 
         public async Task<Contract?> GetByLoanApplicationID(int id)
             => await _context.Contracts.Include(x => x.LoanApplication)
-                                       .FirstOrDefaultAsync(x => x.Id == id);
+                                       .FirstOrDefaultAsync(x => x.LoanApplicationId == id);
 
         public async Task<ICollection<Contract>> GetByLoanApplicationId(int id)
             => await _context.Contracts.Include(x => x.TypeContract)

@@ -15,13 +15,6 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Password" class="control-label">Contraseña</label>
-                <i class="fa-regular fa-eye-slash show-password"></i>
-                <input asp-for="Password" class="form-control" type="password" id="passwordInput" value="@Model.Password"/>
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
                 <label asp-for="RoleId" class="control-label">Rol:</label>
                 <select asp-for="RoleId" asp-items="ViewBag.Role" class="form-control"></select>
                 <span asp-validation-for="RoleId" class="text-danger"></span>

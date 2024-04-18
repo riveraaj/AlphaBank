@@ -2,6 +2,7 @@
 {
     public class ShowLoanApplicationReviewedDTO
     {
+        public string Currency { get; set; } = null!;
         public int Id { get; set; }
         public string TypeLoanDescription { get; set; } = null!;
         public DateOnly DateApplication { get; set; }

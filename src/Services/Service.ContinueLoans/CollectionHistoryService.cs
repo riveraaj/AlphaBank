@@ -1,4 +1,5 @@
 ﻿using Data.AlphaBank;
+using Data.AlphaBank.Enums;
 using Dtos.AlphaBank.ContinueLoans;
 using Interfaces.Common.Services;
 using Interfaces.ContinueLoans.Repositories;
@@ -112,7 +113,7 @@ namespace Service.ContinueLoans {
                 //Attempt to retrieve all loanS asynchronously from the LoanRepository.
                 var loanList = await _loanService.GetAll();
 
-                var filteredList = loanList.Where(x => x.LoanApplication.Account.Customer.CustomerStatus.Description == "Moroso");
+                var filteredList = loanList.Where(x => x.LoanApplication.Account.Customer.CustomerStatusId == (byte)CustomerStatusEnum.Moroso);
 
                 //Initialize a list to store ShowLoanDefaultersDTO objects.
                 var finalList = new List<ShowLoanDefaultersDTO>();

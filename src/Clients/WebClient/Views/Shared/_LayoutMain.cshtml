@@ -40,72 +40,98 @@
                             <div class="menu_section">
                                 <h3>Gestión de Prestamos</h3>
                                 <ul class="nav side-menu">
-                                    <li>
-                                        <a><i class="fa fa-solid fa-user"></i> Gestión de cuentas bancarias <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a asp-controller="BankAccounts" asp-action="AccountOppening">Apertura de cuenta</a></li>
-                                            <li><a asp-controller="BankAccounts" asp-action="AccountClosing">Cierre de cuenta</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a><i class="fa fa-solid fa-address-card"></i> Análisis de préstamos <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a asp-controller="AnalyzeLoanOpportunities" asp-action="LoanApplication">Solicitud de Préstamo</a></li>
+                                    @if (User.IsInRole("1") || User.IsInRole("5"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-solid fa-user"></i> Gestión de cuentas bancarias <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li><a asp-controller="BankAccounts" asp-action="AccountOppening">Apertura de cuenta</a></li>
+                                                <li><a asp-controller="BankAccounts" asp-action="AccountClosing">Cierre de cuenta</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("1") || User.IsInRole("4") || User.IsInRole("3"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-solid fa-address-card"></i> Análisis de préstamos <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li><a asp-controller="AnalyzeLoanOpportunities" asp-action="LoanApplication">Solicitud de Préstamo</a></li>
 
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a><i class="fa fa-solid fa-money"></i> Otorgar préstamos <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a asp-controller="GrantLoan" asp-action="EvaluationLoanApplications">Evaluar Solicitudes de Préstamos</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a><i class="fa fa-table"></i> Seguimiento de prestamos <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a asp-controller="MonitoringLoanStatus" asp-action="MonitoringLoanStatus">Dar Seguimiento a los Préstamos</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a><i class="fa fa-bar-chart-o"></i>Recuperación de préstamos<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a asp-controller="RecoveryLoan" asp-action="RecoveryLoanList">Recuperar Préstamo</a></li>
-                                        </ul>
-                                    </li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("1") || User.IsInRole("3"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-solid fa-money"></i> Otorgar préstamos <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li><a asp-controller="GrantLoan" asp-action="EvaluationLoanApplications">Evaluar Solicitudes de Préstamos</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("1") || User.IsInRole("3") || User.IsInRole("6"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-table"></i> Seguimiento de prestamos <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li><a asp-controller="MonitoringLoanStatus" asp-action="MonitoringLoanStatus">Dar Seguimiento a los Préstamos</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("1") || User.IsInRole("3") || User.IsInRole("2"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-bar-chart-o"></i>Recuperación de préstamos<span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li><a asp-controller="RecoveryLoan" asp-action="RecoveryLoanList">Recuperar Préstamo</a></li>
+                                            </ul>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
                             <div class="menu_section">
                                 <h3>Otros</h3>
                                 <ul class="nav side-menu">
-                                    <li>
-                                        <a><i class="fa fa-solid fa-gear"></i>Mantenimientos <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a asp-controller="Customer" asp-action="CustomerList">Clientes</a></li>
-                                            <li><a asp-controller="Deadlines" asp-action="DeadlinesList">Plazos</a></li>
-                                            <li><a asp-controller="InterestRates" asp-action="InterestList">Tasas de Interés</a></li>
-                                            <li><a asp-controller="TypeCurrency" asp-action="TypeCurrencyList">Tipo de Moneda</a></li>
-                                            <li><a asp-controller="TypeAccount" asp-action="TypeAccountList">Tipos de Cuenta</a></li>
-                                            <li><a asp-controller="TypeLoan" asp-action="TypeLoanList">Tipos de Préstamos</a></li>
-                                            <li><a asp-controller="Roles" asp-action="RolesList">Roles</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a><i class="fa fa-solid fa-folder"></i> Reportes <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a asp-controller="R_LateClients" asp-action="LateClientsList">Reporte Clientes Morosos</a></li>
-                                            <li><a asp-controller="R_AccountsCreated" asp-action="AccountsCreatedList">Reporte Cuentas Creadas</a></li>
-                                            <li><a asp-controller="R_HistoryRejectedLoans" asp-action="HistoryRejectedLoansList">Historial Préstamos Rechazados</a></li>
-                                            <li><a asp-controller="R_HistoryApprovedLoans" asp-action="HistoryApprovedLoansList">Historial Préstamos Aprobados</a></li>
-                                            <li><a asp-controller="R_AccountsClosed" asp-action="AccountsClosedList">Reporte Cuentas Cerradas</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a><i class="fa fa-solid fa-lock"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a asp-controller="Employee" asp-action="EmployeeList">Empleados</a></li>
-                                            <li><a asp-controller="Users" asp-action="UsersList">Usuarios</a></li>
-                                        </ul>
-                                    </li>
+                                    @if (User.IsInRole("1") || User.IsInRole("5"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-solid fa-gear"></i>Mantenimientos <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li><a asp-controller="Customer" asp-action="CustomerList">Clientes</a></li>
+                                                @if (User.IsInRole("1")){
+                                                    <li><a asp-controller="Deadlines" asp-action="DeadlinesList">Plazos</a></li>
+                                                    <li><a asp-controller="InterestRates" asp-action="InterestList">Tasas de Interés</a></li>
+                                                    <li><a asp-controller="TypeCurrency" asp-action="TypeCurrencyList">Tipo de Moneda</a></li>
+                                                    <li><a asp-controller="TypeAccount" asp-action="TypeAccountList">Tipos de Cuenta</a></li>
+                                                    <li><a asp-controller="TypeLoan" asp-action="TypeLoanList">Tipos de Préstamos</a></li>
+                                                    <li><a asp-controller="Roles" asp-action="RolesList">Roles</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("1") || User.IsInRole("3") || User.IsInRole("4") || User.IsInRole("6"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-solid fa-folder"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li><a asp-controller="R_LateClients" asp-action="LateClientsList">Reporte Clientes Morosos</a></li>
+                                                <li><a asp-controller="R_AccountsCreated" asp-action="AccountsCreatedList">Reporte Cuentas Creadas</a></li>
+                                                <li><a asp-controller="R_HistoryRejectedLoans" asp-action="HistoryRejectedLoansList">Historial Préstamos Rechazados</a></li>
+                                                <li><a asp-controller="R_HistoryApprovedLoans" asp-action="HistoryApprovedLoansList">Historial Préstamos Aprobados</a></li>
+                                                <li><a asp-controller="R_AccountsClosed" asp-action="AccountsClosedList">Reporte Cuentas Cerradas</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    @if (User.IsInRole("1"))
+                                    {
+                                        <li>
+                                            <a><i class="fa fa-solid fa-lock"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
+                                            <ul class="nav child_menu">
+                                                <li><a asp-controller="Employee" asp-action="EmployeeList">Empleados</a></li>
+                                                <li><a asp-controller="Users" asp-action="UsersList">Usuarios</a></li>
+                                            </ul>
+                                        </li>
+                                    }
                                     <form method="post" asp-action="Logout" asp-controller="Security">
                                     <li>
                                         <i class="fa fa-laptop"></i>  <input type="submit" class="logout" value="Cerrar Sesión" />

@@ -60,13 +60,28 @@ $(document).ready(function () {
         });
     });
 });
+
 //Create Renegotiation Modal
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateRoles = document.getElementById('btnCreateRenegotiation');
-    btnCreateRoles.addEventListener('click', function () {
-        var loanId = $(this).data('id');
-        $('#contentCreateRenegotiation').load('/RecoveryLoan/createRenegotiation?id=' + loanId);
-        $('#modalCreateRenegotiation').modal('show');
+//document.addEventListener('DOMContentLoaded', () => {
+//    var btnCreateRoles = document.getElementById('btnCreateRenegotiation');
+//    btnCreateRoles.addEventListener('click', function () {
+//        var loanId = $(this).data('id');
+//        $('#contentCreateRenegotiation').load('/RecoveryLoan/createRenegotiation?id=' + loanId);
+//        $('#modalCreateRenegotiation').modal('show');
+//    });
+//});
+
+$(document).ready(function () {
+    // Usando delegación de eventos para manejar clicks en los botones
+    $(document).on('click', '.btnCreateRenegotiation', function () {
+        var id = $(this).data('id'); // Obtiene el ID desde el atributo data-id del botón
+        $('#contentCreateRenegotiation').load('/RecoveryLoan/createRenegotiation?id=' + id, function (response, status, xhr) {
+            if (status == "error") {
+                alert("Error al cargar los datos: " + xhr.status + " " + xhr.statusText);
+            } else {
+                $('#modalCreateRenegotiation').modal('show');
+            }
+        });
     });
 });
 
@@ -79,12 +94,26 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //View Loan Application Modal
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateRoles = document.getElementById('btnViewApplication');
-    btnCreateRoles.addEventListener('click', function () {
-        var loanId = $(this).data('id');
-        $('#contentViewApplication').load('/GrantLoan/ViewApplication?id=' + loanId);
-        $('#modalViewApplication').modal('show');
+//document.addEventListener('DOMContentLoaded', () => {
+//    var btnCreateRoles = document.getElementById('btnViewApplication');
+//    btnCreateRoles.addEventListener('click', function () {
+//        var loanId = $(this).data('id');
+//        $('#contentViewApplication').load('/GrantLoan/ViewApplication?id=' + loanId);
+//        $('#modalViewApplication').modal('show');
+//    });
+//});
+
+$(document).ready(function () {
+    // Usando delegación de eventos para manejar clicks en los botones
+    $(document).on('click', '.btnViewApplication', function () {
+        var id = $(this).data('id'); // Obtiene el ID desde el atributo data-id del botón
+        $('#contentViewApplication').load('/GrantLoan/ViewApplication?id=' + id, function (response, status, xhr) {
+            if (status == "error") {
+                alert("Error al cargar los datos: " + xhr.status + " " + xhr.statusText);
+            } else {
+                $('#modalViewApplication').modal('show');
+            }
+        });
     });
 });
 

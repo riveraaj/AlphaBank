@@ -34,6 +34,7 @@ namespace Mapper.AnalyzeLoanOpportunities {
         public static ShowLoanApplicationReviewedDTO MapShowLoanApplicationReviewedDTO(LoanApplication oLoanApplication)
             => new()
             {
+                Currency = oLoanApplication.TypeCurrency.Description,
                 Id = oLoanApplication.Id,
                 TypeLoanDescription = oLoanApplication.TypeLoan.Description,
                 DateApplication = oLoanApplication.DateApplication,

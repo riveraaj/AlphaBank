@@ -33,7 +33,7 @@ namespace Repository.Security {
                     ?? throw new InvalidOperationException("User not found.");
 
                 user.EmailAddress = oUser.EmailAddress;
-                user.Password = oUser.Password;
+                //user.Password = oUser.Password;
                 user.RoleId = oUser.RoleId;
             } catch (SqlException e) {
                 throw new Exception("Database error", e);

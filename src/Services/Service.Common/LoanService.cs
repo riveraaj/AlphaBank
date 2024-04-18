@@ -54,7 +54,7 @@ namespace Service.Common
                 //Get loans.
                 var loanList = await _loanRepository.GetAllAsync();
                 var filteredList = loanList.Where(x => x.LoanStatementId
-                                            == (byte)LoanStatementEnum.EnCobroJudicial);
+                                            == (byte)LoanStatementEnum.EnProcesoCobroJudicial);
 
                 var newLoanListDTO = new List<ShowLoanRecoveringDTO>();        
 

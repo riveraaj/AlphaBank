@@ -59,6 +59,8 @@ namespace Repository.Common
             => await _context.Loans.Include(ls => ls.LoanStatement)
                                    .Include(la => la.LoanApplication)
                                         .ThenInclude(tc => tc.TypeCurrency)
+                                    .Include(la => la.LoanApplication)
+                                        .ThenInclude(tc => tc.TypeLoan)
                                    .Include(la => la.LoanApplication)
                                         .ThenInclude(tc => tc.Interest)
                                     .Include(la => la.LoanApplication)
