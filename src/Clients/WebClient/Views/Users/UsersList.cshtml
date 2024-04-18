@@ -27,7 +27,7 @@
                 @foreach(var item in Model) {
                     <tr>
                         <td>
-                            <button class="btn-action" id="btnUpdateUser" data-id=@item.Id>
+                            <button class="btn-action btnUpdateUser" data-id=@item.Id>
                                 <i class="fa fa-solid fa-edit"></i>
                             </button>
                             <form asp-controller="Users" method="post" asp-action="Delete" class="form-inline d-inline">

@@ -16,7 +16,7 @@
 
             <div class="form-group">
                 <label asp-for="AverageMonthlySalary" class="control-label">Salario Promedio Mensual:</label>
-                <input asp-for="AverageMonthlySalary" class="form-control" value="@Model.AverageMonthlySalary" type="number" />
+                <select asp-for="AverageMonthlySalary" class="form-control" asp-items="ViewBag.AverageMonthlySalary" type="number"></select>
                 <span asp-validation-for="AverageMonthlySalary" class="text-danger"></span>
             </div>
 

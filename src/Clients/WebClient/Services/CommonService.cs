@@ -1,7 +1,10 @@
 ﻿using Data.AlphaBank.Enums;
 using Interfaces.BankAccounts.Services;
 using Interfaces.Common.Services;
+using Interfaces.Security.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Service.Security;
+using System.Globalization;
 
 namespace WebClient.Services {
     public class CommonService(ITypeCurrencyService typeCurrencyService,
@@ -9,7 +12,8 @@ namespace WebClient.Services {
                                ITypePhoneService typePhoneService,
                                ITypeIdentificationService typeIdentificationService,
                                INationalityService nationalityService,
-                               IMaritalStatusService maritalStatusService) {
+                               IMaritalStatusService maritalStatusService,
+                               ISalaryCategoryService salaryCategoryService) {
                                 
         private readonly ITypeCurrencyService _typeCurrencyService = typeCurrencyService;
         private readonly IOccupationService _occupationService = occupationService;
@@ -17,6 +21,19 @@ namespace WebClient.Services {
         private readonly ITypeIdentificationService _typeIdentificationService = typeIdentificationService;
         private readonly INationalityService _nationalityService = nationalityService;
         private readonly IMaritalStatusService _maritalStatusService = maritalStatusService;
+        private readonly ISalaryCategoryService _salaryCategoryService = salaryCategoryService;
+
+        public async Task<IEnumerable<SelectListItem>> GetSalarySelectListItems()
+        {
+
+            var salaryList = await _salaryCategoryService.GetAll();
+
+            return salaryList.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = "₡ " + x.Description.ToString("#,0", CultureInfo.InvariantCulture)
+            });
+        }
 
         public async Task<IEnumerable<SelectListItem>> GetTypeCurrencySelectListItems() {
 

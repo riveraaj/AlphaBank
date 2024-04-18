@@ -98,12 +98,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //Update User Modal
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateCustomer = document.getElementById('btnUpdateUser');
-    btnCreateCustomer.addEventListener('click', function () {
-        var id = $(this).data('id');
-        $('#contentUpdateUser').load('/Users/UpdateUser?id=' + id);
-        $('#modalUpdateUser').modal('show');
+$(document).ready(function () {
+    // Usando delegación de eventos para manejar clicks en los botones
+    $(document).on('click', '.btnUpdateUser', function () {
+        var id = $(this).data('id'); // Obtiene el ID desde el atributo data-id del botón
+        $('#contentUpdateUser').load('/Users/UpdateUser?id=' + id, function (response, status, xhr) {
+            if (status == "error") {
+                alert("Error al cargar los datos: " + xhr.status + " " + xhr.statusText);
+            } else {
+                $('#modalUpdateUser').modal('show');
+            }
+        });
     });
 });
 
@@ -231,11 +236,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //Update Employee Modal
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateCustomer = document.getElementById('btnUpdateEmployee');
-    btnCreateCustomer.addEventListener('click', function () {
-        var id = $(this).data('id');
-        $('#contentUpdateEmployee').load('/Employee/UpdateEmployee?id=' + id);
-        $('#modalUpdateEmployee').modal('show');
+$(document).ready(function () {
+    // Usando delegación de eventos para manejar clicks en los botones
+    $(document).on('click', '.btnUpdateEmployee', function () {
+        var id = $(this).data('id'); // Obtiene el ID desde el atributo data-id del botón
+        $('#contentUpdateEmployee').load('/Employee/UpdateEmployee?id=' + id, function (response, status, xhr) {
+            if (status == "error") {
+                alert("Error al cargar los datos: " + xhr.status + " " + xhr.statusText);
+            } else {
+                $('#modalUpdateEmployee').modal('show');
+            }
+        });
     });
 });

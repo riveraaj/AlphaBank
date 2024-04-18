@@ -5,43 +5,50 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebClient.Services;
 
-namespace WebClient.Controllers {
+namespace WebClient.Controllers
+{
 
     [Authorize(Roles = "1,5")]
     public class CustomerController(ICustomerService customerService,
-                                    CommonService commonService) : Controller {
+                                    CommonService commonService) : Controller
+    {
 
         private readonly ICustomerService _customerService = customerService;
         private readonly CommonService _commonService = commonService;
 
-        public async Task<IActionResult> CustomerList() {
+        public async Task<IActionResult> CustomerList()
+        {
             if (TempData.TryGetValue("AlertError", out object? error)) ViewBag.AlertError = error;
             if (TempData.TryGetValue("AlertSuccess", out object? success)) ViewBag.AlertSuccess = success;
 
             return View(await _customerService.GetAll());
         }
-        public async Task<ActionResult> ShowCustomer() {
-                //We obtain all the lists of data to be used in the select forms formatted in
-                //SelectList to enter them in a ViewData
-                var typeIdentificationList = await _commonService.GetTypeIdentificationSelectListItems();
-                var nationalityList = await _commonService.GetNationalitySelectListItems();
-                var maritalStatusList = await _commonService.GetMaritalStatusSelectListItems();
-                var occupationList = await _commonService.GetOccupationSelectListItems();
-                var typePhoneList = await _commonService.GetTypePhoneSelectListItems();
+        public async Task<ActionResult> ShowCustomer()
+        {
+            //We obtain all the lists of data to be used in the select forms formatted in
+            //SelectList to enter them in a ViewData
+            var typeIdentificationList = await _commonService.GetTypeIdentificationSelectListItems();
+            var nationalityList = await _commonService.GetNationalitySelectListItems();
+            var maritalStatusList = await _commonService.GetMaritalStatusSelectListItems();
+            var occupationList = await _commonService.GetOccupationSelectListItems();
+            var typePhoneList = await _commonService.GetTypePhoneSelectListItems();
+            var salary = await _commonService.GetSalarySelectListItems();
 
-                //ViewData is created for each SelectList and formatted as follows
-                ViewData["TypeIdentification"] = new SelectList(typeIdentificationList, "Value", "Text");
-                ViewData["Nationality"] = new SelectList(nationalityList, "Value", "Text");
-                ViewData["MaritalStatus"] = new SelectList(maritalStatusList, "Value", "Text");
-                ViewData["Occupation"] = new SelectList(occupationList, "Value", "Text");
-                ViewData["TypePhone"] = new SelectList(typePhoneList, "Value", "Text");
-                return PartialView("CreateCustomer");   
+            //ViewData is created for each SelectList and formatted as follows
+            ViewData["TypeIdentification"] = new SelectList(typeIdentificationList, "Value", "Text");
+            ViewData["Nationality"] = new SelectList(nationalityList, "Value", "Text");
+            ViewData["MaritalStatus"] = new SelectList(maritalStatusList, "Value", "Text");
+            ViewData["Occupation"] = new SelectList(occupationList, "Value", "Text");
+            ViewData["TypePhone"] = new SelectList(typePhoneList, "Value", "Text");
+            ViewData["AverageMonthlySalary"] = new SelectList(salary, "Value", "Text");
+            return PartialView("CreateCustomer");
         }
 
-        public async Task<ActionResult> ShowCustomerUpdate(int? id){
+        public async Task<ActionResult> ShowCustomerUpdate(int? id)
+        {
 
             if (!id.HasValue) return PartialView("UpdateCustomer");
-           
+
             var customer = await _customerService.GetByIdForUpdate(id.Value);
 
             if (customer == null) return PartialView("UpdateCustomer");
@@ -50,10 +57,12 @@ namespace WebClient.Controllers {
             //SelectList to enter them in a ViewData
             var statusList = _commonService.GetStatusSelectListItems();
             var occupationList = await _commonService.GetOccupationSelectListItems();
+            var salaryList = await _commonService.GetSalarySelectListItems();
 
             //ViewData is created for each SelectList and formatted as follows
             ViewData["Status"] = new SelectList(statusList, "Value", "Text", occupationList.FirstOrDefault(x => x.Value.Equals(customer.CustomerStatusId)));
             ViewData["Occupation"] = new SelectList(occupationList, "Value", "Text", occupationList.FirstOrDefault(x => x.Value.Equals(customer.OccupationId)));
+            ViewData["AverageMonthlySalary"] = new SelectList(salaryList, "Value", "Text", salaryList.FirstOrDefault(x => x.Value.Equals(customer.AverageMonthlySalary)));
 
             return PartialView("UpdateCustomer", customer);
         }
@@ -61,11 +70,13 @@ namespace WebClient.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateCustomerDTO oCreateCustomerDTO) {
+        public async Task<IActionResult> Create(CreateCustomerDTO oCreateCustomerDTO)
+        {
 
             string script;
 
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 script = "<script>AlertError('Hubo un error','No se ha podido crear el cliente, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
@@ -74,7 +85,8 @@ namespace WebClient.Controllers {
 
             var result = await _customerService.Create(oCreateCustomerDTO);
 
-            if (!result) {
+            if (!result)
+            {
                 script = "<script>AlertError('Hubo un error','No se ha podido crear el cliente, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
@@ -88,11 +100,13 @@ namespace WebClient.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Update(UpdateCustomerDTO oUpdateCustomerDTO) {
+        public async Task<ActionResult> Update(UpdateCustomerDTO oUpdateCustomerDTO)
+        {
 
             string script;
 
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 script = "<script>AlertError('Hubo un error','No se ha podido actualizar el cliente, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
@@ -101,7 +115,8 @@ namespace WebClient.Controllers {
 
             var result = await _customerService.Update(oUpdateCustomerDTO);
 
-            if (!result){
+            if (!result)
+            {
                 script = "<script>AlertError('Hubo un error','No se ha podido actualizar el cliente, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
@@ -114,10 +129,12 @@ namespace WebClient.Controllers {
             return RedirectToAction("CustomerList");
         }
 
-        public async Task<ActionResult> Delete(int id)  {
+        public async Task<ActionResult> Delete(int id)
+        {
             string script;
 
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 script = "<script>AlertError('Hubo un error','No se ha podido inactivar el cliente, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
@@ -126,7 +143,8 @@ namespace WebClient.Controllers {
 
             var result = await _customerService.Remove(id);
 
-            if (!result) {
+            if (!result)
+            {
                 script = "<script>AlertError('Hubo un error','No se ha podido inactivar el cliente, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
