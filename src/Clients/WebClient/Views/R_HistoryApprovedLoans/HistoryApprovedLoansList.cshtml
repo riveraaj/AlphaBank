@@ -1,8 +1,7 @@
 ﻿
-
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
-    ViewData["Title"] = "Historial Préstamos Rechazados";
+    ViewData["Title"] = "Historial de Préstamos Aprobados";
 }
 
 <div class="container">
@@ -10,17 +9,17 @@
 
         <div class="header-card">
             <div class="row">
-                <p class="tittle">Historial de Préstamos Rechazados</p>
+                <p class="tittle">Historial de Préstamos Aprobados</p>
             </div>
 
         </div>
 
         <div class="card-main table-responsive pt-3">
 
-            <h5>Lista préstamos rechazados:</h5>
+            <h5>Lista de préstamos aprobados:</h5>
             <div class="">
 
-                <table id="tablahistoryrejectedloans" class="mt-4">
+                <table id="tablahistoryapprovedloans" class="mt-4">
 
                     <thead>
                         <tr>
@@ -48,7 +47,7 @@
 </div>
 
 <script type="text/javascript">
-    $('#tablahistoryrejectedloans').DataTable({
+    $('#tablahistoryapprovedloans').DataTable({
         "responsive": true,
         "aServerSide": true,
         "autoWidth": false,
