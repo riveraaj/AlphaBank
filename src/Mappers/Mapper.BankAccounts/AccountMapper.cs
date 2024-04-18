@@ -1,5 +1,6 @@
 ﻿using Data.AlphaBank;
 using Dtos.AlphaBank.BankAccounts;
+using System.Globalization;
 
 namespace Mapper.BankAccounts {
     public static class AccountMapper {
@@ -26,6 +27,17 @@ namespace Mapper.BankAccounts {
                 AccountId = oAccount.Id,
                 State = (oAccount.Status) ? "Activa" : "Inactiva",
                 TypeCurrency = oAccount.TypeCurrency.Description
+            };
+
+        public static ShowAccountCreatedDTO MapShowAccountCreatedDTO(Account oAccount)
+            => new()
+            {
+                Id = oAccount.Id,
+                TypeAccountDescription = oAccount.TypeAccount.Description,
+                TypeCurrencyDescription = oAccount.TypeCurrency.Description,
+                PersonId = oAccount.Customer.PersonId,
+                Balance = oAccount.Balance.ToString("#,0", CultureInfo.InvariantCulture),
+                DateOpening = oAccount.DateOpening
             };
     }
 }

@@ -127,5 +127,24 @@ namespace Service.BankAccounts {
                 return [];
             }
         }
+
+        public async Task<List<ShowAccountCreatedDTO>> GetAllCreatedAccounts()
+        {
+            try
+            {
+                var accountList = await _accountRepository.GetAllAsync();
+
+                var finalList = new List<ShowAccountCreatedDTO>();
+
+                foreach (var account in accountList)
+                    finalList.Add(AccountMapper.MapShowAccountCreatedDTO(account));
+
+                return finalList;
+            }
+            catch
+            {
+                return [];
+            }
+        }
     }
 }
