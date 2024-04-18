@@ -1,0 +1,88 @@
+﻿@model List<Dtos.AlphaBank.ContinueLoans.ShowLoanStatementDTO>
+
+@{
+    Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
+    ViewData["Title"] = "Reporte Cuentas Creadas";
+}
+
+<div class="container">
+    <div class="card-white-transparent shadow-container mt-5 w-100">
+
+        <div class="header-card">
+            <div class="row">
+                <p class="tittle">Reporte Cuentas Creadas</p>
+            </div>
+
+        </div>
+
+        <div class="card-main table-responsive pt-3">
+
+            <h5>Lista de clientes morosos:</h5>
+            <div class="">
+
+                <table id="tablaaccountscreated" class="mt-4">
+
+                    <thead>
+                        <tr>
+                            <th>Número Cuenta</th>
+                            <th>Tipo de Cuenta</th>
+                            <th>Moneda</th>
+                            <th>Identificación Cliente</th>
+                            <th>Saldo</th>
+                            <th>Fecha Creación</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Prueba</td>
+                            <td>Prueba</td>
+                            <td>Prueba</td>
+                            <td>Prueba</td>
+                            <td>Prueba</td>
+                            <td>Prueba</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#tablaaccountscreated').DataTable({
+        "responsive": true,
+        "aServerSide": true,
+        "autoWidth": false,
+        "deferRender": true,
+        "retrieve": true,
+        "processing": true,
+        "paging": true,
+        "dom": 'Bfrtip',
+        "buttons": ["csv", "excel", "pdf"],
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+</script>

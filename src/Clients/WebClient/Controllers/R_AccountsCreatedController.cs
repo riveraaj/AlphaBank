@@ -2,9 +2,9 @@
 
 namespace WebClient.Controllers
 {
-    public class RLateClientsController : Controller
+    public class R_AccountsCreatedController : Controller
     {
-        public IActionResult LateClientsList()
+        public IActionResult AccountsCreatedList()
         {
             return View();
         }
