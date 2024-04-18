@@ -62,7 +62,7 @@ namespace WebClient.Controllers {
                 script = "<script>AlertError('Hubo un error','No se ha podido crear el usuario, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
-                return RedirectToAction("CustomerList");
+                return RedirectToAction("UsersList");
             }
 
             var result = await _userService.Create(oCreateUserDTO);
@@ -71,7 +71,7 @@ namespace WebClient.Controllers {
                 script = "<script>AlertError('Hubo un error','No se ha podido crear el usuario, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
-                return RedirectToAction("CustomerList");
+                return RedirectToAction("UsersList");
             }
 
             script = "<script>AlertSuccess('Usuario creado exitosamente','');</script>";
@@ -89,7 +89,7 @@ namespace WebClient.Controllers {
                 script = "<script>AlertError('Hubo un error','No se ha podido actualizar el usuario, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
-                return RedirectToAction("CustomerList");
+                return RedirectToAction("UsersList");
             }
 
             var result = await _userService.Update(oUpdateUserDTO);
@@ -98,7 +98,7 @@ namespace WebClient.Controllers {
                 script = "<script>AlertError('Hubo un error','No se ha podido actualizar el usuario, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
-                return RedirectToAction("CustomerList");
+                return RedirectToAction("UsersList");
             }
 
             script = "<script>AlertSuccess('Usuario actualizado exitosamente','');</script>";
@@ -125,7 +125,7 @@ namespace WebClient.Controllers {
                 script = "<script>AlertError('Hubo un error','No se ha podido inactivar el usuario, inténtelo más tarde.');</script>";
 
                 TempData["AlertError"] = script;
-                return RedirectToAction("CustomerList");
+                return RedirectToAction("UsersList");
             }
 
             script = "<script>AlertSuccess('Usuario inactivado exitosamente','');</script>";
