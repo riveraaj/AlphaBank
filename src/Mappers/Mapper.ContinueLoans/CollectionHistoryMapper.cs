@@ -9,5 +9,16 @@ namespace Mapper.ContinueLoans {
                 DepositMount = (int) oCreateCollectionHistoryDTO.DepositAmount!,
                 LoanId = (int) oCreateCollectionHistoryDTO.LoanId!,
             };
+
+        public static ShowLoanDefaultersDTO MapShowLoanDefaultersDTO(Loan oLoan, string daysLate)
+            => new()
+            {
+                LoanId = oLoan.Id,
+                TypeLoanDescription = oLoan.LoanApplication.TypeLoan.Description,
+                DateApplication = oLoan.LoanApplication.DateApplication,
+                PersonId = oLoan.LoanApplication.Account.Customer.PersonId,
+                Amount = oLoan.LoanApplication.Amount,
+                DaysLate = daysLate
+            };
     }
 }
