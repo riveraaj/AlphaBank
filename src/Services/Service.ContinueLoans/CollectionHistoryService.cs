@@ -73,7 +73,7 @@ namespace Service.ContinueLoans {
                 _logger.LogInformation("----- Create  Collection History: Creation completed and saved successfully.");
                 return true;
             }
-            catch(Exception e) {
+            catch(Exception) {
                 // Handle errors and log them appropriately
                 _logger.LogError("----- Create Collection History: An error occurred while creating and saving to the database.");
                 return false;
@@ -121,7 +121,7 @@ namespace Service.ContinueLoans {
                     string daysLateString = "";
 
                     //Calculate the difference in days between the deadline and today
-                    DateTime lastDeadLine = new DateTime(lastCollectionHistory.Deadline.Year,
+                    DateTime lastDeadLine = new (lastCollectionHistory.Deadline.Year,
                                                          lastCollectionHistory.Deadline.Month,
                                                          lastCollectionHistory.Deadline.Day);
                     int daysLate = (today - lastDeadLine).Days;

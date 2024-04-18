@@ -21,6 +21,7 @@ namespace Repository.BankAccounts {
         public async Task<ICollection<Account>> GetAllAsync()
             => await _context.Accounts.Include(x => x.TypeCurrency)
                                         .Include(x => x.TypeAccount)
+                                        .Include(x => x.Customer)                    
                                         .ToListAsync();
 
         public async Task CreateAsync(Account oAccount)
@@ -44,7 +45,7 @@ namespace Repository.BankAccounts {
 
             if (account == null) return false;
 
-            account.Balance = account.Balance + loanAmount;
+            account.Balance += loanAmount;
 
             return true;
         }

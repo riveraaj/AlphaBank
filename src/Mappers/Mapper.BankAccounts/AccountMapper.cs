@@ -41,8 +41,7 @@ namespace Mapper.BankAccounts {
             };
 
         public static ShowAccountClosedDTO MapShowAccountClosedDTO(Account oAccount)
-            => new()
-            {
+            => new() {
                 Id = oAccount.Id,
                 TypeAccountDescription = oAccount.TypeAccount.Description,
                 TypeCurrencyDescription = oAccount.TypeCurrency.Description,

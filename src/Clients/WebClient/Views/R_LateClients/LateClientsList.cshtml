@@ -1,4 +1,4 @@
-﻿@model List<Dtos.AlphaBank.ContinueLoans.ShowLoanStatementDTO>
+﻿@model List<Dtos.AlphaBank.ContinueLoans.ShowLoanDefaultersDTO>
 
 @{
     Layout = "~/Views/Shared/_LayoutSecondary.cshtml";
@@ -34,13 +34,16 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Prueba</td>
-                            <td>Prueba</td>
-                            <td>Prueba</td>
-                            <td>Prueba</td>
-                            <td>Prueba</td>
-                            <td>Prueba</td>
+                            @foreach(var item in Model){
+                            <tr>
+                                <td>@item.LoanId</td>
+                                <td>@item.TypeLoanDescription</td>
+                                <td>@item.DateApplication</td>
+                                <td>@item.PersonId</td>
+                                <td>@item.Amount</td>
+                                <td>@item.DaysLate</td>
+                            </tr>
+                            }
                         </tr>
                     </tbody>
                 </table>

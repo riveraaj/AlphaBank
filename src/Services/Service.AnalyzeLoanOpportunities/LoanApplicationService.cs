@@ -110,13 +110,11 @@ namespace Service.AnalyzeLoanOpportunities {
         }
 
         //REPORTS
-        public async Task<List<ShowLoanApplicationReviewedDTO>> GetAllRejectedLoanApplication()
-        {
-            try
-            {
+        public async Task<List<ShowLoanApplicationReviewedDTO>> GetAllRejectedLoanApplication() {
+            try {
                 var loanApplicationList = await _loanApplicationRepository.GetAllAsync();
 
-                var filteredList = loanApplicationList.Where(x => x.ApplicationStatus.Description == "Rechazado");
+                var filteredList = loanApplicationList.Where(x => x.ApplicationStatusId == 3);
 
                 var finalList = new List<ShowLoanApplicationReviewedDTO>();
 
@@ -124,9 +122,7 @@ namespace Service.AnalyzeLoanOpportunities {
                     finalList.Add(LoanApplicationMapper.MapShowLoanApplicationReviewedDTO(loanApplication));
 
                 return finalList;
-            }
-            catch
-            {
+            } catch{
                 return [];
             }
         }
@@ -137,7 +133,7 @@ namespace Service.AnalyzeLoanOpportunities {
             {
                 var loanApplicationList = await _loanApplicationRepository.GetAllAsync();
 
-                var filteredList = loanApplicationList.Where(x => x.ApplicationStatus.Description == "Aprobado");
+                var filteredList = loanApplicationList.Where(x => x.ApplicationStatusId == 2);
 
                 var finalList = new List<ShowLoanApplicationReviewedDTO>();
 
