@@ -38,15 +38,28 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //Update Customer Modal
-document.addEventListener('DOMContentLoaded', () => {
-    var btnCreateCustomer = document.getElementById('btnUpdateCustomer');
-    btnCreateCustomer.addEventListener('click', function () {
-        var id = $(this).data('id');
-        $('#contentUpdateCustomer').load('/Customer/ShowCustomerUpdate?id=' + id);
-        $('#modalUpdateCustomer').modal('show');
+//document.addEventListener('DOMContentLoaded', () => {
+//    var btnUpdateCustomer = document.querySelector('.btnUpdateCustomer');
+//    btnUpdateCustomer.addEventListener('click', function () {
+//        var id = $(this).data('id');
+//        $('#contentUpdateCustomer').load('/Customer/ShowCustomerUpdate?id=' + id);
+//        $('#modalUpdateCustomer').modal('show');
+//    });
+//});
+
+$(document).ready(function () {
+    // Usando delegación de eventos para manejar clicks en los botones
+    $(document).on('click', '.btnUpdateCustomer', function () {
+        var id = $(this).data('id'); // Obtiene el ID desde el atributo data-id del botón
+        $('#contentUpdateCustomer').load('/Customer/ShowCustomerUpdate?id=' + id, function (response, status, xhr) {
+            if (status == "error") {
+                alert("Error al cargar los datos: " + xhr.status + " " + xhr.statusText);
+            } else {
+                $('#modalUpdateCustomer').modal('show');
+            }
+        });
     });
 });
-
 //Create Renegotiation Modal
 document.addEventListener('DOMContentLoaded', () => {
     var btnCreateRoles = document.getElementById('btnCreateRenegotiation');

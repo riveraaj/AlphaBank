@@ -31,7 +31,7 @@
                 @foreach (var customer in Model) {
                     <tr>
                         <td>
-                            <button class="btn-action" id="btnUpdateCustomer" data-id=@customer.PersonId>
+                            <button class="btn-action btnUpdateCustomer" data-id=@customer.PersonId>
                                 <i class="fa fa-solid fa-edit"></i>
                             </button>
                             <form asp-controller="Customer" method="post" asp-action="Delete" class="form-inline d-inline">
