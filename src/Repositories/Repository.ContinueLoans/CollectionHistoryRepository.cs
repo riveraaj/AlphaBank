@@ -39,6 +39,19 @@ namespace Repository.ContinueLoans {
         public async Task CreateAsync(CollectionHistory oCollectionHistory)
             => await _context.CollectionHistories.AddAsync(oCollectionHistory);
 
+        public async Task UpdateAsync(int id, decimal mount){
+            try {
+                var collection = await _context.CollectionHistories.FirstOrDefaultAsync(x => x.Id == id)
+                    ?? throw new NullReferenceException("Collection history not found");
+
+                collection.MoratoriumInterest = 0;
+                collection.DepositMount = mount;
+            }
+            catch (Exception) {
+                throw;
+            }
+        }
+
         public async Task SaveChangesAsync()
             => await _context.SaveChangesAsync();
     }

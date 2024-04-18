@@ -51,12 +51,22 @@ namespace Service.ContinueLoans {
                     collectionHistory.Deadline = contract!.DateStart.AddMonths(1);
                 } else {
                     collectionHistory.Deadline = lastCollectionHistory.Deadline.AddMonths(1);
+                    if ((lastCollectionHistory.Amount + lastCollectionHistory.MoratoriumInterest) != lastCollectionHistory.DepositMount)  {
+                        decimal difference = (lastCollectionHistory.Amount + lastCollectionHistory.MoratoriumInterest) - lastCollectionHistory.DepositMount;
+                        oCreateCollectionHistoryDTO.DepositAmount -= difference;
+
+                        _logger.LogInformation("----- Update  Collection History: Start the creation of a collection history registry");
+
+                        await _collectionHistoryRepository.UpdateAsync(lastCollectionHistory.Id, difference);
+                        await _collectionHistoryRepository.SaveChangesAsync();
+
+                        _logger.LogInformation("----- Update  Collection History: Creation completed and saved successfully.");
+                    }
                 }
 
-                collectionHistory.QuotaNumber = loan.RemainingQuotas;        
-
-                collectionHistory.Amount = contract!.LoanApplication.Amount / int.Parse(contract!.LoanApplication.Deadline.Description.Split(' ')[0]);
-                collectionHistory.DepositMount = (decimal) oCreateCollectionHistoryDTO.DepositAmount!;
+                collectionHistory.QuotaNumber = loan.RemainingQuotas;
+                collectionHistory.DepositMount = (decimal)oCreateCollectionHistoryDTO.DepositAmount!;
+                collectionHistory.Amount = contract!.LoanApplication.Amount / int.Parse(contract!.LoanApplication.Deadline.Description.Split(' ')[0]);               
                 collectionHistory.LoanId = loan.Id;
                 int daysOverdue = CalculateDaysOverdue(collectionHistory.DateDeposit, collectionHistory.Deadline);
                 collectionHistory.MoratoriumInterest = CalculateMoratoryInterest(collectionHistory.Amount, 0.05m, daysOverdue);
