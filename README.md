@@ -78,7 +78,7 @@ Application Architecture and More
 
 ## Author Info
 
-- Linkedin - [JOnathan Rivera](https://www.linkedin.com/in/jriveraaa/)
+- Linkedin - [Jonathan Rivera](https://www.linkedin.com/in/jriveraaa/)
 - Website - [Jonathan R.V](https://riveraaj.github.io/Portfolio/)
 
 - Linkedin - [Sergio Monge Cortés](https://www.linkedin.com/in/sergio-monge-cortés-88634a183/)
