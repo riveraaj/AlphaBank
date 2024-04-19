@@ -12,7 +12,7 @@
 - [Description](#description)
 - [Modules](#Modules)
 - [Technologies](#technologies)
-- [Application Architecture and Design Patterns](#ApplicationArchitectureandDesignPatterns)
+- [Application Architecture and Design Patterns](#Architecture)
 - [Author Info](#author-info)
 
 ---
