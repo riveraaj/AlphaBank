@@ -3,40 +3,44 @@
     font-family: 'Open-Sans-Regular';
     src: url('../font/Open_Sans/OpenSans-Regular.ttf');
 }
+
 @font-face {
     font-family: 'Open-Sans-SemiBold';
     src: url('../font/Open_Sans/OpenSans-SemiBold.ttf');
 }
+
 @font-face {
     font-family: 'Open-Sans-Bold';
     src: url('../font/Open_Sans/OpenSans-Bold.ttf');
 }
+
 @font-face {
     font-family: 'Open-Sans-ExtraBold';
     src: url('../font/Open_Sans/OpenSans-ExtraBold.ttf');
 }
+
 @font-face {
     font-family: 'Open-Sans-Italic';
     src: url('../font/Open_Sans/OpenSans-Italic.ttf');
 }
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
@@ -49,7 +53,7 @@ body {
 
 /*   NavBar    */
 nav {
-    background-color: #789461!important;
+    background-color: #789461 !important;
 }
 
 
@@ -65,8 +69,6 @@ nav {
     background-color: #DBE7C9;
     border-radius: 15px 15px 0px 0px;
     padding: 30px;
-    
-
 }
 
 .tittle {
@@ -77,10 +79,9 @@ nav {
     font-family: Open-Sans-SemiBold;
 }
 
-.card-main{
+.card-main {
     padding-right: 50px;
     padding-left: 50px;
-
 }
 
 .shadow-container {
@@ -103,12 +104,12 @@ input[type = "date"] {
     border-radius: 8px;
 }
 
-input[type = "file"]{
+input[type = "file"] {
     display: block;
     position: absolute;
     left: 0;
     top: 0;
-    min-width:100%;
+    min-width: 100%;
     min-height: 100%;
 }
 
@@ -121,10 +122,10 @@ textarea {
 }
 
 select {
-    margin-top: 10px!important;
-    background-color: transparent!important;
-    border: 2px solid #789461!important;
-    border-radius: 8px!important;
+    margin-top: 10px !important;
+    background-color: transparent !important;
+    border: 2px solid #789461 !important;
+    border-radius: 8px !important;
 }
 
 .select-border-50 {
@@ -138,10 +139,9 @@ select {
     background-color: transparent !important;
     border: 2px solid #789461 !important;
     border-radius: 25px !important;
-
 }
 
-.control-label{
+.control-label {
     font-family: Open-Sans-SemiBold;
     font-size: 14px;
 }
@@ -156,7 +156,6 @@ select {
     font-size: 14px;
     font-weight: 500;
     color: white;
-
 }
 
 .btn-green-border-8 {
@@ -179,13 +178,15 @@ select {
     font-weight: 500;
     color: white;
 }
+
 .button.dt-button, div.dt-button, a.dt-button {
     background-image: linear-gradient(to bottom, #789461 0%, #789461 0%);
     background-color: #789461 !important;
     border: 2px solid #789461 !important;
     border-radius: 8px !important;
-    color: white!important;
+    color: white !important;
 }
+
     .button.dt-button, div.dt-button, a.dt-button:hover {
         background-image: linear-gradient(to bottom, #789461 0%, #789461 0%);
         background-color: #789461 !important;
@@ -198,7 +199,7 @@ select {
 .btn-logout {
     color: white;
     border-color: white;
-    background-color: transparent!important;
+    background-color: transparent !important;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
@@ -209,15 +210,16 @@ select {
     border-radius: 8px !important;
     color: #789461 !important;
 }
-.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    background-image: linear-gradient(to bottom, #789461 0%, #789461 0%);
-    background-color: transparent !important;
-    background: #ffffff00 !important;
-    border: 0px solid #789461 !important;
-    border-radius: 8px !important;
-    color: #789461 !important;
-    font-weight: bold!important;
-}
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        background-image: linear-gradient(to bottom, #789461 0%, #789461 0%);
+        background-color: transparent !important;
+        background: #ffffff00 !important;
+        border: 0px solid #789461 !important;
+        border-radius: 8px !important;
+        color: #789461 !important;
+        font-weight: bold !important;
+    }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
     background-image: linear-gradient(to bottom, #789461 0%, #789461 0%);
@@ -229,20 +231,21 @@ select {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
-    background-image: linear-gradient(to bottom, #789461 0%, #789461 0%);
-    background-color: #789461 !important;
-    border: 2px solid #789461 !important;
-    border-radius: 8px !important;
-    color: white !important;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+        background-image: linear-gradient(to bottom, #789461 0%, #789461 0%);
+        background-color: #789461 !important;
+        border: 2px solid #789461 !important;
+        border-radius: 8px !important;
+        color: white !important;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
 
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter,
-.dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, 
-.dataTables_wrapper .dataTables_paginate{
-    margin-top: 10px!important;
+.dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 10px !important;
 }
 
 .dt-buttons {
@@ -262,7 +265,7 @@ thead {
 }
 
 tbody {
-    background-color: white!important;
+    background-color: white !important;
 }
 
 td, th {
@@ -286,8 +289,8 @@ label {
     color: #789461;
 }
 
-.font-50{
-    font-size: 50px!important;
+.font-50 {
+    font-size: 50px !important;
 }
 
 .li-drag-drop {
@@ -315,5 +318,15 @@ label {
     left: 75%;
     top: 2.6rem;
     cursor: pointer;
-    z-index:10;
+    z-index: 10;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-image: linear-gradient(to bottom, #789461 0%, #789461 0%);
+    background-color: #789461 !important;
+    border: 2px solid #789461 !important;
+    border-radius: 8px !important;
+    color: white !important;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
