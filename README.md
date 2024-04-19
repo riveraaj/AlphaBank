@@ -10,6 +10,7 @@
 ### Table of Contents
 
 - [Description](#description)
+- [Modules](#Modules)
 - [Technologies](#technologies)
 - [Application Architecture and Design Patterns](#ApplicationArchitectureandDesignPatterns)
 - [Author Info](#author-info)
@@ -25,17 +26,19 @@ The need to transform Alpha's banking operations is evident in the face of today
 
 The modules identified for this system are essential for the integrated management of banking operations. Each module addresses specific aspects, from account management to information security. This modular architecture will allow for greater flexibility and scalability in the development and maintenance of the system.
 
+## Modules
+
 The modules identified for this system are the following:
 
-- Módulo de Gestionar Cuentas
-- Módulo de Analizar Oportunidades de Préstamos
-- Módulo de Otorgar Préstamos
-- Módulo de Seguir Préstamos
-- Módulo de Recuperar Préstamos
-- Módulo de Mantenimientos
-- Módulo de Consultas
-- Módulo de Reportes
-- Módulo de Seguridad
+- Manage Accounts Module
+- Analyze Loan Opportunities Module
+- Loan Granting Module
+- Loan Tracking Module
+- Loan Recovery Module
+- Maintenance Module
+- Queries Module
+- Reports Module
+- Security Module
 
 [Back To The Top](#AlphaBank)
 
