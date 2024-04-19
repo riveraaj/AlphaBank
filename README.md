@@ -1,7 +1,7 @@
 # AlphaBank
 
 
-![Project Image]([https://raw.githubusercontent.com/riveraaj/AlphaBank/master/src/Clients/WebClient/wwwroot/img/Fondos/Diseño%20sin%20título.png?token=GHSAT0AAAAAACRG54TTN2QJHXT42IRMWYN4ZRC5VMA])
+![Project Image](https://raw.githubusercontent.com/riveraaj/AlphaBank/master/src/Clients/WebClient/wwwroot/img/Fondos/Diseño%20sin%20título.png?token=GHSAT0AAAAAACRG54TTN2QJHXT42IRMWYN4ZRC5VMA)
 
 > Functional Prototype for the Management of Bank Loans.
 
@@ -12,7 +12,6 @@
 - [Description](#description)
 - [Technologies](#technologies)
 - [Application Architecture and Design Patterns](#ApplicationArchitectureandDesignPatterns)
-- [License](#license)
 - [Author Info](#author-info)
 
 ---
