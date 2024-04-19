@@ -96,6 +96,8 @@ namespace Service.GrantingLoans {
 
                 if(!createCollection) return false;
 
+                await AddLoanFunds(loanCreated.Id);
+
                 messageTemplate = await _notificationService.GetMessageById
                                                   ((int)TypeNotificationEnum.NotificaciónDeSolicitudDePrestamoAprobada) ?? " ";
 
