@@ -27,30 +27,43 @@ function fileUpload(inputId, ulId) {
     }
 }
 
-function ModalCreate($btnElement, contentElement, modalElement, path) {
+async function loadContentAndShowModal(contentElement, modalElement, path) {
+    try {
+        //Get Content
+        const response = await fetch(path);
 
-    function loadContentAndShowModal() {
-        $(contentElement).load(path);
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        //Show Content and Modal
+        document.querySelector(contentElement).innerHTML = await response.text();
         $(modalElement).modal('show');
+    } catch (e) {
+        throw new Error('Something went wrong...');
+    }
+}
+
+function modalCreate($btnElement, contentElement, modalElement, path) {
+
+    async function load() {
+        await loadContentAndShowModal(contentElement, modalElement, path);
     }
 
     function handleClick(e) {
-        if (e.target === $btnElement) loadContentAndShowModal();
+        if (e.target === $btnElement) load();
     }
 
     document.addEventListener('click', handleClick);
 }
 
-function ModalUpdate(btnElement, contentElement, modalElement, path) {
+async function modalUpdate(btnElement, contentElement, modalElement, path) {
 
-    function loadContentAndShowModal(id) {
-        $(contentElement).load(path + id);
-        $(modalElement).modal('show');
+    async function load(id) {
+        await loadContentAndShowModal(contentElement, modalElement, (path + id));
     }
 
     function handleClick(e) {
-        if (e.target.classList.contains(btnElement)) loadContentAndShowModal(e.target.dataset.id);
-        else if (e.target.parentNode.classList.contains(btnElement)) loadContentAndShowModal(e.target.parentNode.dataset.id);      
+        if (e.target.classList.contains(btnElement)) load(e.target.dataset.id);
+        else if (e.target.parentNode.classList.contains(btnElement)) load(e.target.parentNode.dataset.id);      
     }
 
     document.addEventListener('click', handleClick);
@@ -69,21 +82,21 @@ document.addEventListener('DOMContentLoaded', () => {
         $btnCreateCustomer = document.getElementById('btnCreateCustomer');
 
     //Modals for Create
-    ModalCreate($btnCreateNotificationJudicial, '#contentCreateNotificationJudicialCollection', '#modalCreateNotificationJudicialCollection', '/JudicialCollectionClients/CreateNotificationJudicialCollection');
-    ModalCreate($btnCreateUsers, '#contentCreateUsers', '#modalCreateUsers', '/Users/CreateUsers');
-    ModalCreate($btnCreateDeadline, '#contentCreateDeadline', '#modalCreateDeadline', '/Deadlines/CreateDeadline');
-    ModalCreate($btnCreateInterest, '#contentCreateInterest', '#modalCreateInterest', '/InterestRates/CreateInterest');
-    ModalCreate($btnCreateTypeCurrency, '#contentCreateTypeCurrency', '#modalCreateTypeCurrency', '/TypeCurrency/CreateTypeCurrency');
-    ModalCreate($btnCreateTypeAccount, '#contentCreateTypeAccount', '#modalCreateTypeAccount', '/TypeAccount/CreateTypeAccount');
-    ModalCreate($btnCreateTypeLoan, '#contentCreateTypeLoan', '#modalCreateTypeLoan', '/TypeLoan/CreateTypeLoan');
-    ModalCreate($btnCreateRole, '#contentCreateRole', '#modalCreateRole', '/Roles/CreateRole');
-    ModalCreate($btnCreateEmployee, '#contentCreateEmployee', '#modalCreateEmployee', '/Employee/CreateEmployee');
-    ModalCreate($btnCreateCustomer, '#contentCreateCustomer', '#modalCreateCustomer', '/Customer/ShowCustomer');
+    modalCreate($btnCreateNotificationJudicial, '#contentCreateNotificationJudicialCollection', '#modalCreateNotificationJudicialCollection', '/JudicialCollectionClients/CreateNotificationJudicialCollection');
+    modalCreate($btnCreateUsers, '#contentCreateUsers', '#modalCreateUsers', '/Users/CreateUsers');
+    modalCreate($btnCreateDeadline, '#contentCreateDeadline', '#modalCreateDeadline', '/Deadlines/CreateDeadline');
+    modalCreate($btnCreateInterest, '#contentCreateInterest', '#modalCreateInterest', '/InterestRates/CreateInterest');
+    modalCreate($btnCreateTypeCurrency, '#contentCreateTypeCurrency', '#modalCreateTypeCurrency', '/TypeCurrency/CreateTypeCurrency');
+    modalCreate($btnCreateTypeAccount, '#contentCreateTypeAccount', '#modalCreateTypeAccount', '/TypeAccount/CreateTypeAccount');
+    modalCreate($btnCreateTypeLoan, '#contentCreateTypeLoan', '#modalCreateTypeLoan', '/TypeLoan/CreateTypeLoan');
+    modalCreate($btnCreateRole, '#contentCreateRole', '#modalCreateRole', '/Roles/CreateRole');
+    modalCreate($btnCreateEmployee, '#contentCreateEmployee', '#modalCreateEmployee', '/Employee/CreateEmployee');
+    modalCreate($btnCreateCustomer, '#contentCreateCustomer', '#modalCreateCustomer', '/Customer/ShowCustomer');
 
     //Modals for Update
-    ModalUpdate('btnUpdateCustomer', '#contentUpdateCustomer', '#modalUpdateCustomer', '/Customer/ShowCustomerUpdate?id=');
-    ModalUpdate('btnCreateRenegotiation', '#contentCreateRenegotiation', '#modalCreateRenegotiation', '/RecoveryLoan/createRenegotiation?id=');
-    ModalUpdate('btnViewApplication', '#contentViewApplication', '#modalViewApplication', '/GrantLoan/ViewApplication?id=');
-    ModalUpdate('btnUpdateEmployee', '#contentUpdateEmployee', '#modalUpdateEmployee', '/Employee/UpdateEmployee?id=');
-    ModalUpdate('btnUpdateUser', '#contentUpdateUser', '#modalUpdateUser', '/Users/UpdateUser?id=');
+    modalUpdate('btnUpdateCustomer', '#contentUpdateCustomer', '#modalUpdateCustomer', '/Customer/ShowCustomerUpdate?id=');
+    modalUpdate('btnCreateRenegotiation', '#contentCreateRenegotiation', '#modalCreateRenegotiation', '/RecoveryLoan/createRenegotiation?id=');
+    modalUpdate('btnViewApplication', '#contentViewApplication', '#modalViewApplication', '/GrantLoan/ViewApplication?id=');
+    modalUpdate('btnUpdateEmployee', '#contentUpdateEmployee', '#modalUpdateEmployee', '/Employee/UpdateEmployee?id=');
+    modalUpdate('btnUpdateUser', '#contentUpdateUser', '#modalUpdateUser', '/Users/UpdateUser?id=');
 });
