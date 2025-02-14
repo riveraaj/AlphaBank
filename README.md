@@ -1,7 +1,7 @@
 # AlphaBank
 
 
-![Project Image](https://raw.githubusercontent.com/riveraaj/AlphaBank/master/src/Clients/WebClient/wwwroot/img/Fondos/Diseño%20sin%20título.png?token=GHSAT0AAAAAACRG54TTN2QJHXT42IRMWYN4ZRC5VMA)
+![Project Image](https://raw.githubusercontent.com/riveraaj/AlphaBank/blob/master/src/Clients/WebClient/wwwroot/img/Fondos/Dise%C3%B1o%20sin%20t%C3%ADtulo.png)
 
 > Functional Prototype for the Management of Bank Loans.
 
